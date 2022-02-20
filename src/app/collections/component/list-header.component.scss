@@ -1,0 +1,25 @@
+:host ::ng-deep {
+  position: fixed;
+  width: 100%;
+
+  @supports (-webkit-backdrop-filter: none) or (backdrop-filter: none) {
+    .mat-toolbar {
+      -webkit-backdrop-filter: blur(4px);
+      backdrop-filter: blur(4px);
+    }
+  }
+}
+
+::ng-deep {
+  /* Because css team hasn't decided to include currentBackgroundColor
+    * and angular theming is pain in the ass
+    * We will hardcode the background color and let it break duhhh...
+  */
+  .mat-toolbar {
+    background-color: rgba(whitesmoke, 0.8);
+  }
+
+  :host-context(.dark-mode) .mat-toolbar {
+    background-color: rgba(#212121, 0.8);
+  }
+}

@@ -1,0 +1,29 @@
+:host ::ng-deep .dark-mode-toggle {
+  .mat-slide-toggle-bar {
+    height: 24px;
+    width: 40px;
+    border-radius: 20px;
+
+    &::before {
+      margin-left: 3px;
+      content: "☼";
+    }
+
+    &::after {
+      margin-left: 8px;
+      content: "☽";
+      color: white !important;
+    }
+  }
+
+  .mat-slide-toggle-thumb {
+    margin-top: 3px;
+    height: 23px;
+    width: 23px;
+    margin-left: 0;
+  }
+
+  .mat-ripple {
+    display: none;
+  }
+}
