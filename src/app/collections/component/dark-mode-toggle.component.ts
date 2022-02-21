@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { ThemeColorManager } from 'src/app/theme-color-manager.service';
+import { Store } from '@ngrx/store';
+import { take } from 'rxjs';
+import { setDarkMode } from 'src/app/store/actions/theme.action';
+import { ThemeState } from 'src/app/store/reducers/theme.reducer';
+import { selectThemeDarkMode } from 'src/app/store/selectors/theme.selector';
 
 @Component({
   selector: 'app-dark-mode-toggle',
@@ -10,15 +14,18 @@ import { ThemeColorManager } from 'src/app/theme-color-manager.service';
 export class DarkModeToggleComponent implements OnInit {
   darkModeToggle = new FormControl(false);
 
-  constructor(private themeColorManager: ThemeColorManager) {}
+  constructor(private store: Store<{ theme: ThemeState }>) {}
 
   ngOnInit(): void {
-    this.themeColorManager.getDarkMode().subscribe((mode: boolean) => {
-      this.darkModeToggle.setValue(mode);
-    });
+    this.store
+      .select(selectThemeDarkMode)
+      .pipe(take(1))
+      .subscribe((mode: boolean) => {
+        this.darkModeToggle.setValue(mode);
 
-    this.darkModeToggle.valueChanges.subscribe(() => {
-      this.themeColorManager.setDarkMode(this.darkModeToggle.value);
-    });
+        this.darkModeToggle.valueChanges.subscribe(() => {
+          this.store.dispatch(setDarkMode({ mode: this.darkModeToggle.value }));
+        });
+      });
   }
 }

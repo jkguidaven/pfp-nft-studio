@@ -1,0 +1,24 @@
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+
+import { reducers, metaReducers } from './reducers';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { environment } from '../../environments/environment';
+import { StoreModule as NgRxStoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+import { LocalStorageEffects } from './effects/local-storage.effects';
+
+@NgModule({
+  declarations: [],
+  imports: [
+    CommonModule,
+
+    StoreDevtoolsModule.instrument({
+      maxAge: 25,
+      logOnly: environment.production,
+    }),
+    NgRxStoreModule.forRoot(reducers, { metaReducers }),
+    EffectsModule.forRoot([LocalStorageEffects]),
+  ],
+})
+export class StoreModule {}
