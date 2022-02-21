@@ -107,5 +107,8 @@
       }
     }
   },
-  "defaultProject": "pfp-studio"
+  "defaultProject": "pfp-studio",
+  "cli": {
+    "defaultCollection": "@ngrx/schematics"
+  }
 }
