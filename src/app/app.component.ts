@@ -2,7 +2,7 @@ import { Component, HostBinding, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { loadThemeMode } from './store/actions/theme.action';
-import { ThemeState } from './store/reducers/theme.reducer';
+import { State } from './store/reducers';
 import { selectThemeDarkMode } from './store/selectors/theme.selector';
 
 @Component({
@@ -17,7 +17,7 @@ export class AppComponent implements OnInit {
 
   private darkMode$!: Observable<boolean>;
 
-  constructor(public store: Store<{ theme: ThemeState }>) {
+  constructor(public store: Store<State>) {
     this.darkMode$ = store.select(selectThemeDarkMode);
   }
 

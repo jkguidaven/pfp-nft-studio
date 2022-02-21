@@ -3,7 +3,7 @@ import { FormControl } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { take } from 'rxjs';
 import { setDarkMode } from 'src/app/store/actions/theme.action';
-import { ThemeState } from 'src/app/store/reducers/theme.reducer';
+import { State } from 'src/app/store/reducers';
 import { selectThemeDarkMode } from 'src/app/store/selectors/theme.selector';
 
 @Component({
@@ -14,7 +14,7 @@ import { selectThemeDarkMode } from 'src/app/store/selectors/theme.selector';
 export class DarkModeToggleComponent implements OnInit {
   darkModeToggle = new FormControl(false);
 
-  constructor(private store: Store<{ theme: ThemeState }>) {}
+  constructor(private store: Store<State>) {}
 
   ngOnInit(): void {
     this.store
