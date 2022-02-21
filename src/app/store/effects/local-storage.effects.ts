@@ -11,7 +11,7 @@ export class LocalStorageEffects {
 
   loadThemeMode$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(ThemeActions.loadDarkMode),
+      ofType(ThemeActions.loadThemeMode),
       mergeMap(() =>
         of<any>(
           ThemeActions.setDarkMode({

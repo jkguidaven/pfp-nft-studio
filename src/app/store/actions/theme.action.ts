@@ -5,4 +5,4 @@ export const setDarkMode = createAction(
   props<{ mode: boolean }>()
 );
 
-export const loadDarkMode = createAction('[Theme] Load dark mode');
+export const loadThemeMode = createAction('[Theme] Load theme mode');

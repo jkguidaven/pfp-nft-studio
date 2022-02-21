@@ -1,7 +1,7 @@
 import { Component, HostBinding, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { loadDarkMode } from './store/actions/theme.action';
+import { loadThemeMode } from './store/actions/theme.action';
 import { ThemeState } from './store/reducers/theme.reducer';
 import { selectThemeDarkMode } from './store/selectors/theme.selector';
 
@@ -22,7 +22,7 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.store.dispatch(loadDarkMode());
+    this.store.dispatch(loadThemeMode());
 
     /*
      *  We will be listening for theme color changes and update the root component class to 'dark-mode'
