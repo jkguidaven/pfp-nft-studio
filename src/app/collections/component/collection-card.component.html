@@ -1,0 +1,22 @@
+<div class="collection-card" (contextmenu)="onContextMenu($event)">
+  <img [src]="thumbnail" />
+
+  <h1>{{ name }}</h1>
+  <h2>{{ description }}</h2>
+</div>
+
+<div
+  style="visibility: hidden; position: fixed"
+  [style.left]="menuTopLeftPosition.x"
+  [style.top]="menuTopLeftPosition.y"
+  [matMenuTriggerFor]="menu"
+></div>
+
+<mat-menu #menu="matMenu">
+  <button mat-menu-item (click)="remove.emit()">
+    <span>Remove</span>
+  </button>
+  <button mat-menu-item (click)="view.emit()">
+    <span>View</span>
+  </button>
+</mat-menu>

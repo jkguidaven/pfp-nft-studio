@@ -1,0 +1,36 @@
+@use "sass:map";
+@use "@angular/material" as mat;
+
+@mixin theme($theme) {
+  // Get the color config from the theme.
+  $color-config: mat.get-color-config($theme);
+  $foreground: map.get($color-config, foreground);
+  $text-color: mat.get-color-from-palette($foreground, text);
+
+  .collection-card {
+    width: 200px;
+    height: auto;
+    margin: auto;
+    text-align: center;
+
+    img {
+      width: 100%;
+      height: auto;
+      border-radius: 5px;
+    }
+
+    h1 {
+      font-size: 1.2rem;
+      line-height: 1.3rem;
+      margin: 0;
+    }
+
+    h2 {
+      font-size: 0.8rem;
+      line-height: 1.2rem;
+      font-weight: 300;
+      margin: 0;
+      color: rgba($text-color, 0.5);
+    }
+  }
+}

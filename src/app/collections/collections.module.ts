@@ -11,7 +11,9 @@ import { ListHeaderComponent } from './component/list-header.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatIconModule } from '@angular/material/icon';
+import { MatMenuModule } from '@angular/material/menu';
 import { DarkModeToggleComponent } from './component/dark-mode-toggle.component';
+import { CollectionCardComponent } from './component/collection-card.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +22,7 @@ import { DarkModeToggleComponent } from './component/dark-mode-toggle.component'
     EditorComponent,
     ListHeaderComponent,
     DarkModeToggleComponent,
+    CollectionCardComponent,
   ],
   imports: [
     CommonModule,
@@ -28,6 +31,7 @@ import { DarkModeToggleComponent } from './component/dark-mode-toggle.component'
     MatToolbarModule,
     MatSlideToggleModule,
     MatIconModule,
+    MatMenuModule,
   ],
 })
 export class CollectionsModule {}

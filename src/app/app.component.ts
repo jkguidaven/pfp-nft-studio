@@ -1,3 +1,4 @@
+import { OverlayContainer } from '@angular/cdk/overlay';
 import { Component, HostBinding, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
@@ -17,7 +18,10 @@ export class AppComponent implements OnInit {
 
   private darkMode$!: Observable<boolean>;
 
-  constructor(public store: Store<State>) {
+  constructor(
+    public store: Store<State>,
+    private overlayContainer: OverlayContainer
+  ) {
     this.darkMode$ = store.select(selectThemeDarkMode);
   }
 
@@ -29,7 +33,15 @@ export class AppComponent implements OnInit {
      * Which is globally set to apply dark mode theme.
      */
     this.darkMode$.subscribe((darkMode: boolean) => {
-      this.className = darkMode ? 'dark-mode' : '';
+      if (darkMode) {
+        this.className = 'dark-mode';
+        this.overlayContainer.getContainerElement().classList.add('dark-mode');
+      } else {
+        this.className = '';
+        this.overlayContainer
+          .getContainerElement()
+          .classList.remove('dark-mode');
+      }
     });
   }
 }

@@ -1,5 +1,10 @@
 <app-list-header></app-list-header>
 
-<div class="content">
-  <p>list works!</p>
+<div class="content mat-app-background">
+  <app-collection-card
+    *ngFor="let e of [].constructor(100)"
+    thumbnail="https://cloudflare-ipfs.com/ipfs/QmVZiYUirevbGyGwgz7GDdruKhe96AKtGLEAAkygszw9G6"
+    name="Inkspunks"
+    description="1000px x 1000px"
+  ></app-collection-card>
 </div>
