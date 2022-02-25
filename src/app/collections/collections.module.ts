@@ -7,13 +7,15 @@ import { CollectionsComponent } from './collections.component';
 import { ListComponent } from './views/list.component';
 import { EditorComponent } from './views/editor.component';
 import { ListHeaderComponent } from './component/list-header.component';
+import { DarkModeToggleComponent } from './component/dark-mode-toggle.component';
+import { CollectionCardComponent } from './component/collection-card.component';
+import { CollectionCardLoaderComponent } from './component/collection-card-loader.component';
 
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
-import { DarkModeToggleComponent } from './component/dark-mode-toggle.component';
-import { CollectionCardComponent } from './component/collection-card.component';
+import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 
 @NgModule({
   declarations: [
@@ -23,6 +25,7 @@ import { CollectionCardComponent } from './component/collection-card.component';
     ListHeaderComponent,
     DarkModeToggleComponent,
     CollectionCardComponent,
+    CollectionCardLoaderComponent,
   ],
   imports: [
     CommonModule,
@@ -32,6 +35,7 @@ import { CollectionCardComponent } from './component/collection-card.component';
     MatSlideToggleModule,
     MatIconModule,
     MatMenuModule,
+    NgxSkeletonLoaderModule,
   ],
 })
 export class CollectionsModule {}
