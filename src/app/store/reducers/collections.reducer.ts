@@ -17,6 +17,13 @@ export const initialState: CollectionsState = {
 export const reducer = createReducer(
   initialState,
 
+  on(CollectionsActions.loadCollection, (state) => {
+    return {
+      error: undefined,
+      collections: [],
+    };
+  }),
+
   on(CollectionsActions.addCollection, (state, { collection }) => {
     if (state.collections) state.collections = [];
 

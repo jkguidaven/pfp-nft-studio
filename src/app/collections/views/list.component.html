@@ -1,7 +1,32 @@
-<app-list-header></app-list-header>
+<app-header>
+  <span>Collections</span>
 
-<div class="content mat-app-background loader">
-  <app-collection-card-loader
-    *ngFor="let e of [].constructor(100)"
-  ></app-collection-card-loader>
+  <div class="spacer"></div>
+
+  <app-dark-mode-toggle></app-dark-mode-toggle>
+
+  <button
+    mat-icon-button
+    class="create-button"
+    (click)="openCreateCollectionForm()"
+  >
+    <mat-icon>add</mat-icon>
+  </button>
+</app-header>
+
+<div
+  class="content mat-app-background"
+  *ngIf="collections$ | async; else loader"
+>
+  <div class="empty-list" *ngIf="(collections$ | async)?.length === 0">
+    No collection found.
+  </div>
 </div>
+
+<ng-template #loader>
+  <div class="content mat-app-background loader">
+    <app-collection-card-loader
+      *ngFor="let e of [].constructor(100)"
+    ></app-collection-card-loader>
+  </div>
+</ng-template>
