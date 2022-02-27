@@ -4,7 +4,8 @@ export interface Collection {
   description: string;
   width: number;
   height: number;
-  editions: number;
+  supply: number;
+  coverPhoto?: string;
   website?: string;
   twitter?: string;
   discord?: string;

@@ -17,9 +17,13 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import { CreateCollectionFormComponent } from './components/create-collection-form.component';
 import { CoverPhotoSelectorComponent } from './components/common/cover-photo-selector.component';
+import { InputFieldComponent } from './components/common/input-field.component';
+import { TextAreaComponent } from './components/common/text-area.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +36,8 @@ import { CoverPhotoSelectorComponent } from './components/common/cover-photo-sel
     CollectionCardLoaderComponent,
     CreateCollectionFormComponent,
     CoverPhotoSelectorComponent,
+    InputFieldComponent,
+    TextAreaComponent,
   ],
   imports: [
     CommonModule,
@@ -43,6 +49,8 @@ import { CoverPhotoSelectorComponent } from './components/common/cover-photo-sel
     MatMenuModule,
     MatDialogModule,
     MatButtonModule,
+    MatInputModule,
+    MatFormFieldModule,
     NgxSkeletonLoaderModule,
   ],
   providers: [

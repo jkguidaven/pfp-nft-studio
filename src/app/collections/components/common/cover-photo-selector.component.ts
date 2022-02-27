@@ -6,7 +6,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
   styleUrls: ['./cover-photo-selector.component.scss'],
 })
 export class CoverPhotoSelectorComponent implements OnInit {
-  @Input() model!: string;
+  @Input() model!: string | undefined;
   @Output() modelChange: EventEmitter<string> = new EventEmitter();
 
   constructor() {}
@@ -20,7 +20,7 @@ export class CoverPhotoSelectorComponent implements OnInit {
       const reader = new FileReader();
       reader.readAsDataURL(file);
       reader.onload = () => {
-        this.model = reader.result as string;
+        this.modelChange.emit(reader.result as string);
       };
     }
   }

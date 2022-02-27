@@ -27,7 +27,7 @@ export class ListComponent implements OnInit {
     const dialogRef = this.dialog.open(CreateCollectionFormComponent, {
       panelClass: 'custom-mat-dialog-container',
       width: '80%',
-      height: '500px',
+      height: '80%',
     });
 
     dialogRef.afterClosed().subscribe((collection: Collection) => {
