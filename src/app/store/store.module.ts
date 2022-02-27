@@ -7,12 +7,13 @@ import { environment } from '../../environments/environment';
 import { StoreModule as NgRxStoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { LocalStorageEffects } from './effects/local-storage.effects';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [],
   imports: [
     CommonModule,
-
+    HttpClientModule,
     StoreDevtoolsModule.instrument({
       maxAge: 25,
       logOnly: environment.production,

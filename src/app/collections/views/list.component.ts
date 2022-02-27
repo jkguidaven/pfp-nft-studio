@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import {
   addCollection,
-  loadCollection,
+  triggerLoadCollections,
 } from 'src/app/store/actions/collections.action';
 import { Collection } from 'src/app/store/models/collection';
 import { State } from 'src/app/store/reducers';
@@ -23,7 +23,7 @@ export class ListComponent implements OnInit {
 
   ngOnInit(): void {
     this.collections$ = this.store.select(selectCollectionsList);
-    this.store.dispatch(loadCollection());
+    this.store.dispatch(triggerLoadCollections());
   }
 
   openCreateCollectionForm() {

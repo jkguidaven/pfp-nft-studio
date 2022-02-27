@@ -1,7 +1,14 @@
 import { createAction, props } from '@ngrx/store';
 import { Collection } from '../models/collection';
 
-export const loadCollection = createAction('[Collections] load collections.');
+export const triggerLoadCollections = createAction(
+  '[Collections] trigger load collections.'
+);
+export const loadCollections = createAction(
+  '[Collections] load collections.',
+  props<{ collections: Collection[] }>()
+);
+
 export const addCollection = createAction(
   '[Collections] add collection.',
   props<{ collection: Collection }>()

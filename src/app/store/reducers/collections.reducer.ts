@@ -17,39 +17,10 @@ export const initialState: CollectionsState = {
 export const reducer = createReducer(
   initialState,
 
-  on(CollectionsActions.loadCollection, (state) => {
-    return {
-      error: undefined,
-      collections: [],
-    };
-  }),
-
-  on(CollectionsActions.addCollection, (state, { collection }) => {
+  on(CollectionsActions.loadCollections, (state, { collections }) => {
     return {
       ...state,
-      collections: state.collections
-        ? [...state.collections, collection]
-        : [collection],
-    };
-  }),
-
-  on(CollectionsActions.removeCollection, (state, { id }) => {
-    return {
-      ...state,
-      collections: state.collections
-        ? state.collections.filter((collection) => collection.id != id)
-        : [],
-    };
-  }),
-
-  on(CollectionsActions.updateCollection, (state, { collection }) => {
-    return {
-      ...state,
-      collections: state.collections
-        ? state.collections.map((toUpdate) =>
-            toUpdate.id === collection.id ? collection : toUpdate
-          )
-        : [collection],
+      collections,
     };
   })
 );
