@@ -4,6 +4,7 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import {
   addCollection,
+  removeCollection,
   triggerLoadCollections,
 } from 'src/app/store/actions/collections.action';
 import { Collection } from 'src/app/store/models/collection';
@@ -23,7 +24,7 @@ export class ListComponent implements OnInit {
 
   ngOnInit(): void {
     this.collections$ = this.store.select(selectCollectionsList);
-    this.store.dispatch(triggerLoadCollections());
+    this.store.dispatch(triggerLoadCollections({ delay: 1000 }));
   }
 
   openCreateCollectionForm() {
@@ -38,6 +39,12 @@ export class ListComponent implements OnInit {
         this.store.dispatch(addCollection({ collection }));
       }
     });
+  }
+
+  onRemove(collection: Collection) {
+    if (collection.id) {
+      this.store.dispatch(removeCollection({ id: collection.id ?? -1 }));
+    }
   }
 
   getDescriptionByCollection(collection: Collection): string {

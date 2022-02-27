@@ -27,6 +27,7 @@
     [name]="collection.name"
     [description]="getDescriptionByCollection(collection)"
     [thumbnail]="collection.coverPhoto"
+    (remove)="onRemove(collection)"
   >
   </app-collection-card>
 </div>

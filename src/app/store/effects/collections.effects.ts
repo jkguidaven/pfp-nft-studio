@@ -15,8 +15,8 @@ export class CollectionsEffect {
   loadCollections$ = createEffect(() =>
     this.action$.pipe(
       ofType(collectionsActions.triggerLoadCollections),
-      mergeMap(() =>
-        this.collectionsService.getAll().pipe(
+      mergeMap(({ delay }: any) =>
+        this.collectionsService.getAll(delay).pipe(
           map((collections: Collection[]) =>
             collectionsActions.loadCollections({ collections })
           ),
@@ -32,7 +32,7 @@ export class CollectionsEffect {
       mergeMap(({ collection }: { collection: Collection }) =>
         this.collectionsService.add(collection).pipe(
           map(() => {
-            return collectionsActions.triggerLoadCollections();
+            return collectionsActions.triggerLoadCollections({ delay: 0 });
           }),
           catchError(() => EMPTY)
         )
@@ -46,7 +46,7 @@ export class CollectionsEffect {
       mergeMap(({ id }: { id: number }) =>
         this.collectionsService.remove(id).pipe(
           map(() => {
-            return collectionsActions.triggerLoadCollections();
+            return collectionsActions.triggerLoadCollections({ delay: 0 });
           }),
           catchError(() => EMPTY)
         )

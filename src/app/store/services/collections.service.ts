@@ -1,21 +1,25 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable, from, delay } from 'rxjs';
 import { Collection } from '../models/collection';
+import { DBService, STORES } from './db.service';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class CollectionsService {
-  getAll(): Observable<Collection[]> {
-    // TO-DO implement get all collection
-    return of([]);
+  constructor(private dbService: DBService) {}
+
+  getAll(delayCount: number): Observable<Collection[]> {
+    return from(this.dbService.getAllFromStore(STORES.COLLECTION)).pipe(
+      delay(delayCount)
+    );
   }
 
   add(collection: Collection): Observable<void> {
-    // TO-DO implement add collection
-    return of();
+    return from(this.dbService.addToStore(STORES.COLLECTION, collection));
   }
 
   remove(id: number): Observable<void> {
-    // TO-DO implement remove collection
-    return of();
+    return from(this.dbService.deleteFromStore(STORES.COLLECTION, id));
   }
 }

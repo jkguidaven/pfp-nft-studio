@@ -2,7 +2,8 @@ import { createAction, props } from '@ngrx/store';
 import { Collection } from '../models/collection';
 
 export const triggerLoadCollections = createAction(
-  '[Collections] trigger load collections.'
+  '[Collections] trigger load collections.',
+  props<{ delay: number | undefined }>()
 );
 export const loadCollections = createAction(
   '[Collections] load collections.',
