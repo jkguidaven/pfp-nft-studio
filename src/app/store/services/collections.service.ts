@@ -15,7 +15,7 @@ export class CollectionsService {
     );
   }
 
-  add(collection: Collection): Observable<void> {
+  add(collection: Collection): Observable<Collection> {
     return from(this.dbService.addToStore(STORES.COLLECTION, collection));
   }
 

@@ -3,7 +3,7 @@ import { Collection } from '../models/collection';
 
 export const triggerLoadCollections = createAction(
   '[Collections] trigger load collections.',
-  props<{ delay: number | undefined }>()
+  props<{ delay?: number }>()
 );
 export const loadCollections = createAction(
   '[Collections] load collections.',
@@ -12,7 +12,10 @@ export const loadCollections = createAction(
 
 export const addCollection = createAction(
   '[Collections] add collection.',
-  props<{ collection: Collection }>()
+  props<{
+    collection: Collection;
+    successCallback?: (collection: Collection) => void;
+  }>()
 );
 
 export const removeCollection = createAction(

@@ -28,6 +28,7 @@
     [description]="getDescriptionByCollection(collection)"
     [thumbnail]="collection.coverPhoto"
     (remove)="onRemove(collection)"
+    (view)="router.navigate(['collections', collection.id])"
   >
   </app-collection-card>
 </div>

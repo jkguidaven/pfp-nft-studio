@@ -54,9 +54,13 @@ export class DBService {
     return results;
   }
 
-  async addToStore(storeName: string, data: any): Promise<void> {
+  async addToStore(storeName: string, data: any): Promise<any> {
     const db = await this.getDB();
-    await db.add(storeName, data);
+    const result = await db.add(storeName, data);
+    return {
+      id: result,
+      ...data,
+    };
   }
 
   async deleteFromStore(storeName: string, key: any): Promise<void> {

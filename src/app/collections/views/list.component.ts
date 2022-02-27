@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import {
@@ -20,7 +21,11 @@ import { CreateCollectionFormComponent } from '../components/create-collection-f
 export class ListComponent implements OnInit {
   collections$!: Observable<Collection[] | undefined>;
 
-  constructor(private store: Store<State>, private dialog: MatDialog) {}
+  constructor(
+    private store: Store<State>,
+    private dialog: MatDialog,
+    public router: Router
+  ) {}
 
   ngOnInit(): void {
     this.collections$ = this.store.select(selectCollectionsList);
@@ -36,7 +41,14 @@ export class ListComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((collection: Collection) => {
       if (collection) {
-        this.store.dispatch(addCollection({ collection }));
+        this.store.dispatch(
+          addCollection({
+            collection,
+            successCallback: (result) => {
+              this.router.navigate(['collections', result.id]);
+            },
+          })
+        );
       }
     });
   }
