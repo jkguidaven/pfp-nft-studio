@@ -34,9 +34,12 @@
         height: 100%;
 
         form {
-          margin-top: 50px;
           padding: calc(var(--spacing) / 2);
           flex-grow: 1;
+
+          mat-expansion-panel {
+            margin-bottom: calc(var(--spacing) / 2);
+          }
         }
 
         .action-panel {
@@ -45,7 +48,7 @@
           justify-content: end;
 
           button {
-            margin: var(--spacing);
+            margin: 0 var(--spacing) var(--spacing);
             background-color: green;
           }
         }

@@ -2,7 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { loadCollection } from 'src/app/store/actions/collections.action';
+import {
+  addCollection,
+  loadCollection,
+} from 'src/app/store/actions/collections.action';
 import { Collection } from 'src/app/store/models/collection';
 import { State } from 'src/app/store/reducers';
 import { selectCollectionsList } from 'src/app/store/selectors/collections.selector';
@@ -27,12 +30,13 @@ export class ListComponent implements OnInit {
     const dialogRef = this.dialog.open(CreateCollectionFormComponent, {
       panelClass: 'custom-mat-dialog-container',
       width: '80%',
-      height: '80%',
+      height: '90%',
     });
 
     dialogRef.afterClosed().subscribe((collection: Collection) => {
-      // TO-DO - Handle storage
-      console.log(collection);
+      if (collection) {
+        this.store.dispatch(addCollection({ collection }));
+      }
     });
   }
 }

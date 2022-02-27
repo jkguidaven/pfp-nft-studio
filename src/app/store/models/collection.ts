@@ -1,10 +1,10 @@
 export interface Collection {
-  id: number;
+  id?: number;
   name: string;
   description: string;
   width: number;
   height: number;
-  supply: number;
+  supply?: number;
   coverPhoto?: string;
   website?: string;
   twitter?: string;

@@ -13,68 +13,97 @@
       ></app-cover-photo-selector>
     </div>
     <div class="main">
-      <form>
-        <h1>General</h1>
+      <form [formGroup]="form">
+        <h1>Create Collection</h1>
+        <br />
+        <app-input-field
+          controlName="name"
+          label="Name"
+          [fullWidth]="true"
+        ></app-input-field>
 
         <app-text-area
+          controlName="description"
           label="Description"
           [fullWidth]="true"
           [rows]="3"
         ></app-text-area>
 
         <app-input-field
+          controlName="supply"
           label="Supply"
           type="number"
           [min]="1"
         ></app-input-field>
 
         <app-input-field
+          controlName="royalty"
           label="Royalty (%)"
           type="number"
           [max]="100"
         ></app-input-field>
 
-        <h1>Dimensions (pixel)</h1>
-        <app-input-field
-          label="Width"
-          type="number"
-          [min]="1"
-        ></app-input-field>
-        <app-input-field
-          label="Height"
-          type="number"
-          [min]="1"
-        ></app-input-field>
+        <mat-accordion [displayMode]="'flat'" multi>
+          <mat-expansion-panel expanded>
+            <mat-expansion-panel-header>
+              <mat-panel-title> Dimensions (pixel) </mat-panel-title>
+            </mat-expansion-panel-header>
+            <app-input-field
+              controlName="width"
+              label="Width"
+              type="number"
+              [min]="1"
+            ></app-input-field>
+            <app-input-field
+              controlName="height"
+              label="Height"
+              type="number"
+              [min]="1"
+            ></app-input-field>
+          </mat-expansion-panel>
 
-        <h1>Mint Configuration</h1>
-        <app-input-field
-          label="Mint Price (Presale)"
-          type="number"
-        ></app-input-field>
-        <app-input-field
-          label="Mint Price (Public)"
-          type="number"
-        ></app-input-field>
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title> Mint Configuration </mat-panel-title>
+            </mat-expansion-panel-header>
 
-        <app-input-field
-          label="Max mint (Presale)"
-          type="number"
-        ></app-input-field>
-        <app-input-field
-          label="Max mint (Public)"
-          type="number"
-        ></app-input-field>
+            <app-input-field
+              controlName="maxMintPresale"
+              label="Max mint (Presale)"
+              type="number"
+            ></app-input-field>
+            <app-input-field
+              controlName="maxMintPublic"
+              label="Max mint (Public)"
+              type="number"
+            ></app-input-field>
 
-        <br />
+            <app-input-field
+              controlName="maxMintPerWallet"
+              label="Max mint per Wallet"
+              type="number"
+            ></app-input-field>
 
-        <app-input-field
-          label="Max mint per Wallet"
-          type="number"
-        ></app-input-field>
+            <br />
+
+            <app-input-field
+              controlName="mintPricePresale"
+              label="Mint Price (Presale)"
+              type="number"
+            ></app-input-field>
+            <app-input-field
+              controlName="mintPricePublic"
+              label="Mint Price (Public)"
+              type="number"
+            ></app-input-field>
+          </mat-expansion-panel>
+        </mat-accordion>
       </form>
 
       <div class="action-panel">
-        <button mat-flat-button>Create</button>
+        <button mat-flat-button [disabled]="!form.valid" (click)="create()">
+          Create
+        </button>
       </div>
     </div>
   </div>

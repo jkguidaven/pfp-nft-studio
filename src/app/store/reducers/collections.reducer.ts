@@ -25,9 +25,6 @@ export const reducer = createReducer(
   }),
 
   on(CollectionsActions.addCollection, (state, { collection }) => {
-    if (state.collections) state.collections = [];
-
-    state.collections?.push(collection);
     return {
       ...state,
       collections: state.collections

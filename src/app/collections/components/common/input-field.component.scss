@@ -4,4 +4,10 @@ mat-form-field {
   &.full {
     width: 100%;
   }
+
+  &.alignRight {
+    input {
+      text-align: right;
+    }
+  }
 }

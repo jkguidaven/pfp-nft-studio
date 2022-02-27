@@ -19,6 +19,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatExpansionModule } from '@angular/material/expansion';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import { CreateCollectionFormComponent } from './components/create-collection-form.component';
 import { CoverPhotoSelectorComponent } from './components/common/cover-photo-selector.component';
@@ -51,6 +52,7 @@ import { TextAreaComponent } from './components/common/text-area.component';
     MatButtonModule,
     MatInputModule,
     MatFormFieldModule,
+    MatExpansionModule,
     NgxSkeletonLoaderModule,
   ],
   providers: [
