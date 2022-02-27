@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-create-collection-form',
@@ -6,7 +7,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./create-collection-form.component.scss'],
 })
 export class CreateCollectionFormComponent implements OnInit {
-  constructor() {}
+  coverPhoto!: string;
+
+  constructor(private dialogRef: MatDialogRef<CreateCollectionFormComponent>) {}
 
   ngOnInit(): void {}
+
+  close() {
+    this.dialogRef.close();
+  }
 }

@@ -1,0 +1,20 @@
+<div class="cover-photo-selector" (click)="coverPhotoSelector.click()">
+  <div *ngIf="model; else noCover" class="cover">
+    <img [src]="model" />
+  </div>
+
+  <ng-template #noCover>
+    <div class="cover-placeholder">
+      <mat-icon>add</mat-icon>
+      Cover photo
+    </div>
+  </ng-template>
+
+  <input
+    type="file"
+    class="file-input"
+    (change)="onCoverPhotoSelected($event)"
+    accept="image/*"
+    #coverPhotoSelector
+  />
+</div>

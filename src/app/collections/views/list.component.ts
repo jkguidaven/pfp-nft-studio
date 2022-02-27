@@ -6,7 +6,7 @@ import { loadCollection } from 'src/app/store/actions/collections.action';
 import { Collection } from 'src/app/store/models/collection';
 import { State } from 'src/app/store/reducers';
 import { selectCollectionsList } from 'src/app/store/selectors/collections.selector';
-import { CreateCollectionFormComponent } from '../component/create-collection-form.component';
+import { CreateCollectionFormComponent } from '../components/create-collection-form.component';
 
 @Component({
   selector: 'app-list',
@@ -25,6 +25,7 @@ export class ListComponent implements OnInit {
 
   openCreateCollectionForm() {
     const dialogRef = this.dialog.open(CreateCollectionFormComponent, {
+      panelClass: 'custom-mat-dialog-container',
       width: '80%',
       height: '500px',
     });

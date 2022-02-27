@@ -6,10 +6,10 @@ import { CollectionsRoutingModule } from './collections-routing.module';
 import { CollectionsComponent } from './collections.component';
 import { ListComponent } from './views/list.component';
 import { EditorComponent } from './views/editor.component';
-import { AppHeaderComponent } from './component/app-header.component';
-import { DarkModeToggleComponent } from './component/dark-mode-toggle.component';
-import { CollectionCardComponent } from './component/collection-card.component';
-import { CollectionCardLoaderComponent } from './component/collection-card-loader.component';
+import { AppHeaderComponent } from './components/common/app-header.component';
+import { DarkModeToggleComponent } from './components/common/dark-mode-toggle.component';
+import { CollectionCardComponent } from './components/collection-card.component';
+import { CollectionCardLoaderComponent } from './components/collection-card-loader.component';
 
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
@@ -18,7 +18,8 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
-import { CreateCollectionFormComponent } from './component/create-collection-form.component';
+import { CreateCollectionFormComponent } from './components/create-collection-form.component';
+import { CoverPhotoSelectorComponent } from './components/common/cover-photo-selector.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { CreateCollectionFormComponent } from './component/create-collection-for
     CollectionCardComponent,
     CollectionCardLoaderComponent,
     CreateCollectionFormComponent,
+    CoverPhotoSelectorComponent,
   ],
   imports: [
     CommonModule,
