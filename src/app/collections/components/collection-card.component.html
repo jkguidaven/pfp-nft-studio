@@ -1,5 +1,5 @@
 <div class="collection-card" (contextmenu)="onContextMenu($event)">
-  <img [src]="thumbnail" />
+  <img [src]="getSafeUrl(thumbnail)" />
 
   <h1>{{ name }}</h1>
   <h2>{{ description }}</h2>

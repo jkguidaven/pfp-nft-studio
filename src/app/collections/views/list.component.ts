@@ -39,4 +39,8 @@ export class ListComponent implements OnInit {
       }
     });
   }
+
+  getDescriptionByCollection(collection: Collection): string {
+    return `${collection.width}px x ${collection.height}px`;
+  }
 }

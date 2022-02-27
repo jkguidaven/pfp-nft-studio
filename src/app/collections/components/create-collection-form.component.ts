@@ -49,6 +49,7 @@ export class CreateCollectionFormComponent implements OnInit {
         presale: this.form.get('maxMintPresale')?.value,
         public: this.form.get('maxMintPublic')?.value,
       },
+      coverPhoto: this.coverPhoto,
     };
 
     this.dialogRef.close(collection);

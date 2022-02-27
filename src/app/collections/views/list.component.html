@@ -21,6 +21,14 @@
   <div class="empty-list" *ngIf="(collections$ | async)?.length === 0">
     No collection found.
   </div>
+
+  <app-collection-card
+    *ngFor="let collection of collections$ | async"
+    [name]="collection.name"
+    [description]="getDescriptionByCollection(collection)"
+    [thumbnail]="collection.coverPhoto"
+  >
+  </app-collection-card>
 </div>
 
 <ng-template #loader>

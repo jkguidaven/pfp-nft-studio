@@ -8,6 +8,7 @@ import {
   ViewChild,
 } from '@angular/core';
 import { MatMenuTrigger } from '@angular/material/menu';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-collection-card',
@@ -15,7 +16,7 @@ import { MatMenuTrigger } from '@angular/material/menu';
   styleUrls: ['./collection-card.component.scss'],
 })
 export class CollectionCardComponent implements OnInit {
-  @Input() thumbnail!: string;
+  @Input() thumbnail!: string | undefined;
   @Input() name!: string;
   @Input() description!: string;
   @Input() highlight!: boolean;
@@ -28,7 +29,7 @@ export class CollectionCardComponent implements OnInit {
 
   @ViewChild(MatMenuTrigger) matMenuTrigger!: MatMenuTrigger;
 
-  constructor() {}
+  constructor(private domSanitizer: DomSanitizer) {}
 
   ngOnInit(): void {}
 
@@ -39,5 +40,9 @@ export class CollectionCardComponent implements OnInit {
     this.menuTopLeftPosition.x = $event.clientX + 'px';
     this.menuTopLeftPosition.y = $event.clientY + 'px';
     this.matMenuTrigger.openMenu();
+  }
+
+  getSafeUrl(url: string | undefined): SafeUrl {
+    return this.domSanitizer.bypassSecurityTrustUrl(url || '');
   }
 }
