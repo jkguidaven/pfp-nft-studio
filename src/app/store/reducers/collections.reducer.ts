@@ -22,5 +22,23 @@ export const reducer = createReducer(
       ...state,
       collections,
     };
+  }),
+
+  on(CollectionsActions.addCollection, (state, { collection }) => {
+    return {
+      ...state,
+      collections: state.collections
+        ? [...state.collections, collection]
+        : [collection],
+    };
+  }),
+
+  on(CollectionsActions.removeCollection, (state, { id }) => {
+    return {
+      ...state,
+      collections: state.collections
+        ? state.collections.filter((collection) => collection.id !== id)
+        : [],
+    };
   })
 );

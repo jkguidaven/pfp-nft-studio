@@ -4,9 +4,9 @@ import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import {
-  addCollection,
-  removeCollection,
+  triggerAddCollection,
   triggerLoadCollections,
+  triggerRemoveCollection,
 } from 'src/app/store/actions/collections.action';
 import { Collection } from 'src/app/store/models/collection';
 import { State as AppState } from 'src/app/store/reducers';
@@ -31,7 +31,7 @@ export class ListComponent implements OnInit {
 
   ngOnInit(): void {
     this.collections$ = this.store.select(selectCollectionsList);
-    this.store.dispatch(triggerLoadCollections({ delay: 1000 }));
+    this.store.dispatch(triggerLoadCollections());
   }
 
   openCreateCollectionForm() {
@@ -44,7 +44,7 @@ export class ListComponent implements OnInit {
     dialogRef.afterClosed().subscribe((collection: Collection) => {
       if (collection) {
         this.store.dispatch(
-          addCollection({
+          triggerAddCollection({
             collection,
             successCallback: (result) => {
               // this.router.navigate(['collections', result.id]);
@@ -57,7 +57,7 @@ export class ListComponent implements OnInit {
 
   onRemove(collection: Collection) {
     if (collection.id) {
-      this.store.dispatch(removeCollection({ id: collection.id ?? -1 }));
+      this.store.dispatch(triggerRemoveCollection({ id: collection.id ?? -1 }));
     }
   }
 
