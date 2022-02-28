@@ -1,5 +1,15 @@
-<div class="collection-card" (contextmenu)="onContextMenu($event)">
-  <img [src]="getSafeUrl(thumbnail)" />
+<div
+  class="collection-card"
+  (contextmenu)="onContextMenu($event)"
+  (click)="view.emit()"
+>
+  <img *ngIf="thumbnail; else noThumbnail" [src]="getSafeUrl(thumbnail)" />
+
+  <ng-template #noThumbnail>
+    <div class="thumbnail-placeholder">
+      <mat-icon>helpbox</mat-icon>
+    </div>
+  </ng-template>
 
   <h1>{{ name }}</h1>
   <h2>{{ description }}</h2>

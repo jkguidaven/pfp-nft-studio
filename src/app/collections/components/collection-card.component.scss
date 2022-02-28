@@ -4,7 +4,9 @@
 @mixin theme($theme) {
   // Get the color config from the theme.
   $color-config: mat.get-color-config($theme);
+  $primary: map.get($color-config, primary);
   $foreground: map.get($color-config, foreground);
+  $background-color: mat.get-color-from-palette($primary, 500);
   $text-color: mat.get-color-from-palette($foreground, text);
 
   .collection-card {
@@ -12,11 +14,26 @@
     height: auto;
     margin: auto;
     text-align: center;
+    border-radius: 5px;
+    padding: 10px;
+    cursor: pointer;
+
+    &:hover {
+      background-color: rgba($background-color, 0.5);
+    }
 
     img {
       width: 100%;
       height: auto;
       border-radius: 5px;
+    }
+
+    .thumbnail-placeholder {
+      mat-icon {
+        width: 200px;
+        height: 200px;
+        font-size: 200px;
+      }
     }
 
     h1 {
