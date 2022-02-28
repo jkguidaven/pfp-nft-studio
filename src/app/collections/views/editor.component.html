@@ -1,1 +1,7 @@
-<p>editor works!</p>
+<p *ngIf="(currentCollection$ | async)?.id; else unknownCollection">
+  editor works!
+</p>
+
+<ng-template #unknownCollection>
+  <p>Unknown Collection</p>
+</ng-template>

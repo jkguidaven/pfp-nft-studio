@@ -23,3 +23,11 @@ export interface Collection {
   }>;
   royalty?: number;
 }
+
+export const UNKNOWN_COLLECTION: Collection = {
+  id: undefined,
+  name: 'unknown',
+  description: 'unknown',
+  width: 0,
+  height: 0,
+};
