@@ -4,6 +4,7 @@ import { Collection } from '../models/collection';
 export const triggerLoadCollections = createAction(
   '[Collections] trigger load collections.'
 );
+
 export const loadCollections = createAction(
   '[Collections] load collections.',
   props<{ collections: Collection[] }>()
@@ -38,4 +39,9 @@ export const removeCollection = createAction(
 export const updateCollection = createAction(
   '[Collections] update collection.',
   props<{ collection: Collection }>()
+);
+
+export const setCurrentCollection = createAction(
+  '[Collections] set current collection.',
+  props<{ id: number }>()
 );

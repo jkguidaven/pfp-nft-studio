@@ -35,7 +35,7 @@
 </div>
 
 <app-editor
-  *ngIf="selectedCollectionId"
+  *ngIf="currentCollection$ | async"
   class="editor mat-app-background"
   @expand
 ></app-editor>

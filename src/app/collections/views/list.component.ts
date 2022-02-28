@@ -2,15 +2,19 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { Observable, take } from 'rxjs';
+import { Observable } from 'rxjs';
 import {
+  setCurrentCollection,
   triggerAddCollection,
   triggerLoadCollections,
   triggerRemoveCollection,
 } from 'src/app/store/actions/collections.action';
 import { Collection } from 'src/app/store/models/collection';
 import { State as AppState } from 'src/app/store/reducers';
-import { selectCollectionsList } from 'src/app/store/selectors/collections.selector';
+import {
+  selectCollectionsList,
+  selectCurrentCollection,
+} from 'src/app/store/selectors/collections.selector';
 import { fade, expand } from '../animations';
 import { CreateCollectionFormComponent } from '../components/create-collection-form.component';
 
@@ -22,7 +26,7 @@ import { CreateCollectionFormComponent } from '../components/create-collection-f
 })
 export class ListComponent implements OnInit {
   collections$!: Observable<Collection[] | undefined>;
-  selectedCollectionId!: string;
+  currentCollection$!: Observable<Collection | undefined>;
 
   constructor(
     private store: Store<AppState>,
@@ -33,10 +37,11 @@ export class ListComponent implements OnInit {
 
   ngOnInit(): void {
     this.collections$ = this.store.select(selectCollectionsList);
+    this.currentCollection$ = this.store.select(selectCurrentCollection);
     this.store.dispatch(triggerLoadCollections());
 
     this.route.queryParams.subscribe(({ id }: any) => {
-      this.selectedCollectionId = id;
+      this.store.dispatch(setCurrentCollection({ id: Number(id) }));
     });
   }
 

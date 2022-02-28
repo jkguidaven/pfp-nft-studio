@@ -7,3 +7,11 @@ export const selectCollectionsList = createSelector(
   selectCollections,
   (state: CollectionsState) => state.collections
 );
+
+export const selectCurrentCollection = createSelector(
+  selectCollections,
+  (state: CollectionsState) =>
+    state.collections?.find(
+      (collection) => collection.id === state.currentCollectionId
+    )
+);
