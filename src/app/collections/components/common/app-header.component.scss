@@ -17,6 +17,7 @@
   */
   .mat-toolbar {
     background-color: rgba(whitesmoke, 0.8);
+    box-shadow: 0.5px 0.5px 1px rgba(#000, 0.2);
   }
 
   :host-context(.dark-mode) .mat-toolbar {

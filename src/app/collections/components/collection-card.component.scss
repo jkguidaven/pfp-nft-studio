@@ -17,6 +17,7 @@
     border-radius: 5px;
     padding: 10px;
     cursor: pointer;
+    transition: background-color 100ms ease-out;
 
     &:hover {
       background-color: rgba($background-color, 0.5);
