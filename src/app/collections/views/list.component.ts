@@ -9,20 +9,22 @@ import {
   triggerLoadCollections,
 } from 'src/app/store/actions/collections.action';
 import { Collection } from 'src/app/store/models/collection';
-import { State } from 'src/app/store/reducers';
+import { State as AppState } from 'src/app/store/reducers';
 import { selectCollectionsList } from 'src/app/store/selectors/collections.selector';
+import { fade } from '../animations';
 import { CreateCollectionFormComponent } from '../components/create-collection-form.component';
 
 @Component({
   selector: 'app-list',
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.scss'],
+  animations: [fade],
 })
 export class ListComponent implements OnInit {
   collections$!: Observable<Collection[] | undefined>;
 
   constructor(
-    private store: Store<State>,
+    private store: Store<AppState>,
     private dialog: MatDialog,
     public router: Router
   ) {}
@@ -45,7 +47,7 @@ export class ListComponent implements OnInit {
           addCollection({
             collection,
             successCallback: (result) => {
-              this.router.navigate(['collections', result.id]);
+              // this.router.navigate(['collections', result.id]);
             },
           })
         );
@@ -61,5 +63,9 @@ export class ListComponent implements OnInit {
 
   getDescriptionByCollection(collection: Collection): string {
     return `${collection.width}px x ${collection.height}px`;
+  }
+
+  trackCollection(_: number, collection: Collection): number | undefined {
+    return collection ? collection.id : undefined;
   }
 }

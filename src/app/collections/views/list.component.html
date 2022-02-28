@@ -23,7 +23,8 @@
   </div>
 
   <app-collection-card
-    *ngFor="let collection of collections$ | async"
+    @fade
+    *ngFor="let collection of collections$ | async; trackBy: trackCollection"
     [name]="collection.name"
     [description]="getDescriptionByCollection(collection)"
     [thumbnail]="collection.coverPhoto"
