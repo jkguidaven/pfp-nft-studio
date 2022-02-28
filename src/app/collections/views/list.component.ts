@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
+import { Observable, take } from 'rxjs';
 import {
   triggerAddCollection,
   triggerLoadCollections,
@@ -11,27 +11,33 @@ import {
 import { Collection } from 'src/app/store/models/collection';
 import { State as AppState } from 'src/app/store/reducers';
 import { selectCollectionsList } from 'src/app/store/selectors/collections.selector';
-import { fade } from '../animations';
+import { fade, expand } from '../animations';
 import { CreateCollectionFormComponent } from '../components/create-collection-form.component';
 
 @Component({
   selector: 'app-list',
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.scss'],
-  animations: [fade],
+  animations: [fade, expand],
 })
 export class ListComponent implements OnInit {
   collections$!: Observable<Collection[] | undefined>;
+  selectedCollectionId!: string;
 
   constructor(
     private store: Store<AppState>,
     private dialog: MatDialog,
+    private route: ActivatedRoute,
     public router: Router
   ) {}
 
   ngOnInit(): void {
     this.collections$ = this.store.select(selectCollectionsList);
     this.store.dispatch(triggerLoadCollections());
+
+    this.route.queryParams.subscribe(({ id }: any) => {
+      this.selectedCollectionId = id;
+    });
   }
 
   openCreateCollectionForm() {
@@ -67,5 +73,9 @@ export class ListComponent implements OnInit {
 
   trackCollection(_: number, collection: Collection): number | undefined {
     return collection ? collection.id : undefined;
+  }
+
+  openCollection(id: number | undefined) {
+    this.router.navigate(['collections'], { queryParams: { id } });
   }
 }

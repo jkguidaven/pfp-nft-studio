@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CollectionsComponent } from './collections.component';
-import { EditorComponent } from './views/editor.component';
 import { ListComponent } from './views/list.component';
 
 const routes: Routes = [
@@ -12,10 +11,6 @@ const routes: Routes = [
       {
         path: '',
         component: ListComponent,
-      },
-      {
-        path: ':id',
-        component: EditorComponent,
       },
     ],
   },

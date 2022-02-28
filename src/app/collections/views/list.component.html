@@ -29,10 +29,16 @@
     [description]="getDescriptionByCollection(collection)"
     [thumbnail]="collection.coverPhoto"
     (remove)="onRemove(collection)"
-    (view)="router.navigate(['collections', collection.id])"
+    (view)="openCollection(collection.id)"
   >
   </app-collection-card>
 </div>
+
+<app-editor
+  *ngIf="selectedCollectionId"
+  class="editor mat-app-background"
+  @expand
+></app-editor>
 
 <ng-template #loader>
   <div class="content mat-app-background loader">
