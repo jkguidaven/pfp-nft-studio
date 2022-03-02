@@ -1,0 +1,39 @@
+@use "sass:map";
+@use "@angular/material" as mat;
+
+@mixin theme($theme) {
+  // Get the color config from the theme.
+  $color-config: mat.get-color-config($theme);
+  $primary: map.get($color-config, primary);
+  $accent: map.get($color-config, accent);
+  $background: map.get($color-config, background);
+  $is-dark-theme: map.get($color-config, "is-dark");
+  $accent-color: mat.get-color-from-palette($accent, 400);
+  $text-color: mat.get-color-from-palette($primary, text);
+  $background-color: mat.get-color-from-palette($background, app-bar);
+
+  .sidenav-tooltip {
+    margin-left: 5px !important;
+  }
+
+  .collection-details-sidenav {
+    height: 100%;
+    max-width: 50px;
+
+    @if $is-dark-theme {
+      background-color: rgba($background-color, 0.5);
+    } @else {
+      background-color: rgba($accent-color, 0.2);
+    }
+
+    .menu-item {
+      cursor: pointer;
+      padding: 10px;
+      color: rgba($text-color, 0.5);
+
+      &:hover {
+        color: $text-color;
+      }
+    }
+  }
+}

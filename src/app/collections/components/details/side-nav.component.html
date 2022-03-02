@@ -1,0 +1,11 @@
+<div class="collection-details-sidenav">
+  <div
+    class="menu-item"
+    *ngFor="let menu of menuItems"
+    [matTooltip]="menu.label"
+    matTooltipPosition="after"
+    matTooltipClass="sidenav-tooltip"
+  >
+    <mat-icon>{{ menu.icon }}</mat-icon>
+  </div>
+</div>

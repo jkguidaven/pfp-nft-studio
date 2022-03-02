@@ -20,7 +20,9 @@ import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
+
 import { CreateCollectionFormComponent } from './components/forms/create-collection-form.component';
 import { CoverPhotoSelectorComponent } from './components/common/cover-photo-selector.component';
 import { InputFieldComponent } from './components/common/input-field.component';
@@ -29,6 +31,7 @@ import { CanvasComponent } from './components/editor/canvas.component';
 import { SideComponent } from './components/editor/side.component';
 import { DetailsComponent } from './views/details.component';
 import { CollectionHeaderComponent } from './components/details/collection-header.component';
+import { SideNavComponent } from './components/details/side-nav.component';
 
 @NgModule({
   declarations: [
@@ -47,6 +50,7 @@ import { CollectionHeaderComponent } from './components/details/collection-heade
     SideComponent,
     DetailsComponent,
     CollectionHeaderComponent,
+    SideNavComponent,
   ],
   imports: [
     CommonModule,
@@ -61,6 +65,7 @@ import { CollectionHeaderComponent } from './components/details/collection-heade
     MatInputModule,
     MatFormFieldModule,
     MatExpansionModule,
+    MatTooltipModule,
     NgxSkeletonLoaderModule,
   ],
   providers: [

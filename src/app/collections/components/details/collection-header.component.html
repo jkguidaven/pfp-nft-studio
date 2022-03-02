@@ -2,7 +2,7 @@
   <button mat-icon-button (click)="router.navigate(['collections'])">
     <mat-icon>keyboard_backspace</mat-icon>
   </button>
-  <h1>{{ collection.name }}</h1>
+  <h1>{{ collection?.name }}</h1>
 
   <div class="spacer"></div>
 
@@ -11,10 +11,10 @@
 
 <div class="collection-header">
   <div class="cover-container">
-    <img [src]="collection.coverPhoto" />
+    <img [src]="collection?.coverPhoto" />
   </div>
 
   <p>
-    {{ collection.description }}
+    {{ collection?.description }}
   </p>
 </div>

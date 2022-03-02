@@ -5,6 +5,7 @@ import { finalize } from 'rxjs';
 import { Collection } from 'src/app/store/models/collection';
 import { State as AppState } from 'src/app/store/reducers';
 import { CollectionService } from 'src/app/store/services/collection.service';
+import { SideNavMenuItem } from '../components/details/side-nav.component';
 
 @Component({
   selector: 'app-details',
@@ -14,6 +15,19 @@ import { CollectionService } from 'src/app/store/services/collection.service';
 export class DetailsComponent implements OnInit {
   collection?: Collection;
   loading!: boolean;
+
+  menuItems: SideNavMenuItem[] = [
+    {
+      label: 'Items',
+      icon: 'apps',
+      link: 'items',
+    },
+    {
+      label: 'Editor',
+      icon: 'photo_filter',
+      link: 'editor',
+    },
+  ];
 
   constructor(
     private store: Store<AppState>,

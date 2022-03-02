@@ -8,7 +8,7 @@ import { Collection } from 'src/app/store/models/collection';
   styleUrls: ['./collection-header.component.scss'],
 })
 export class CollectionHeaderComponent implements OnInit {
-  @Input() collection!: Collection;
+  @Input() collection?: Collection;
   @Output() back: EventEmitter<void> = new EventEmitter<any>();
 
   constructor(public router: Router) {}
