@@ -25,6 +25,9 @@ import { CreateCollectionFormComponent } from './components/forms/create-collect
 import { CoverPhotoSelectorComponent } from './components/common/cover-photo-selector.component';
 import { InputFieldComponent } from './components/common/input-field.component';
 import { TextAreaComponent } from './components/common/text-area.component';
+import { CanvasComponent } from './components/editor/canvas.component';
+import { SideComponent } from './components/editor/side.component';
+import { DetailsComponent } from './views/details.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +42,9 @@ import { TextAreaComponent } from './components/common/text-area.component';
     CoverPhotoSelectorComponent,
     InputFieldComponent,
     TextAreaComponent,
+    CanvasComponent,
+    SideComponent,
+    DetailsComponent,
   ],
   imports: [
     CommonModule,

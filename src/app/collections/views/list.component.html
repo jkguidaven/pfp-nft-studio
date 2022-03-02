@@ -34,12 +34,6 @@
   </app-collection-card>
 </div>
 
-<app-editor
-  *ngIf="currentCollection$ | async"
-  class="editor mat-app-background"
-  @expand
-></app-editor>
-
 <ng-template #loader>
   <div class="content mat-app-background loader">
     <app-collection-card-loader

@@ -1,20 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import {
-  setCurrentCollection,
   triggerAddCollection,
   triggerLoadCollections,
   triggerRemoveCollection,
 } from 'src/app/store/actions/collections.action';
 import { Collection } from 'src/app/store/models/collection';
 import { State as AppState } from 'src/app/store/reducers';
-import {
-  selectCollectionsList,
-  selectCurrentCollection,
-} from 'src/app/store/selectors/collections.selector';
+import { selectCollectionsList } from 'src/app/store/selectors/collections.selector';
 import { fade, expand } from '../animations';
 import { CreateCollectionFormComponent } from '../components/forms/create-collection-form.component';
 
@@ -26,23 +22,16 @@ import { CreateCollectionFormComponent } from '../components/forms/create-collec
 })
 export class ListComponent implements OnInit {
   collections$!: Observable<Collection[] | undefined>;
-  currentCollection$!: Observable<Collection | undefined>;
 
   constructor(
     private store: Store<AppState>,
     private dialog: MatDialog,
-    private route: ActivatedRoute,
     public router: Router
   ) {}
 
   ngOnInit(): void {
     this.collections$ = this.store.select(selectCollectionsList);
-    this.currentCollection$ = this.store.select(selectCurrentCollection);
     this.store.dispatch(triggerLoadCollections());
-
-    this.route.queryParams.subscribe(({ id }: any) => {
-      this.store.dispatch(setCurrentCollection({ id: Number(id) }));
-    });
   }
 
   openCreateCollectionForm() {
@@ -58,7 +47,7 @@ export class ListComponent implements OnInit {
           triggerAddCollection({
             collection,
             successCallback: (result) => {
-              // this.router.navigate(['collections', result.id]);
+              this.openCollection(result.id);
             },
           })
         );
@@ -81,6 +70,6 @@ export class ListComponent implements OnInit {
   }
 
   openCollection(id: number | undefined) {
-    this.router.navigate(['collections'], { queryParams: { id } });
+    this.router.navigate(['collections', id]);
   }
 }

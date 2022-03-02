@@ -40,8 +40,3 @@ export const updateCollection = createAction(
   '[Collections] update collection.',
   props<{ collection: Collection }>()
 );
-
-export const setCurrentCollection = createAction(
-  '[Collections] set current collection.',
-  props<{ id: number }>()
-);

@@ -6,13 +6,11 @@ export const collectionsFeatureKey = 'collections';
 
 export interface CollectionsState {
   collections?: Collection[];
-  currentCollectionId?: number;
   error?: string;
 }
 
 export const initialState: CollectionsState = {
   collections: undefined,
-  currentCollectionId: undefined,
   error: undefined,
 };
 
@@ -41,13 +39,6 @@ export const reducer = createReducer(
       collections: state.collections
         ? state.collections.filter((collection) => collection.id !== id)
         : [],
-    };
-  }),
-
-  on(CollectionsActions.setCurrentCollection, (state, { id }) => {
-    return {
-      ...state,
-      currentCollectionId: id,
     };
   })
 );
