@@ -16,7 +16,7 @@ import {
   selectCurrentCollection,
 } from 'src/app/store/selectors/collections.selector';
 import { fade, expand } from '../animations';
-import { CreateCollectionFormComponent } from '../components/create-collection-form.component';
+import { CreateCollectionFormComponent } from '../components/forms/create-collection-form.component';
 
 @Component({
   selector: 'app-list',

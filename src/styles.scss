@@ -5,10 +5,10 @@
 // Plus imports for other components in your app.
 @use "./app/collections/components/common/cover-photo-selector.component.scss"
   as cover_photo_selector;
-@use "./app/collections/components/collection-card.component.scss" as
+@use "./app/collections/components/list/collection-card.component.scss" as
   collection_card;
-@use "./app/collections/components/create-collection-form.component.scss" as
-  create_collection_form;
+@use "./app/collections/components/forms/create-collection-form.component.scss"
+  as create_collection_form;
 
 // Include the common styles for Angular Material. We include this here so that you only
 // have to load a single css file for Angular Material in your app.
