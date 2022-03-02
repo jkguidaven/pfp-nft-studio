@@ -37,6 +37,12 @@ export class DBService {
     });
   }
 
+  async getFromStore(storeName: string, key: any): Promise<any> {
+    const db = await this.getDB();
+    const store = db.transaction(storeName).objectStore(storeName);
+    return store.get(key);
+  }
+
   async getAllFromStore(storeName: string): Promise<any[]> {
     const db = await this.getDB();
     let cursor = await db.transaction(storeName).store.openCursor();

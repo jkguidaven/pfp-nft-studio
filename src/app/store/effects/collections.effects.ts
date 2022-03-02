@@ -3,20 +3,20 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, EMPTY, map, mergeMap } from 'rxjs';
 import * as collectionsActions from '../actions/collections.action';
 import { Collection } from '../models/collection';
-import { CollectionsService } from '../services/collections.service';
+import { CollectionService } from '../services/collection.service';
 
 @Injectable()
 export class CollectionsEffect {
   constructor(
     private action$: Actions,
-    private collectionsService: CollectionsService
+    private collectionService: CollectionService
   ) {}
 
   loadCollections$ = createEffect(() =>
     this.action$.pipe(
       ofType(collectionsActions.triggerLoadCollections),
       mergeMap(() =>
-        this.collectionsService.getAll(1000).pipe(
+        this.collectionService.getAll(1000).pipe(
           map((collections: Collection[]) =>
             collectionsActions.loadCollections({ collections })
           ),
@@ -37,7 +37,7 @@ export class CollectionsEffect {
           collection: Collection;
           successCallback?: (collection: Collection) => void;
         }) =>
-          this.collectionsService.add(collection).pipe(
+          this.collectionService.add(collection).pipe(
             map((collectionWithID: Collection) => {
               if (successCallback) {
                 successCallback(collectionWithID);
@@ -57,7 +57,7 @@ export class CollectionsEffect {
     this.action$.pipe(
       ofType(collectionsActions.triggerRemoveCollection),
       mergeMap(({ id }: { id: number }) =>
-        this.collectionsService.remove(id).pipe(
+        this.collectionService.remove(id).pipe(
           map(() => {
             return collectionsActions.removeCollection({ id });
           }),

@@ -1,0 +1,71 @@
+@use "sass:map";
+@use "@angular/material" as mat;
+
+@mixin theme($theme) {
+  // Get the color config from the theme.
+  $color-config: mat.get-color-config($theme);
+  $primary: map.get($color-config, primary);
+  $accent: map.get($color-config, accent);
+  $background: map.get($color-config, background);
+  $is-dark-theme: map.get($color-config, "is-dark");
+  $accent-color: mat.get-color-from-palette($accent, 400);
+  $text-color: mat.get-color-from-palette($primary, text);
+  $background-color: mat.get-color-from-palette($background, app-bar);
+
+  .top {
+    display: flex;
+    flex-direction: row;
+    box-sizing: border-box;
+    width: 100%;
+    padding: calc(var(--spacing) / 2);
+    background-color: $background-color;
+
+    align-items: center;
+
+    @if $is-dark-theme {
+      border-bottom: 1px solid rgba(39, 39, 39);
+      box-shadow: 0.5px 0.5px 1px rgba($accent-color, 0.1);
+    } @else {
+      border-bottom: 1px solid rgba($accent-color, 0.8);
+    }
+
+    h1 {
+      margin: 0 0 0 calc(var(--spacing) / 2);
+      padding: 0;
+    }
+  }
+
+  .collection-header {
+    display: flex;
+    padding: calc(var(--spacing) / 2) var(--spacing);
+    background-color: $background-color;
+
+    @if $is-dark-theme {
+      border-bottom: 1px solid rgba(39, 39, 39);
+    } @else {
+      border-bottom: 1px solid rgba($accent-color, 0.8);
+    }
+
+    .cover-container {
+      width: 100px;
+      text-align: center;
+
+      h1 {
+        font-size: 1.2rem;
+        color: rgba($text-color, 0.9);
+      }
+
+      img {
+        width: 100%;
+        height: auto;
+        border-radius: 5px;
+      }
+    }
+
+    p {
+      padding: 0 var(--spacing);
+      max-width: 400px;
+      color: rgba($text-color, 0.6);
+    }
+  }
+}

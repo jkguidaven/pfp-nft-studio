@@ -6,7 +6,7 @@ import { DBService, STORES } from './db.service';
 @Injectable({
   providedIn: 'root',
 })
-export class CollectionsService {
+export class CollectionService {
   constructor(private dbService: DBService) {}
 
   getAll(delayCount: number): Observable<Collection[]> {
@@ -21,5 +21,9 @@ export class CollectionsService {
 
   remove(id: number): Observable<void> {
     return from(this.dbService.deleteFromStore(STORES.COLLECTION, id));
+  }
+
+  get(id: number): Observable<Collection | undefined> {
+    return from(this.dbService.getFromStore(STORES.COLLECTION, id));
   }
 }

@@ -7,6 +7,8 @@
   as cover_photo_selector;
 @use "./app/collections/components/list/collection-card.component.scss" as
   collection_card;
+@use "./app/collections/components/details/collection-header.component.scss" as
+  collection_header;
 @use "./app/collections/components/forms/create-collection-form.component.scss"
   as create_collection_form;
 
@@ -106,12 +108,14 @@ $pfp-studio-dark-theme: mat.define-dark-theme(
 @include collection_card.theme($pfp-studio-light-theme);
 @include create_collection_form.theme($pfp-studio-light-theme);
 @include cover_photo_selector.theme($pfp-studio-light-theme);
+@include collection_header.theme($pfp-studio-light-theme);
 
 .dark-mode {
   @include mat.all-component-colors($pfp-studio-dark-theme);
   @include collection_card.theme($pfp-studio-dark-theme);
   @include create_collection_form.theme($pfp-studio-dark-theme);
   @include cover_photo_selector.theme($pfp-studio-dark-theme);
+  @include collection_header.theme($pfp-studio-dark-theme);
 }
 /* You can add global styles to this file, and also import other style files */
 

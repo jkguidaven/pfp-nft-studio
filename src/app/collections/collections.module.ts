@@ -28,6 +28,7 @@ import { TextAreaComponent } from './components/common/text-area.component';
 import { CanvasComponent } from './components/editor/canvas.component';
 import { SideComponent } from './components/editor/side.component';
 import { DetailsComponent } from './views/details.component';
+import { CollectionHeaderComponent } from './components/details/collection-header.component';
 
 @NgModule({
   declarations: [
@@ -45,6 +46,7 @@ import { DetailsComponent } from './views/details.component';
     CanvasComponent,
     SideComponent,
     DetailsComponent,
+    CollectionHeaderComponent,
   ],
   imports: [
     CommonModule,

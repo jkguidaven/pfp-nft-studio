@@ -9,7 +9,6 @@ import { EffectsModule } from '@ngrx/effects';
 import { LocalStorageEffects } from './effects/local-storage.effects';
 import { HttpClientModule } from '@angular/common/http';
 import { CollectionsEffect } from './effects/collections.effects';
-import { CollectionsService } from './services/collections.service';
 
 @NgModule({
   declarations: [],
