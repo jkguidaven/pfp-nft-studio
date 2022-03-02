@@ -3,7 +3,7 @@ import { Component, Input, OnInit } from '@angular/core';
 export interface SideNavMenuItem {
   label: string;
   icon: string;
-  link: string;
+  link: string | string[];
 }
 
 @Component({

@@ -32,6 +32,7 @@ import { SideComponent } from './components/editor/side.component';
 import { DetailsComponent } from './views/details.component';
 import { CollectionHeaderComponent } from './components/details/collection-header.component';
 import { SideNavComponent } from './components/details/side-nav.component';
+import { ItemsComponent } from './views/items.component';
 
 @NgModule({
   declarations: [
@@ -51,6 +52,7 @@ import { SideNavComponent } from './components/details/side-nav.component';
     DetailsComponent,
     CollectionHeaderComponent,
     SideNavComponent,
+    ItemsComponent,
   ],
   imports: [
     CommonModule,

@@ -27,12 +27,18 @@
     }
 
     .menu-item {
+      box-sizing: border-box;
       cursor: pointer;
       padding: 10px;
       color: rgba($text-color, 0.5);
 
       &:hover {
         color: $text-color;
+      }
+
+      &.active {
+        border-left: 2px solid $text-color;
+        padding-left: 8px;
       }
     }
   }

@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { CollectionsComponent } from './collections.component';
 import { DetailsComponent } from './views/details.component';
 import { EditorComponent } from './views/editor.component';
+import { ItemsComponent } from './views/items.component';
 import { ListComponent } from './views/list.component';
 
 const routes: Routes = [
@@ -17,10 +18,21 @@ const routes: Routes = [
       {
         path: ':id',
         component: DetailsComponent,
-      },
-      {
-        path: ':id/editor',
-        component: EditorComponent,
+        children: [
+          {
+            path: '',
+            pathMatch: 'full',
+            redirectTo: 'items',
+          },
+          {
+            path: 'items',
+            component: ItemsComponent,
+          },
+          {
+            path: 'editor',
+            component: EditorComponent,
+          },
+        ],
       },
     ],
   },
