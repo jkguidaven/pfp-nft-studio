@@ -16,6 +16,8 @@
       placeholder="Name"
       [(ngModel)]="layerName"
       (keydown.enter)="addNewLayer()"
+      (keydown.escape)="toggleAddLayer()"
+      #layerInputField
     />
   </div>
 

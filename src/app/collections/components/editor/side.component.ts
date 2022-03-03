@@ -1,5 +1,5 @@
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { fade, slide } from '../../animations';
 
 export interface Layer {
@@ -14,6 +14,7 @@ export interface Layer {
   animations: [fade, slide],
 })
 export class SideComponent implements OnInit {
+  @ViewChild('layerInputField') layerInputField!: ElementRef;
   layers: Layer[] = [];
 
   adding!: boolean;
@@ -27,7 +28,9 @@ export class SideComponent implements OnInit {
   toggleAddLayer(): void {
     this.adding = !this.adding;
 
-    if (!this.adding) {
+    if (this.adding) {
+      setTimeout(() => this.layerInputField.nativeElement.select(), 10);
+    } else {
       this.layerName = '';
     }
   }
