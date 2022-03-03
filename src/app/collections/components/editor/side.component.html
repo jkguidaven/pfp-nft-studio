@@ -11,7 +11,7 @@
       >add</mat-icon
     >
   </div>
-  <div class="add-layer-field-container" *ngIf="adding">
+  <div class="add-layer-field-container" *ngIf="adding" @slide>
     <input
       placeholder="Name"
       [(ngModel)]="layerName"

@@ -1,5 +1,6 @@
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Component, OnInit } from '@angular/core';
+import { fade, slide } from '../../animations';
 
 export interface Layer {
   name: string;
@@ -10,22 +11,10 @@ export interface Layer {
   selector: 'app-editor-side',
   templateUrl: './side.component.html',
   styleUrls: ['./side.component.scss'],
+  animations: [fade, slide],
 })
 export class SideComponent implements OnInit {
-  layers: Layer[] = [
-    {
-      name: 'Head',
-      expand: false,
-    },
-    {
-      name: 'Mouth',
-      expand: false,
-    },
-    {
-      name: 'Ears',
-      expand: false,
-    },
-  ];
+  layers: Layer[] = [];
 
   adding!: boolean;
 
@@ -45,7 +34,7 @@ export class SideComponent implements OnInit {
 
   addNewLayer(): void {
     if (this.layerName) {
-      this.layers.push({
+      this.layers.unshift({
         name: this.layerName,
         expand: false,
       });
