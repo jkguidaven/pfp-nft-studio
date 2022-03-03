@@ -100,6 +100,7 @@ $pfp-studio-light-theme: mat.define-light-theme(
       primary: $pfp-studio-light-primary,
       accent: $pfp-studio-dark-primary,
     ),
+    typography: $pfp-studio-typography,
   )
 );
 
@@ -109,6 +110,7 @@ $pfp-studio-dark-theme: mat.define-dark-theme(
       primary: $pfp-studio-dark-primary,
       accent: $pfp-studio-light-primary,
     ),
+    typography: $pfp-studio-typography,
   )
 );
 

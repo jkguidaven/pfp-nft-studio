@@ -5,12 +5,9 @@
   // Get the color config from the theme.
   $color-config: mat.get-color-config($theme);
   $primary: map.get($color-config, primary);
-  $accent: map.get($color-config, accent);
-  $background: map.get($color-config, background);
-  $is-dark-theme: map.get($color-config, "is-dark");
-  $accent-color: mat.get-color-from-palette($accent, 400);
   $text-color: mat.get-color-from-palette($primary, text);
-  $background-color: mat.get-color-from-palette($background, app-bar);
+  $typography-config: mat.get-typography-config($theme);
+  $font-family: mat.font-family($typography-config);
 
   .inline-input-field {
     input {
@@ -19,6 +16,9 @@
       border: 0;
       outline: 0;
       color: $text-color;
+      font-family: $font-family;
+      font-size: 14px;
+      padding: 0;
     }
   }
 }
