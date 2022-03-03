@@ -25,13 +25,59 @@
       background-color: rgba($accent-color, 0.1);
     }
 
+    .header,
+    .add-layer-field-container {
+      display: flex;
+      padding: calc(var(--spacing) / 4);
+      text-transform: uppercase;
+      font-size: 0.8rem;
+      font-weight: 200;
+      color: rgba($text-color, 0.8);
+      height: 50px;
+      box-sizing: border-box;
+      align-items: center;
+
+      @if $is-dark-theme {
+        background-color: rgba($background-color, 0.25);
+      } @else {
+        background-color: rgba($accent-color, 0.15);
+      }
+
+      mat-icon {
+        cursor: pointer;
+        transition: 200ms all ease-out;
+
+        &:hover {
+          color: $text-color;
+        }
+
+        &.adding {
+          transform: rotate(-45deg);
+        }
+      }
+    }
+
+    .add-layer-field-container {
+      margin-top: -20px;
+      padding: 10px;
+      input {
+        width: 100%;
+        border-radius: 5px;
+        border: 1px solid black;
+        outline: 0;
+        height: 30px;
+        padding: 10px;
+        box-sizing: border-box;
+      }
+    }
+
     .layer-list {
       flex-grow: 1;
       width: 100%;
       overflow: auto;
 
       .layer {
-        padding: calc(var(--spacing) / 3);
+        padding: calc(var(--spacing) / 4);
         display: flex;
 
         @if $is-dark-theme {

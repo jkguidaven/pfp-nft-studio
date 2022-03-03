@@ -1,5 +1,23 @@
 <div class="editor-side">
-  <p>side works!</p>
+  <div class="header">
+    <span>Traits / Layers</span>
+    <div class="spacer"></div>
+    <mat-icon
+      matTooltip="Add"
+      matTooltipClass="layer-tooltip"
+      matTooltipPosition="above"
+      [ngClass]="{ adding }"
+      (click)="toggleAddLayer()"
+      >add</mat-icon
+    >
+  </div>
+  <div class="add-layer-field-container" *ngIf="adding">
+    <input
+      placeholder="Name"
+      [(ngModel)]="layerName"
+      (keydown.enter)="addNewLayer()"
+    />
+  </div>
 
   <div
     class="layer-list"

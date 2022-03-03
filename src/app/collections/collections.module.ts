@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { CollectionsRoutingModule } from './collections-routing.module';
 import { CollectionsComponent } from './collections.component';
@@ -59,6 +59,7 @@ import { InlineInputFieldComponent } from './components/common/inline-input-fiel
   ],
   imports: [
     CommonModule,
+    FormsModule,
     ReactiveFormsModule,
     CollectionsRoutingModule,
     MatToolbarModule,

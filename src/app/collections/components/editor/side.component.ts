@@ -27,9 +27,32 @@ export class SideComponent implements OnInit {
     },
   ];
 
+  adding!: boolean;
+
+  layerName: string = '';
+
   constructor() {}
 
   ngOnInit(): void {}
+
+  toggleAddLayer(): void {
+    this.adding = !this.adding;
+
+    if (!this.adding) {
+      this.layerName = '';
+    }
+  }
+
+  addNewLayer(): void {
+    if (this.layerName) {
+      this.layers.push({
+        name: this.layerName,
+        expand: false,
+      });
+    }
+
+    this.toggleAddLayer();
+  }
 
   positionChange(event: CdkDragDrop<any[]>): void {
     moveItemInArray(this.layers, event.previousIndex, event.currentIndex);
