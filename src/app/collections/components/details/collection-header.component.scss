@@ -39,6 +39,8 @@
     display: flex;
     padding: calc(var(--spacing) / 2) var(--spacing);
     background-color: $background-color;
+    height: 150px;
+    box-sizing: border-box;
 
     @if $is-dark-theme {
       border-bottom: 1px solid rgba(39, 39, 39);
@@ -47,7 +49,6 @@
     }
 
     .cover-container {
-      width: 100px;
       text-align: center;
 
       h1 {
@@ -56,8 +57,8 @@
       }
 
       img {
-        width: 100%;
-        height: auto;
+        width: auto;
+        height: 100%;
         border-radius: 5px;
       }
     }
