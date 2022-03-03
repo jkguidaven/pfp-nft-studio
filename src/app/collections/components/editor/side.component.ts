@@ -37,11 +37,10 @@ export class SideComponent implements OnInit {
 
   addNewLayer(): void {
     if (this.layerName) {
-      for (let i = 0; i < 100; i++)
-        this.layers.unshift({
-          name: this.layerName,
-          expand: false,
-        });
+      this.layers.unshift({
+        name: this.layerName,
+        expand: false,
+      });
     }
 
     this.toggleAddLayer();
