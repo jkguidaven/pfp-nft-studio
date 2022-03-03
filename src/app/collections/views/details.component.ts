@@ -18,14 +18,14 @@ export class DetailsComponent implements OnInit {
 
   menuItems: SideNavMenuItem[] = [
     {
-      label: 'Items',
-      icon: 'apps',
-      link: 'items',
-    },
-    {
       label: 'Editor',
       icon: 'photo_filter',
       link: 'editor',
+    },
+    {
+      label: 'Items',
+      icon: 'apps',
+      link: 'items',
     },
   ];
 

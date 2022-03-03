@@ -13,15 +13,68 @@
   $background-color: mat.get-color-from-palette($background, app-bar);
 
   .editor-side {
-    padding: calc(var(--spacing) / 2);
     box-sizing: border-box;
     width: 300px;
     height: 100%;
+    display: flex;
+    flex-direction: column;
 
     @if $is-dark-theme {
       background-color: rgba($background-color, 0.2);
     } @else {
       background-color: rgba($accent-color, 0.1);
     }
+
+    .layer-list {
+      flex-grow: 1;
+      width: 100%;
+      overflow: auto;
+
+      .layer {
+        padding: calc(var(--spacing) / 3);
+        display: flex;
+
+        @if $is-dark-theme {
+          border-bottom: 1px solid rgba(39, 39, 39);
+          box-shadow: 0.5px 0.5px 1px rgba($accent-color, 0.1);
+        } @else {
+          border-bottom: 1px solid rgba($accent-color, 0.8);
+        }
+
+        mat-icon {
+          color: rgba($text-color, 0.5);
+          transition: all 200ms ease-out;
+          cursor: pointer;
+
+          &:hover {
+            color: $text-color;
+          }
+
+          &.expand {
+            transform: rotate(90deg);
+          }
+
+          &.expand-button {
+            margin-right: calc(var(--spacing) / 3);
+          }
+
+          &.delete-button {
+            display: none;
+          }
+        }
+
+        &:hover {
+          mat-icon {
+            &.delete-button {
+              display: block;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .layer-tooltip {
+    margin-bottom: 0px;
   }
 }

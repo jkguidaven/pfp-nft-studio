@@ -1,3 +1,32 @@
 <div class="editor-side">
   <p>side works!</p>
+
+  <div
+    class="layer-list"
+    cdkDropList
+    (cdkDropListDropped)="positionChange($event)"
+  >
+    <div class="layer" *ngFor="let layer of layers" cdkDrag>
+      <mat-icon
+        [matTooltip]="layer.expand ? 'collapse' : 'expand'"
+        matTooltipClass="layer-tooltip"
+        matTooltipPosition="above"
+        class="expand-button"
+        [ngClass]="{ expand: layer.expand }"
+        (click)="layer.expand = !layer.expand"
+        >keyboard_arrow_right</mat-icon
+      >
+
+      <span>{{ layer.name }}</span>
+      <div class="spacer"></div>
+
+      <mat-icon
+        class="delete-button"
+        matTooltip="Remove"
+        matTooltipClass="layer-tooltip"
+        matTooltipPosition="above"
+        >clear</mat-icon
+      >
+    </div>
+  </div>
 </div>

@@ -21,6 +21,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 
 import { CreateCollectionFormComponent } from './components/forms/create-collection-form.component';
@@ -69,6 +70,7 @@ import { ItemsComponent } from './views/items.component';
     MatExpansionModule,
     MatTooltipModule,
     NgxSkeletonLoaderModule,
+    DragDropModule,
   ],
   providers: [
     {
