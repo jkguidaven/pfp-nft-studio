@@ -18,7 +18,7 @@
 
   .collection-details-sidenav {
     height: 100%;
-    max-width: 50px;
+    width: 50px;
 
     @if $is-dark-theme {
       background-color: rgba($background-color, 0.5);
@@ -31,6 +31,7 @@
       cursor: pointer;
       padding: 10px;
       color: rgba($text-color, 0.5);
+      height: 50px;
 
       &:hover {
         color: $text-color;

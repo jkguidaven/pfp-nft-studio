@@ -1,15 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-side',
+  selector: 'app-editor-side',
   templateUrl: './side.component.html',
-  styleUrls: ['./side.component.scss']
+  styleUrls: ['./side.component.scss'],
 })
 export class SideComponent implements OnInit {
+  constructor() {}
 
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
+  ngOnInit(): void {}
 }

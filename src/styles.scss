@@ -11,6 +11,8 @@
   collection_header;
 @use "./app/collections/components/details/side-nav.component.scss" as
   collection_side_nav;
+@use "./app/collections/components/editor/side.component.scss" as
+  collection_editor_side;
 @use "./app/collections/components/forms/create-collection-form.component.scss"
   as create_collection_form;
 
@@ -112,6 +114,7 @@ $pfp-studio-dark-theme: mat.define-dark-theme(
 @include cover_photo_selector.theme($pfp-studio-light-theme);
 @include collection_header.theme($pfp-studio-light-theme);
 @include collection_side_nav.theme($pfp-studio-light-theme);
+@include collection_editor_side.theme($pfp-studio-light-theme);
 
 .dark-mode {
   @include mat.all-component-colors($pfp-studio-dark-theme);
@@ -120,6 +123,7 @@ $pfp-studio-dark-theme: mat.define-dark-theme(
   @include cover_photo_selector.theme($pfp-studio-dark-theme);
   @include collection_header.theme($pfp-studio-dark-theme);
   @include collection_side_nav.theme($pfp-studio-dark-theme);
+  @include collection_editor_side.theme($pfp-studio-dark-theme);
 }
 /* You can add global styles to this file, and also import other style files */
 

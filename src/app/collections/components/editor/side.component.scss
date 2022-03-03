@@ -1,0 +1,27 @@
+@use "sass:map";
+@use "@angular/material" as mat;
+
+@mixin theme($theme) {
+  // Get the color config from the theme.
+  $color-config: mat.get-color-config($theme);
+  $primary: map.get($color-config, primary);
+  $accent: map.get($color-config, accent);
+  $background: map.get($color-config, background);
+  $is-dark-theme: map.get($color-config, "is-dark");
+  $accent-color: mat.get-color-from-palette($accent, 400);
+  $text-color: mat.get-color-from-palette($primary, text);
+  $background-color: mat.get-color-from-palette($background, app-bar);
+
+  .editor-side {
+    padding: calc(var(--spacing) / 2);
+    box-sizing: border-box;
+    width: 300px;
+    height: 100%;
+
+    @if $is-dark-theme {
+      background-color: rgba($background-color, 0.2);
+    } @else {
+      background-color: rgba($accent-color, 0.1);
+    }
+  }
+}
