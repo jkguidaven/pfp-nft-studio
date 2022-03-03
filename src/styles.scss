@@ -16,10 +16,15 @@
 @use "./app/collections/components/forms/create-collection-form.component.scss"
   as create_collection_form;
 
+@import url("https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap");
+$pfp-studio-typography: mat.define-typography-config(
+  $font-family: "Ubuntu",
+);
+
 // Include the common styles for Angular Material. We include this here so that you only
 // have to load a single css file for Angular Material in your app.
 // Be sure that you only ever include this mixin once!
-@include mat.core();
+@include mat.core($pfp-studio-typography);
 
 // Define the palettes for your theme using the Material Design palettes available in palette.scss
 // (imported above). For each palette, you can optionally specify a default, lighter, and darker
