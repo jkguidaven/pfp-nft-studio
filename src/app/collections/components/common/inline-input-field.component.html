@@ -1,0 +1,11 @@
+<div class="inline-input-field">
+  <input
+    *ngIf="editting; else static"
+    (change)="changeValue($event)"
+    (blur)="onExitEdit()"
+    (keydown.enter)="onEnter()"
+    [value]="value"
+    #inputField
+  />
+  <ng-template #static>{{ value }}</ng-template>
+</div>

@@ -5,6 +5,8 @@
 // Plus imports for other components in your app.
 @use "./app/collections/components/common/cover-photo-selector.component.scss"
   as cover_photo_selector;
+@use "./app/collections/components/common/inline-input-field.component.scss" as
+  inline_input_field;
 @use "./app/collections/components/list/collection-card.component.scss" as
   collection_card;
 @use "./app/collections/components/details/collection-header.component.scss" as
@@ -117,6 +119,7 @@ $pfp-studio-dark-theme: mat.define-dark-theme(
 @include collection_card.theme($pfp-studio-light-theme);
 @include create_collection_form.theme($pfp-studio-light-theme);
 @include cover_photo_selector.theme($pfp-studio-light-theme);
+@include inline_input_field.theme($pfp-studio-light-theme);
 @include collection_header.theme($pfp-studio-light-theme);
 @include collection_side_nav.theme($pfp-studio-light-theme);
 @include collection_editor_side.theme($pfp-studio-light-theme);
@@ -126,6 +129,7 @@ $pfp-studio-dark-theme: mat.define-dark-theme(
   @include collection_card.theme($pfp-studio-dark-theme);
   @include create_collection_form.theme($pfp-studio-dark-theme);
   @include cover_photo_selector.theme($pfp-studio-dark-theme);
+  @include inline_input_field.theme($pfp-studio-dark-theme);
   @include collection_header.theme($pfp-studio-dark-theme);
   @include collection_side_nav.theme($pfp-studio-dark-theme);
   @include collection_editor_side.theme($pfp-studio-dark-theme);

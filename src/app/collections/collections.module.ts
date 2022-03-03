@@ -34,6 +34,7 @@ import { DetailsComponent } from './views/details.component';
 import { CollectionHeaderComponent } from './components/details/collection-header.component';
 import { SideNavComponent } from './components/details/side-nav.component';
 import { ItemsComponent } from './views/items.component';
+import { InlineInputFieldComponent } from './components/common/inline-input-field.component';
 
 @NgModule({
   declarations: [
@@ -54,6 +55,7 @@ import { ItemsComponent } from './views/items.component';
     CollectionHeaderComponent,
     SideNavComponent,
     ItemsComponent,
+    InlineInputFieldComponent,
   ],
   imports: [
     CommonModule,
