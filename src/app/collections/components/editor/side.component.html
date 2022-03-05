@@ -39,6 +39,8 @@
       ></i-feather>
 
       <app-inline-input-field [(value)]="layer.name"></app-inline-input-field>
+
+      <sub *ngIf="layer.hidden" class="hidden-tag">Hidden</sub>
       <div class="spacer"></div>
 
       <i-feather
