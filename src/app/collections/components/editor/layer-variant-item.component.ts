@@ -14,4 +14,23 @@ export class LayerVariantItemComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {}
+
+  onPhotoSelected($event: any) {
+    const file: File = $event.target.files[0];
+
+    if (file) {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        this.variantChange.emit({
+          ...this.variant,
+          src: reader.result as string,
+        });
+      };
+    }
+  }
+
+  backgroundImageURL(): string {
+    return `url(${this.variant.src})`;
+  }
 }

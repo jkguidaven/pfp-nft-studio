@@ -1,7 +1,7 @@
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { Layer } from 'src/app/store/models/layer';
+import { Layer, LayerVariant } from 'src/app/store/models/layer';
 import { fade, slide } from '../../animations';
 import {
   EditLayerFormComponent,
@@ -83,6 +83,13 @@ export class SideComponent implements OnInit {
     layer.variants.push({
       name: `Variant ${layer.variants.length + 1}`,
     });
+  }
+
+  onVariantChange(variant: LayerVariant, layer: Layer, index: number): void {
+    layer.variants[index] = {
+      ...layer.variants[index],
+      ...variant,
+    };
   }
 
   positionChange(event: CdkDragDrop<any[]>): void {

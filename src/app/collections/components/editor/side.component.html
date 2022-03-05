@@ -56,8 +56,9 @@
 
       <div *ngIf="layer.expand" class="layer-details">
         <app-layer-variant-item
-          *ngFor="let variant of layer.variants"
+          *ngFor="let variant of layer.variants; let vi = index"
           [variant]="variant"
+          (variantChange)="onVariantChange($event, layer, vi)"
         >
         </app-layer-variant-item>
         <div class="add-variant-button" (click)="addNewVariant(layer)">

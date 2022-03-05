@@ -1,9 +1,21 @@
 <div class="layer-variant-item">
-  <div class="src-container"></div>
+  <div
+    class="src-container"
+    (click)="photoSelector.click()"
+    [ngStyle]="{ 'background-image': backgroundImageURL() }"
+  ></div>
 
   <app-inline-input-field [(value)]="variant.name"></app-inline-input-field>
 
   <span class="spacer"></span>
 
   <i-feather name="minus"></i-feather>
+
+  <input
+    type="file"
+    class="file-input"
+    (change)="onPhotoSelected($event)"
+    accept="image/*"
+    #photoSelector
+  />
 </div>
