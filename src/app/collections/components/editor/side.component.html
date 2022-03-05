@@ -27,26 +27,26 @@
     (cdkDropListDropped)="positionChange($event)"
   >
     <div class="layer" *ngFor="let layer of layers" cdkDrag>
-      <mat-icon
+      <i-feather
         [matTooltip]="layer.expand ? 'collapse' : 'expand'"
         matTooltipClass="layer-tooltip"
         matTooltipPosition="above"
         class="expand-button"
         [ngClass]="{ expand: layer.expand }"
         (click)="layer.expand = !layer.expand"
-        >keyboard_arrow_right</mat-icon
-      >
+        name="chevron-right"
+      ></i-feather>
 
       <app-inline-input-field [(value)]="layer.name"></app-inline-input-field>
       <div class="spacer"></div>
 
-      <mat-icon
-        class="delete-button"
-        matTooltip="Remove"
+      <i-feather
+        name="tool"
+        matTooltip="Configure"
         matTooltipClass="layer-tooltip"
         matTooltipPosition="above"
-        >clear</mat-icon
-      >
+        class="configure-button"
+      ></i-feather>
     </div>
   </div>
 </div>

@@ -87,13 +87,19 @@
           border-bottom: 1px solid rgba($accent-color, 0.8);
         }
 
-        mat-icon {
-          color: rgba($text-color, 0.5);
-          transition: all 200ms ease-out;
+        i-feather {
           cursor: pointer;
+          stroke: rgba($text-color, 0.5);
+          transition: all 200ms ease-out;
+          width: 20px;
+          height: 20px;
+
+          &.configure-button {
+            display: none;
+          }
 
           &:hover {
-            color: $text-color;
+            stroke: $text-color;
           }
 
           &.expand {
@@ -103,17 +109,11 @@
           &.expand-button {
             margin-right: calc(var(--spacing) / 3);
           }
-
-          &.delete-button {
-            display: none;
-          }
         }
 
         &:hover {
-          mat-icon {
-            &.delete-button {
-              display: block;
-            }
+          i-feather {
+            display: block;
           }
         }
       }
@@ -142,7 +142,7 @@
       border-bottom: 1px solid rgba($accent-color, 0.8);
     }
 
-    mat-icon {
+    i-feather {
       display: none;
     }
   }

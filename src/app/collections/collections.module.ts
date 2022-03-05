@@ -23,6 +23,8 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
+import { FeatherModule } from 'angular-feather';
+import { allIcons } from 'angular-feather/icons';
 
 import { CreateCollectionFormComponent } from './components/forms/create-collection-form.component';
 import { CoverPhotoSelectorComponent } from './components/common/cover-photo-selector.component';
@@ -74,6 +76,7 @@ import { InlineInputFieldComponent } from './components/common/inline-input-fiel
     MatTooltipModule,
     NgxSkeletonLoaderModule,
     DragDropModule,
+    FeatherModule.pick(allIcons),
   ],
   providers: [
     {
