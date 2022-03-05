@@ -160,6 +160,13 @@
     i-feather {
       display: none;
     }
+
+    .hidden-tag {
+      display: inline-block;
+      margin-left: 5px;
+      font-size: 0.6rem;
+      color: rgba($text-color, 0.6);
+    }
   }
 
   .cdk-drag-placeholder {
