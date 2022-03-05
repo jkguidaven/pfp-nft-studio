@@ -1,0 +1,44 @@
+<mat-toolbar>
+  <span>Edit Trait</span>
+  <span class="spacer"></span>
+  <button mat-icon-button (click)="close()"><mat-icon>close</mat-icon></button>
+</mat-toolbar>
+
+<div class="content">
+  <form [formGroup]="form">
+    <app-input-field
+      controlName="name"
+      label="Name"
+      [fullWidth]="true"
+    ></app-input-field>
+
+    <p>Guarantee that this trait will show up?</p>
+
+    <mat-slider
+      min="1"
+      max="100"
+      step="0.5"
+      [value]="guaranteeValue"
+      (change)="changeGuaranteeValue($event)"
+    ></mat-slider>
+    {{ guaranteeValue }}%
+
+    <p>Is this a hidden trait?</p>
+
+    <mat-checkbox
+      [checked]="hiddenValue"
+      (change)="changeHiddenValue($event)"
+    ></mat-checkbox>
+  </form>
+</div>
+
+<div class="action-panel">
+  <button mat-flat-button color="primary" (click)="remove()">
+    Delete Layer
+  </button>
+
+  <span class="spacer"></span>
+  <button mat-flat-button (click)="save()" [disabled]="!form.valid">
+    Save
+  </button>
+</div>

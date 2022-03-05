@@ -21,6 +21,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatSliderModule } from '@angular/material/slider';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import { FeatherModule } from 'angular-feather';
@@ -37,6 +39,7 @@ import { CollectionHeaderComponent } from './components/details/collection-heade
 import { SideNavComponent } from './components/details/side-nav.component';
 import { ItemsComponent } from './views/items.component';
 import { InlineInputFieldComponent } from './components/common/inline-input-field.component';
+import { EditLayerFormComponent } from './components/forms/edit-layer-form.component';
 
 @NgModule({
   declarations: [
@@ -58,6 +61,7 @@ import { InlineInputFieldComponent } from './components/common/inline-input-fiel
     SideNavComponent,
     ItemsComponent,
     InlineInputFieldComponent,
+    EditLayerFormComponent,
   ],
   imports: [
     CommonModule,
@@ -74,6 +78,8 @@ import { InlineInputFieldComponent } from './components/common/inline-input-fiel
     MatFormFieldModule,
     MatExpansionModule,
     MatTooltipModule,
+    MatSliderModule,
+    MatCheckboxModule,
     NgxSkeletonLoaderModule,
     DragDropModule,
     FeatherModule.pick(allIcons),

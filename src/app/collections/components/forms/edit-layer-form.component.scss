@@ -1,0 +1,32 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+
+  .content,
+  .action-panel {
+    padding: calc(var(--spacing) / 2);
+  }
+
+  .content {
+    flex-grow: 1;
+  }
+
+  .action-panel {
+    display: flex;
+
+    > button {
+      color: white;
+      box-sizing: border-box;
+    }
+
+    .save-button {
+      background-color: green;
+    }
+  }
+
+  .delete-button {
+    background-color: red;
+  }
+}

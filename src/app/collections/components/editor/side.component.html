@@ -1,7 +1,7 @@
 <div class="editor-side">
   <div class="header">
     <i-feather name="layers"></i-feather>
-    <span>Traits / Layers</span>
+    <span>Traits</span>
     <div class="spacer"></div>
     <mat-icon
       matTooltip="Add"
@@ -27,7 +27,7 @@
     cdkDropList
     (cdkDropListDropped)="positionChange($event)"
   >
-    <div class="layer" *ngFor="let layer of layers" cdkDrag>
+    <div class="layer" *ngFor="let layer of layers; let i = index" cdkDrag>
       <i-feather
         [matTooltip]="layer.expand ? 'collapse' : 'expand'"
         matTooltipClass="layer-tooltip"
@@ -47,6 +47,7 @@
         matTooltipClass="layer-tooltip"
         matTooltipPosition="above"
         class="configure-button"
+        (click)="openLayerForm(layer, i)"
       ></i-feather>
     </div>
   </div>

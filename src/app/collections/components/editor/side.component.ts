@@ -1,11 +1,12 @@
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { Layer } from 'src/app/store/models/layer';
 import { fade, slide } from '../../animations';
-
-export interface Layer {
-  name: string;
-  expand?: boolean;
-}
+import {
+  EditLayerFormComponent,
+  EditLayerFormResult,
+} from '../forms/edit-layer-form.component';
 
 @Component({
   selector: 'app-editor-side',
@@ -21,7 +22,7 @@ export class SideComponent implements OnInit {
 
   layerName: string = '';
 
-  constructor() {}
+  constructor(private dialog: MatDialog) {}
 
   ngOnInit(): void {}
 
@@ -40,10 +41,34 @@ export class SideComponent implements OnInit {
       this.layers.unshift({
         name: this.layerName,
         expand: false,
+        guarantee: 100,
+        hidden: false,
       });
     }
 
     this.toggleAddLayer();
+  }
+
+  openLayerForm(data: Layer, index: number): void {
+    const dialogRef = this.dialog.open(EditLayerFormComponent, {
+      panelClass: 'custom-mat-dialog-container',
+      width: '500px',
+      height: '500px',
+      data,
+    });
+
+    dialogRef.afterClosed().subscribe((result: EditLayerFormResult) => {
+      if (result) {
+        if (result.type === 'save' && result.data) {
+          this.layers[index] = {
+            ...this.layers[index],
+            ...result.data,
+          };
+        } else if (result.type === 'remove') {
+          this.layers.splice(index, 1);
+        }
+      }
+    });
   }
 
   positionChange(event: CdkDragDrop<any[]>): void {
