@@ -1,0 +1,42 @@
+@use "sass:map";
+@use "@angular/material" as mat;
+
+@mixin theme($theme) {
+  // Get the color config from the theme.
+  $color-config: mat.get-color-config($theme);
+  $accent: map.get($color-config, accent);
+  $is-dark-theme: map.get($color-config, "is-dark");
+  $accent-color: mat.get-color-from-palette($accent, 400);
+
+  .layer-variant-item {
+    box-sizing: border-box;
+    padding: 2px;
+    display: flex;
+
+    i-feather {
+      display: none;
+      width: 18px;
+      height: 18px;
+    }
+
+    &:hover i-feather {
+      display: block;
+    }
+
+    .src-container {
+      width: 20px;
+      height: 20px;
+      @if $is-dark-theme {
+        border: 1px solid rgba($accent-color, 0.1);
+      } @else {
+        border: 1px solid rgba($accent-color, 0.8);
+      }
+      border-radius: 5px;
+      margin-right: 10px;
+      background-size: 100% auto;
+      background-repeat: no-repeat;
+      background-position: center center;
+      cursor: pointer;
+    }
+  }
+}

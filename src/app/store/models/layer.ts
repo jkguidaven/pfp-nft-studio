@@ -3,4 +3,10 @@ export interface Layer {
   guarantee: number;
   expand?: boolean;
   hidden?: boolean;
+  variants: LayerVariant[];
+}
+
+export interface LayerVariant {
+  name: string;
+  src?: string;
 }

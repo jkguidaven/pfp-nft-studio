@@ -16,7 +16,14 @@ import {
 })
 export class SideComponent implements OnInit {
   @ViewChild('layerInputField') layerInputField!: ElementRef;
-  layers: Layer[] = [];
+  layers: Layer[] = [
+    {
+      name: 'Head',
+      guarantee: 100,
+      expand: true,
+      variants: [],
+    },
+  ];
 
   adding!: boolean;
 
@@ -43,6 +50,7 @@ export class SideComponent implements OnInit {
         expand: false,
         guarantee: 100,
         hidden: false,
+        variants: [],
       });
     }
 
@@ -68,6 +76,12 @@ export class SideComponent implements OnInit {
           this.layers.splice(index, 1);
         }
       }
+    });
+  }
+
+  addNewVariant(layer: Layer): void {
+    layer.variants.push({
+      name: `Variant ${layer.variants.length + 1}`,
     });
   }
 

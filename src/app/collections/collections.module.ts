@@ -40,6 +40,7 @@ import { SideNavComponent } from './components/details/side-nav.component';
 import { ItemsComponent } from './views/items.component';
 import { InlineInputFieldComponent } from './components/common/inline-input-field.component';
 import { EditLayerFormComponent } from './components/forms/edit-layer-form.component';
+import { LayerVariantItemComponent } from './components/editor/layer-variant-item.component';
 
 @NgModule({
   declarations: [
@@ -62,6 +63,7 @@ import { EditLayerFormComponent } from './components/forms/edit-layer-form.compo
     ItemsComponent,
     InlineInputFieldComponent,
     EditLayerFormComponent,
+    LayerVariantItemComponent,
   ],
   imports: [
     CommonModule,
