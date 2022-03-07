@@ -4,6 +4,7 @@
     <span>Traits</span>
     <div class="spacer"></div>
     <mat-icon
+      *ngIf="traits | async"
       matTooltip="Add"
       matTooltipClass="trait-tooltip"
       matTooltipPosition="above"
@@ -29,7 +30,7 @@
   >
     <div
       class="trait"
-      *ngFor="let trait of traits; let i = index"
+      *ngFor="let trait of traits | async; let i = index"
       cdkDrag
       appDnd
       (fileDropped)="addVariantFromFileList(trait, $event)"

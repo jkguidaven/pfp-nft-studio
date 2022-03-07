@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { catchError, EMPTY, map, mergeMap, of } from 'rxjs';
+import { catchError, EMPTY, map, mergeMap, of, switchMap } from 'rxjs';
 import * as collectionsActions from '../actions/collection.action';
+import * as traitActions from '../actions/trait.action';
 import { Collection } from '../models/collection';
 import { CollectionService } from '../services/collection.service';
 
@@ -70,7 +71,10 @@ export class CollectionEffects {
   setCurrentCollection$ = createEffect(() =>
     this.action$.pipe(
       ofType(collectionsActions.setCurrentCollection),
-      map(() => collectionsActions.triggerLoadCollections())
+      switchMap(({ id }: { id: number }) => [
+        collectionsActions.triggerLoadCollections(),
+        traitActions.triggerLoadTraits({ collectionId: id }),
+      ])
     )
   );
 }

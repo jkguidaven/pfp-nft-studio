@@ -10,3 +10,8 @@ export const triggerLoadTraits = createAction(
   '[Traits] trigger load traits.',
   props<{ collectionId: number }>()
 );
+
+export const addTrait = createAction(
+  '[Traits] add trait.',
+  props<{ trait: Trait }>()
+);

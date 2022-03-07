@@ -3,14 +3,14 @@ import { Collection } from '../models/collection';
 import { State } from '../reducers';
 import { CollectionState } from '../reducers/collection.reducer';
 
-export const selectCollections = (state: State) => state.collection;
+export const selectCollectionState = (state: State) => state.collection;
 export const selectCollectionsList = createSelector(
-  selectCollections,
+  selectCollectionState,
   (state: CollectionState) => state.list
 );
 
 export const selectCurrentCollection = createSelector(
-  selectCollections,
+  selectCollectionState,
   (state: CollectionState) =>
     state.current && state.list
       ? state.list.find(({ id }: Collection) => id === state.current)
