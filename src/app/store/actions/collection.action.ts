@@ -2,16 +2,16 @@ import { createAction, props } from '@ngrx/store';
 import { Collection } from '../models/collection';
 
 export const triggerLoadCollections = createAction(
-  '[Collections] trigger load collections.'
+  '[Collection] trigger load collections.'
 );
 
 export const loadCollections = createAction(
-  '[Collections] load collections.',
+  '[Collection] load collections.',
   props<{ collections: Collection[] }>()
 );
 
 export const triggerAddCollection = createAction(
-  '[Collections] trigger add collection.',
+  '[Collection] trigger add collection.',
   props<{
     collection: Collection;
     successCallback?: (collection: Collection) => void;
@@ -19,7 +19,7 @@ export const triggerAddCollection = createAction(
 );
 
 export const addCollection = createAction(
-  '[Collections] add collection.',
+  '[Collection] add collection.',
   props<{
     collection: Collection;
     successCallback?: (collection: Collection) => void;
@@ -27,16 +27,21 @@ export const addCollection = createAction(
 );
 
 export const triggerRemoveCollection = createAction(
-  '[Collections] trigger remove collection.',
+  '[Collection] trigger remove collection.',
   props<{ id: number }>()
 );
 
 export const removeCollection = createAction(
-  '[Collections] remove collection.',
+  '[Collection] remove collection.',
   props<{ id: number }>()
 );
 
 export const updateCollection = createAction(
-  '[Collections] update collection.',
+  '[Collection] update collection.',
   props<{ collection: Collection }>()
+);
+
+export const setCurrentCollection = createAction(
+  '[Collection] set current collection.',
+  props<{ id: number }>()
 );

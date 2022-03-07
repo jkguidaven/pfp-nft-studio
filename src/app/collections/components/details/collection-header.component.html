@@ -2,14 +2,29 @@
   <button mat-icon-button (click)="router.navigate(['collections'])">
     <mat-icon>keyboard_backspace</mat-icon>
   </button>
-  <h1 class="title">{{ collection?.name }}</h1>
+
+  <h1 *ngIf="collection; else noTitle" class="title">{{ collection?.name }}</h1>
+
+  <ng-template #noTitle>
+    <h1 class="title">
+      <ngx-skeleton-loader
+        animation="pulse"
+        [theme]="{
+          height: '20px',
+          width: '200px',
+          marginBottom: '-2px',
+          backgroundColor: this.backgroundColor
+        }"
+      ></ngx-skeleton-loader>
+    </h1>
+  </ng-template>
 
   <div class="spacer"></div>
 
   <app-dark-mode-toggle></app-dark-mode-toggle>
 </div>
 
-<div class="collection-header">
+<div class="collection-header" *ngIf="collection; else noHeader">
   <div class="cover-container">
     <img [src]="collection?.coverPhoto" />
   </div>
@@ -18,3 +33,63 @@
     {{ collection?.description }}
   </p>
 </div>
+
+<ng-template #noHeader>
+  <div class="collection-header">
+    <div class="cover-container">
+      <ngx-skeleton-loader
+        animation="pulse"
+        [theme]="{
+          height: '117px',
+          width: '117px',
+          borderRadius: '5px',
+          backgroundColor: this.backgroundColor
+        }"
+      ></ngx-skeleton-loader>
+    </div>
+
+    <p style="width: 100%; padding-top: 5px">
+      <ngx-skeleton-loader
+        animation="pulse"
+        [theme]="{
+          height: '15px',
+          width: '100%',
+          backgroundColor: this.backgroundColor
+        }"
+      ></ngx-skeleton-loader>
+
+      <br />
+
+      <ngx-skeleton-loader
+        animation="pulse"
+        [theme]="{
+          height: '15px',
+          width: '90%',
+          backgroundColor: this.backgroundColor
+        }"
+      ></ngx-skeleton-loader>
+
+      <br />
+
+      <ngx-skeleton-loader
+        animation="pulse"
+        [theme]="{
+          height: '15px',
+          width: '75%',
+          backgroundColor: this.backgroundColor
+        }"
+      ></ngx-skeleton-loader>
+
+      <br />
+
+      <ngx-skeleton-loader
+        animation="pulse"
+        [theme]="{
+          height: '15px',
+          width: '75%',
+          backgroundColor: this.backgroundColor
+        }"
+      ></ngx-skeleton-loader>
+    </p>
+  </div>
+</ng-template>

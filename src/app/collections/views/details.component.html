@@ -1,4 +1,6 @@
-<app-collection-header [collection]="collection"></app-collection-header>
+<app-collection-header
+  [collection]="collection$ | async"
+></app-collection-header>
 
 <main>
   <app-side-nav [menuItems]="menuItems"></app-side-nav>
