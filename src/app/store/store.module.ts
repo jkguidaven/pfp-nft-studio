@@ -16,16 +16,16 @@ import { TraitEffects } from './effects/trait.effects';
   imports: [
     CommonModule,
     HttpClientModule,
-    StoreDevtoolsModule.instrument({
-      maxAge: 25,
-      logOnly: environment.production,
-    }),
     NgRxStoreModule.forRoot(reducers, { metaReducers }),
     EffectsModule.forRoot([
       LocalStorageEffects,
       CollectionEffects,
       TraitEffects,
     ]),
+    StoreDevtoolsModule.instrument({
+      maxAge: 25,
+      logOnly: environment.production,
+    }),
   ],
 })
 export class StoreModule {}
