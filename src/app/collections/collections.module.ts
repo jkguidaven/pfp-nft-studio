@@ -39,8 +39,8 @@ import { CollectionHeaderComponent } from './components/details/collection-heade
 import { SideNavComponent } from './components/details/side-nav.component';
 import { ItemsComponent } from './views/items.component';
 import { InlineInputFieldComponent } from './components/common/inline-input-field.component';
-import { EditLayerFormComponent } from './components/forms/edit-layer-form.component';
-import { LayerVariantItemComponent } from './components/editor/layer-variant-item.component';
+import { EditTraitFormComponent } from './components/forms/edit-trait-form.component';
+import { TraitVariantItemComponent } from './components/editor/trait-variant-item.component';
 import { DndDirective } from './directives/common/dnd.directive';
 
 @NgModule({
@@ -63,8 +63,8 @@ import { DndDirective } from './directives/common/dnd.directive';
     SideNavComponent,
     ItemsComponent,
     InlineInputFieldComponent,
-    EditLayerFormComponent,
-    LayerVariantItemComponent,
+    EditTraitFormComponent,
+    TraitVariantItemComponent,
     DndDirective,
   ],
   imports: [

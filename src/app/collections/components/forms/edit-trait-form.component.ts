@@ -3,19 +3,19 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSliderChange } from '@angular/material/slider';
-import { Layer } from 'src/app/store/models/layer';
+import { Trait } from 'src/app/store/models/trait';
 
-export interface EditLayerFormResult {
+export interface EditTraitFormResult {
   type: 'save' | 'remove';
-  data?: Layer;
+  data?: Trait;
 }
 
 @Component({
-  selector: 'app-edit-layer-form',
-  templateUrl: './edit-layer-form.component.html',
-  styleUrls: ['./edit-layer-form.component.scss'],
+  selector: 'app-edit-trait-form',
+  templateUrl: './edit-trait-form.component.html',
+  styleUrls: ['./edit-trait-form.component.scss'],
 })
-export class EditLayerFormComponent implements OnInit {
+export class EditTraitFormComponent implements OnInit {
   guaranteeValue!: number;
   hiddenValue!: boolean;
   form: FormGroup = new FormGroup({
@@ -23,8 +23,8 @@ export class EditLayerFormComponent implements OnInit {
   });
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) private data: Layer,
-    private dialogRef: MatDialogRef<EditLayerFormComponent>
+    @Inject(MAT_DIALOG_DATA) private data: Trait,
+    private dialogRef: MatDialogRef<EditTraitFormComponent>
   ) {}
 
   ngOnInit(): void {

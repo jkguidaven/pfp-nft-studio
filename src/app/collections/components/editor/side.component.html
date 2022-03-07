@@ -5,69 +5,69 @@
     <div class="spacer"></div>
     <mat-icon
       matTooltip="Add"
-      matTooltipClass="layer-tooltip"
+      matTooltipClass="trait-tooltip"
       matTooltipPosition="above"
       [ngClass]="{ adding }"
-      (click)="toggleAddLayer()"
+      (click)="toggleAddTrait()"
       >add</mat-icon
     >
   </div>
-  <div class="add-layer-field-container" *ngIf="adding" @slide>
+  <div class="add-trait-field-container" *ngIf="adding" @slide>
     <input
       placeholder="Name"
-      [(ngModel)]="newLayerName"
-      (keydown.enter)="addNewLayer()"
-      (keydown.escape)="toggleAddLayer()"
-      #layerInputField
+      [(ngModel)]="newTraitName"
+      (keydown.enter)="addNewTrait()"
+      (keydown.escape)="toggleAddTrait()"
+      #traitInputField
     />
   </div>
 
   <div
-    class="layer-list"
+    class="trait-list"
     cdkDropList
     (cdkDropListDropped)="positionChange($event)"
   >
     <div
-      class="layer"
-      *ngFor="let layer of layers; let i = index"
+      class="trait"
+      *ngFor="let trait of traits; let i = index"
       cdkDrag
       appDnd
-      (fileDropped)="addVariantFromFileList(layer, $event)"
+      (fileDropped)="addVariantFromFileList(trait, $event)"
     >
-      <div class="layer-header">
+      <div class="trait-header">
         <i-feather
-          [matTooltip]="layer.expand ? 'collapse' : 'expand'"
-          matTooltipClass="layer-tooltip"
+          [matTooltip]="trait.expand ? 'collapse' : 'expand'"
+          matTooltipClass="trait-tooltip"
           matTooltipPosition="above"
           class="expand-button"
-          [ngClass]="{ expand: layer.expand }"
-          (click)="layer.expand = !layer.expand"
+          [ngClass]="{ expand: trait.expand }"
+          (click)="trait.expand = !trait.expand"
           name="chevron-right"
         ></i-feather>
 
-        <app-inline-input-field [(value)]="layer.name"></app-inline-input-field>
+        <app-inline-input-field [(value)]="trait.name"></app-inline-input-field>
 
-        <sub *ngIf="layer.hidden" class="hidden-tag">Hidden</sub>
+        <sub *ngIf="trait.hidden" class="hidden-tag">Hidden</sub>
         <div class="spacer"></div>
 
         <i-feather
           name="tool"
           matTooltip="Configure"
-          matTooltipClass="layer-tooltip"
+          matTooltipClass="trait-tooltip"
           matTooltipPosition="above"
           class="configure-button"
-          (click)="openLayerForm(layer, i)"
+          (click)="openTraitForm(trait, i)"
         ></i-feather>
       </div>
 
-      <div *ngIf="layer.expand" class="layer-details">
-        <app-layer-variant-item
-          *ngFor="let variant of layer.variants; let vi = index"
+      <div *ngIf="trait.expand" class="trait-details">
+        <app-trait-variant-item
+          *ngFor="let variant of trait.variants; let vi = index"
           [variant]="variant"
-          (variantChange)="onVariantChange($event, layer, vi)"
+          (variantChange)="onVariantChange($event, trait, vi)"
         >
-        </app-layer-variant-item>
-        <div class="add-variant-button" (click)="addNewVariant(layer)">
+        </app-trait-variant-item>
+        <div class="add-variant-button" (click)="addNewVariant(trait)">
           <mat-icon>add</mat-icon>
           Add Variant
         </div>

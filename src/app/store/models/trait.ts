@@ -1,12 +1,12 @@
-export interface Layer {
+export interface Trait {
   name: string;
   guarantee: number;
   expand?: boolean;
   hidden?: boolean;
-  variants: LayerVariant[];
+  variants: TraitVariant[];
 }
 
-export interface LayerVariant {
+export interface TraitVariant {
   name: string;
   src?: string;
 }

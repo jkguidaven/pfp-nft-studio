@@ -1,20 +1,19 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { EditLayerFormComponent } from './edit-layer-form.component';
+import { EditTraitFormComponent } from './edit-trait-form.component';
 
 describe('EditLayerFormComponent', () => {
-  let component: EditLayerFormComponent;
-  let fixture: ComponentFixture<EditLayerFormComponent>;
+  let component: EditTraitFormComponent;
+  let fixture: ComponentFixture<EditTraitFormComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ EditLayerFormComponent ]
-    })
-    .compileComponents();
+      declarations: [EditTraitFormComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(EditLayerFormComponent);
+    fixture = TestBed.createComponent(EditTraitFormComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

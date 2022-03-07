@@ -1,12 +1,12 @@
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { Layer, LayerVariant } from 'src/app/store/models/layer';
+import { Trait, TraitVariant } from 'src/app/store/models/trait';
 import { fade, slide } from '../../animations';
 import {
-  EditLayerFormComponent,
-  EditLayerFormResult,
-} from '../forms/edit-layer-form.component';
+  EditTraitFormComponent,
+  EditTraitFormResult,
+} from '../forms/edit-trait-form.component';
 
 @Component({
   selector: 'app-editor-side',
@@ -15,8 +15,8 @@ import {
   animations: [fade, slide],
 })
 export class SideComponent implements OnInit {
-  @ViewChild('layerInputField') layerInputField!: ElementRef;
-  layers: Layer[] = [
+  @ViewChild('traitInputField') traitInputField!: ElementRef;
+  traits: Trait[] = [
     {
       name: 'Head',
       guarantee: 100,
@@ -27,26 +27,26 @@ export class SideComponent implements OnInit {
 
   adding!: boolean;
 
-  newLayerName: string = '';
+  newTraitName: string = '';
 
   constructor(private dialog: MatDialog) {}
 
   ngOnInit(): void {}
 
-  toggleAddLayer(): void {
+  toggleAddTrait(): void {
     this.adding = !this.adding;
 
     if (this.adding) {
-      setTimeout(() => this.layerInputField.nativeElement.select(), 10);
+      setTimeout(() => this.traitInputField.nativeElement.select(), 10);
     } else {
-      this.newLayerName = '';
+      this.newTraitName = '';
     }
   }
 
-  addNewLayer(): void {
-    if (this.newLayerName) {
-      this.layers.unshift({
-        name: this.newLayerName,
+  addNewTrait(): void {
+    if (this.newTraitName) {
+      this.traits.unshift({
+        name: this.newTraitName,
         expand: false,
         guarantee: 100,
         hidden: false,
@@ -54,49 +54,49 @@ export class SideComponent implements OnInit {
       });
     }
 
-    this.toggleAddLayer();
+    this.toggleAddTrait();
   }
 
-  openLayerForm(data: Layer, index: number): void {
-    const dialogRef = this.dialog.open(EditLayerFormComponent, {
+  openTraitForm(data: Trait, index: number): void {
+    const dialogRef = this.dialog.open(EditTraitFormComponent, {
       panelClass: 'custom-mat-dialog-container',
       width: '500px',
       height: '500px',
       data,
     });
 
-    dialogRef.afterClosed().subscribe((result: EditLayerFormResult) => {
+    dialogRef.afterClosed().subscribe((result: EditTraitFormResult) => {
       if (result) {
         if (result.type === 'save' && result.data) {
-          this.layers[index] = {
-            ...this.layers[index],
+          this.traits[index] = {
+            ...this.traits[index],
             ...result.data,
           };
         } else if (result.type === 'remove') {
-          this.layers.splice(index, 1);
+          this.traits.splice(index, 1);
         }
       }
     });
   }
 
-  addNewVariant(layer: Layer): void {
-    layer.variants.push({
-      name: `Variant ${layer.variants.length + 1}`,
+  addNewVariant(trait: Trait): void {
+    trait.variants.push({
+      name: `Variant ${trait.variants.length + 1}`,
     });
   }
 
-  onVariantChange(variant: LayerVariant, layer: Layer, index: number): void {
-    layer.variants[index] = {
-      ...layer.variants[index],
+  onVariantChange(variant: TraitVariant, trait: Trait, index: number): void {
+    trait.variants[index] = {
+      ...trait.variants[index],
       ...variant,
     };
   }
 
   positionChange(event: CdkDragDrop<any[]>): void {
-    moveItemInArray(this.layers, event.previousIndex, event.currentIndex);
+    moveItemInArray(this.traits, event.previousIndex, event.currentIndex);
   }
 
-  addVariantFromFileList(layer: Layer, files: FileList): void {
+  addVariantFromFileList(trait: Trait, files: FileList): void {
     for (let i = 0; i < files.length; i++) {
       const file: File = files[i];
 
@@ -104,7 +104,7 @@ export class SideComponent implements OnInit {
         const reader = new FileReader();
         reader.readAsDataURL(file);
         reader.onload = () => {
-          layer.variants.push({
+          trait.variants.push({
             name: file.name,
             src: reader.result as string,
           });

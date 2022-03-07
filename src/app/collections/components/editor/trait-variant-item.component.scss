@@ -8,7 +8,7 @@
   $is-dark-theme: map.get($color-config, "is-dark");
   $accent-color: mat.get-color-from-palette($accent, 400);
 
-  .layer-variant-item {
+  .trait-variant-item {
     box-sizing: border-box;
     padding: 2px;
     display: flex;
