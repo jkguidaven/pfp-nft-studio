@@ -61,7 +61,7 @@ export class SideComponent implements OnInit {
     const dialogRef = this.dialog.open(EditTraitFormComponent, {
       panelClass: 'custom-mat-dialog-container',
       width: '500px',
-      height: '500px',
+      height: '400px',
       data,
     });
 
