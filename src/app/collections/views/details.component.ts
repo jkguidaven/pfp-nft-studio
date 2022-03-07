@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { finalize } from 'rxjs';
+import { triggerLoadTraits } from 'src/app/store/actions/traits.action';
 import { Collection } from 'src/app/store/models/collection';
 import { State as AppState } from 'src/app/store/reducers';
 import { CollectionService } from 'src/app/store/services/collection.service';
@@ -37,6 +38,7 @@ export class DetailsComponent implements OnInit {
 
   ngOnInit(): void {
     const id = Number(this.route.snapshot.params['id']);
+    this.store.dispatch(triggerLoadTraits({ collectionId: id }));
 
     this.collectionService
       .get(id)

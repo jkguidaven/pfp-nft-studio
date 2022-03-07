@@ -7,10 +7,10 @@ import {
   triggerAddCollection,
   triggerLoadCollections,
   triggerRemoveCollection,
-} from 'src/app/store/actions/collections.action';
+} from 'src/app/store/actions/collection.action';
 import { Collection } from 'src/app/store/models/collection';
 import { State as AppState } from 'src/app/store/reducers';
-import { selectCollectionsList } from 'src/app/store/selectors/collections.selector';
+import { selectCollectionsList } from 'src/app/store/selectors/collection.selector';
 import { fade, expand } from '../animations';
 import { CreateCollectionFormComponent } from '../components/forms/create-collection-form.component';
 
