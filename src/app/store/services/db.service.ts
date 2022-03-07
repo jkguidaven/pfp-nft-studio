@@ -7,6 +7,7 @@ const DB_NAME = 'localDB';
 
 export const STORES = {
   COLLECTION: 'collection_store',
+  TRAIT: 'trait_store',
 };
 
 @Injectable({

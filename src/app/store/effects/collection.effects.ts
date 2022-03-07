@@ -6,7 +6,7 @@ import { Collection } from '../models/collection';
 import { CollectionService } from '../services/collection.service';
 
 @Injectable()
-export class CollectionsEffect {
+export class CollectionEffects {
   constructor(
     private action$: Actions,
     private collectionService: CollectionService

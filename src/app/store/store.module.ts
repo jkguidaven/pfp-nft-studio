@@ -8,7 +8,8 @@ import { StoreModule as NgRxStoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { LocalStorageEffects } from './effects/local-storage.effects';
 import { HttpClientModule } from '@angular/common/http';
-import { CollectionsEffect } from './effects/collections.effects';
+import { CollectionEffects } from './effects/collection.effects';
+import { TraitEffects } from './effects/trait.effects';
 
 @NgModule({
   declarations: [],
@@ -20,7 +21,11 @@ import { CollectionsEffect } from './effects/collections.effects';
       logOnly: environment.production,
     }),
     NgRxStoreModule.forRoot(reducers, { metaReducers }),
-    EffectsModule.forRoot([LocalStorageEffects, CollectionsEffect]),
+    EffectsModule.forRoot([
+      LocalStorageEffects,
+      CollectionEffects,
+      TraitEffects,
+    ]),
   ],
 })
 export class StoreModule {}
