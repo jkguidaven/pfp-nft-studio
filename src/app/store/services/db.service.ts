@@ -10,6 +10,11 @@ export const STORES = {
   TRAIT: 'trait_store',
 };
 
+const STORE_CONFIG = {
+  [STORES.COLLECTION]: { autoIncrement: true },
+  [STORES.TRAIT]: { keyPath: 'id' },
+};
+
 @Injectable({
   providedIn: 'root',
 })
@@ -21,7 +26,7 @@ export class DBService {
     this.db = await openDB(DB_NAME, DB_VERSION, {
       upgrade(db) {
         for (let store of Object.values(STORES)) {
-          db.createObjectStore(store, { autoIncrement: true });
+          db.createObjectStore(store, STORE_CONFIG[store]);
         }
       },
     });

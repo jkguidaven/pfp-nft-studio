@@ -3,6 +3,12 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
+import {
+  addTrait,
+  moveTrait,
+  removeTrait,
+  updateTrait,
+} from 'src/app/store/actions/trait.action';
 import { Trait, TraitVariant } from 'src/app/store/models/trait';
 import { State as AppState } from 'src/app/store/reducers';
 import { selectTraits } from 'src/app/store/selectors/trait.selector';
@@ -44,13 +50,17 @@ export class SideComponent implements OnInit {
 
   addNewTrait(): void {
     if (this.newTraitName) {
-      // this.traits.unshift({
-      //   name: this.newTraitName,
-      //   expand: false,
-      //   guarantee: 100,
-      //   hidden: false,
-      //   variants: [],
-      // });
+      this.store.dispatch(
+        addTrait({
+          trait: {
+            name: this.newTraitName,
+            expand: false,
+            guarantee: 100,
+            hidden: false,
+            variants: [],
+          },
+        })
+      );
     }
 
     this.toggleAddTrait();
@@ -67,12 +77,21 @@ export class SideComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result: EditTraitFormResult) => {
       if (result) {
         if (result.type === 'save' && result.data) {
-          // this.traits[index] = {
-          //   ...this.traits[index],
-          //   ...result.data,
-          // };
+          this.store.dispatch(
+            updateTrait({
+              index,
+              trait: {
+                ...data,
+                ...result.data,
+              },
+            })
+          );
         } else if (result.type === 'remove') {
-          // this.traits.splice(index, 1);
+          this.store.dispatch(
+            removeTrait({
+              index,
+            })
+          );
         }
       }
     });
@@ -92,7 +111,12 @@ export class SideComponent implements OnInit {
   }
 
   positionChange(event: CdkDragDrop<any[]>): void {
-    // moveItemInArray(this.traits, event.previousIndex, event.currentIndex);
+    this.store.dispatch(
+      moveTrait({
+        fromIndex: event.previousIndex,
+        toIndex: event.currentIndex,
+      })
+    );
   }
 
   addVariantFromFileList(trait: Trait, files: FileList): void {

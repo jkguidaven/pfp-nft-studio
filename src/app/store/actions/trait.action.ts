@@ -15,3 +15,18 @@ export const addTrait = createAction(
   '[Traits] add trait.',
   props<{ trait: Trait }>()
 );
+
+export const removeTrait = createAction(
+  '[Traits] remove trait.',
+  props<{ index: number }>()
+);
+
+export const updateTrait = createAction(
+  '[Traits] update trait.',
+  props<{ index: number; trait: Trait }>()
+);
+
+export const moveTrait = createAction(
+  '[Traits] update trait.',
+  props<{ fromIndex: number; toIndex: number }>()
+);
