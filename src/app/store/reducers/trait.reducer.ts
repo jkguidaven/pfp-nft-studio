@@ -1,22 +1,22 @@
 import { createReducer, on } from '@ngrx/store';
 import { Trait } from '../models/trait';
-import * as TraitsActions from '../actions/traits.action';
+import * as TraitActions from '../actions/trait.action';
 
-export const traitsFeatureKey = 'traits';
+export const traitFeatureKey = 'traits';
 
-export interface TraitsState {
+export interface TraitState {
   traits?: Trait[];
   error?: string;
 }
 
-export const initialState: TraitsState = {
+export const initialState: TraitState = {
   traits: undefined,
 };
 
 export const reducer = createReducer(
   initialState,
 
-  on(TraitsActions.loadTraits, (state, { traits }) => ({
+  on(TraitActions.loadTraits, (state, { traits }) => ({
     ...state,
     traits,
   }))
