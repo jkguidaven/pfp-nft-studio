@@ -20,7 +20,7 @@ export const reducer = createReducer(
   on(CollectionActions.loadCollections, (state, { collections }) => {
     return {
       ...state,
-      collections,
+      list: collections,
     };
   }),
 
