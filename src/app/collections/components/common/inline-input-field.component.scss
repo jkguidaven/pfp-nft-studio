@@ -10,6 +10,9 @@
   $font-family: mat.font-family($typography-config);
 
   .inline-input-field {
+    overflow: hidden;
+    text-overflow: ellipsis;
+
     input {
       background-color: transparent;
       text-decoration: underline;

@@ -15,7 +15,7 @@
   <div class="add-layer-field-container" *ngIf="adding" @slide>
     <input
       placeholder="Name"
-      [(ngModel)]="layerName"
+      [(ngModel)]="newLayerName"
       (keydown.enter)="addNewLayer()"
       (keydown.escape)="toggleAddLayer()"
       #layerInputField
@@ -27,7 +27,13 @@
     cdkDropList
     (cdkDropListDropped)="positionChange($event)"
   >
-    <div class="layer" *ngFor="let layer of layers; let i = index" cdkDrag>
+    <div
+      class="layer"
+      *ngFor="let layer of layers; let i = index"
+      cdkDrag
+      appDnd
+      (fileDropped)="addVariantFromFileList(layer, $event)"
+    >
       <div class="layer-header">
         <i-feather
           [matTooltip]="layer.expand ? 'collapse' : 'expand'"

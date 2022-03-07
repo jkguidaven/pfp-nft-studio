@@ -41,6 +41,7 @@ import { ItemsComponent } from './views/items.component';
 import { InlineInputFieldComponent } from './components/common/inline-input-field.component';
 import { EditLayerFormComponent } from './components/forms/edit-layer-form.component';
 import { LayerVariantItemComponent } from './components/editor/layer-variant-item.component';
+import { DndDirective } from './directives/common/dnd.directive';
 
 @NgModule({
   declarations: [
@@ -64,6 +65,7 @@ import { LayerVariantItemComponent } from './components/editor/layer-variant-ite
     InlineInputFieldComponent,
     EditLayerFormComponent,
     LayerVariantItemComponent,
+    DndDirective,
   ],
   imports: [
     CommonModule,

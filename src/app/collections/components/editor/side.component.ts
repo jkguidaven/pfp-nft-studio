@@ -27,7 +27,7 @@ export class SideComponent implements OnInit {
 
   adding!: boolean;
 
-  layerName: string = '';
+  newLayerName: string = '';
 
   constructor(private dialog: MatDialog) {}
 
@@ -39,14 +39,14 @@ export class SideComponent implements OnInit {
     if (this.adding) {
       setTimeout(() => this.layerInputField.nativeElement.select(), 10);
     } else {
-      this.layerName = '';
+      this.newLayerName = '';
     }
   }
 
   addNewLayer(): void {
-    if (this.layerName) {
+    if (this.newLayerName) {
       this.layers.unshift({
-        name: this.layerName,
+        name: this.newLayerName,
         expand: false,
         guarantee: 100,
         hidden: false,
@@ -94,5 +94,22 @@ export class SideComponent implements OnInit {
 
   positionChange(event: CdkDragDrop<any[]>): void {
     moveItemInArray(this.layers, event.previousIndex, event.currentIndex);
+  }
+
+  addVariantFromFileList(layer: Layer, files: FileList): void {
+    for (let i = 0; i < files.length; i++) {
+      const file: File = files[i];
+
+      if (file.type.startsWith('image/')) {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => {
+          layer.variants.push({
+            name: file.name,
+            src: reader.result as string,
+          });
+        };
+      }
+    }
   }
 }

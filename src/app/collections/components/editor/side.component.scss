@@ -132,6 +132,11 @@
           }
         }
 
+        &.fileover {
+          background-color: limegreen;
+          color: white;
+        }
+
         .layer-header {
           padding: calc(var(--spacing) / 4);
           display: flex;

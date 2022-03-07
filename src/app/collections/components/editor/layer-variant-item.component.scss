@@ -38,6 +38,14 @@
       background-position: center center;
       cursor: pointer;
     }
+
+    app-inline-input-field {
+      width: 200px;
+
+      input {
+        width: 200px;
+      }
+    }
   }
 
   .file-input {
