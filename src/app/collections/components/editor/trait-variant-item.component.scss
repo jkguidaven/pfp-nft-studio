@@ -10,9 +10,8 @@
 
   .trait-variant-item {
     box-sizing: border-box;
-    padding: 2px;
     display: flex;
-    padding: calc(var(--spacing) / 4);
+    margin: calc(var(--spacing) / 4);
 
     i-feather {
       display: none;
@@ -22,39 +21,30 @@
 
     &:hover {
       background-color: rgba($accent-color, 0.2);
-      i-feather {
-        display: block;
-      }
-    }
-
-    &.selected {
-      background-color: rgba(limegreen, 0.5);
-      i-feather {
-        display: block;
-      }
     }
 
     .src-container {
-      width: 20px;
-      height: 20px;
+      min-width: 50px;
+      min-height: 50px;
+      border-radius: 10px;
+      background-color: rgba(white, 0.5);
+      box-sizing: border-box;
+
       @if $is-dark-theme {
         border: 1px solid rgba($accent-color, 0.1);
       } @else {
         border: 1px solid rgba($accent-color, 0.8);
       }
       border-radius: 5px;
-      margin-right: 10px;
       background-size: 100% auto;
       background-repeat: no-repeat;
       background-position: center center;
       cursor: pointer;
     }
 
-    app-inline-input-field {
-      width: 200px;
-
-      input {
-        width: 200px;
+    &.selected {
+      .src-container {
+        border: 2px solid rgba(limegreen, 0.5);
       }
     }
   }

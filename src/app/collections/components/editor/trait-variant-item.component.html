@@ -2,18 +2,14 @@
   class="trait-variant-item"
   [ngClass]="{ selected }"
   (click)="select.emit()"
+  [matTooltip]="name"
+  matTooltipClass="variant-tooltip"
+  matTooltipPosition="below"
 >
   <div
     class="src-container"
-    (click)="photoSelector.click()"
     [ngStyle]="{ 'background-image': backgroundImageURL() }"
   ></div>
-
-  <app-inline-input-field [(value)]="name"></app-inline-input-field>
-
-  <span class="spacer"></span>
-
-  <i-feather name="minus" (click)="delete.emit()"></i-feather>
 
   <input
     type="file"

@@ -58,7 +58,7 @@ export class SideComponent implements OnInit {
         addTrait({
           trait: {
             name: this.newTraitName,
-            expand: false,
+            expand: true,
             guarantee: 100,
             hidden: false,
             variants: [],
@@ -107,10 +107,10 @@ export class SideComponent implements OnInit {
     this.updateTrait(index, {
       ...trait,
       variants: [
-        ...trait.variants,
         {
           name: `Variant ${trait.variants.length + 1}`,
         },
+        ...trait.variants,
       ],
     });
   }
@@ -134,7 +134,7 @@ export class SideComponent implements OnInit {
 
     this.updateTrait(index, {
       ...trait,
-      variants: [...trait.variants, ...variants],
+      variants: [...variants, ...trait.variants],
     });
   }
 
@@ -167,11 +167,6 @@ export class SideComponent implements OnInit {
     trait: Trait,
     variantIndex: number
   ): void {
-    console.log({
-      ...trait,
-      selectedVariant:
-        trait.selectedVariant === variantIndex ? undefined : variantIndex,
-    });
     this.updateTrait(traitIndex, {
       ...trait,
       selectedVariant:
