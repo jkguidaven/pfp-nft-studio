@@ -162,6 +162,23 @@ export class SideComponent implements OnInit {
     });
   }
 
+  onVariantSelected(
+    traitIndex: number,
+    trait: Trait,
+    variantIndex: number
+  ): void {
+    console.log({
+      ...trait,
+      selectedVariant:
+        trait.selectedVariant === variantIndex ? undefined : variantIndex,
+    });
+    this.updateTrait(traitIndex, {
+      ...trait,
+      selectedVariant:
+        trait.selectedVariant === variantIndex ? undefined : variantIndex,
+    });
+  }
+
   onDeleteVariant(
     traitIndex: number,
     trait: Trait,

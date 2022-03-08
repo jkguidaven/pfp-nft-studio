@@ -12,6 +12,7 @@
     box-sizing: border-box;
     padding: 2px;
     display: flex;
+    padding: calc(var(--spacing) / 4);
 
     i-feather {
       display: none;
@@ -19,8 +20,18 @@
       height: 18px;
     }
 
-    &:hover i-feather {
-      display: block;
+    &:hover {
+      background-color: rgba($accent-color, 0.2);
+      i-feather {
+        display: block;
+      }
+    }
+
+    &.selected {
+      background-color: rgba(limegreen, 0.5);
+      i-feather {
+        display: block;
+      }
     }
 
     .src-container {

@@ -1,4 +1,8 @@
-<div class="trait-variant-item">
+<div
+  class="trait-variant-item"
+  [ngClass]="{ selected }"
+  (click)="select.emit()"
+>
   <div
     class="src-container"
     (click)="photoSelector.click()"
