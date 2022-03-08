@@ -3,7 +3,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 @Component({
   selector: 'app-cover-photo-selector',
   templateUrl: './cover-photo-selector.component.html',
-  styleUrls: ['./cover-photo-selector.component.scss'],
+  styleUrls: [],
 })
 export class CoverPhotoSelectorComponent implements OnInit {
   @Input() model!: string | undefined;

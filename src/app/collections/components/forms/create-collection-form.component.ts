@@ -6,7 +6,7 @@ import { Collection } from 'src/app/store/models/collection';
 @Component({
   selector: 'app-create-collection-form',
   templateUrl: './create-collection-form.component.html',
-  styleUrls: ['./create-collection-form.component.scss'],
+  styleUrls: [],
 })
 export class CreateCollectionFormComponent implements OnInit {
   coverPhoto!: string;

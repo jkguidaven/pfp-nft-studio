@@ -12,7 +12,7 @@ import {
 @Component({
   selector: 'app-inline-input-field',
   templateUrl: './inline-input-field.component.html',
-  styleUrls: ['./inline-input-field.component.scss'],
+  styleUrls: [],
 })
 export class InlineInputFieldComponent implements OnInit {
   @Input() value!: string;

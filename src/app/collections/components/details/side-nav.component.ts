@@ -9,7 +9,7 @@ export interface SideNavMenuItem {
 @Component({
   selector: 'app-side-nav',
   templateUrl: './side-nav.component.html',
-  styleUrls: ['./side-nav.component.scss'],
+  styleUrls: [],
 })
 export class SideNavComponent implements OnInit {
   @Input() menuItems!: SideNavMenuItem[];

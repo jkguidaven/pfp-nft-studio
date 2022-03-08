@@ -17,7 +17,7 @@ import { fade } from '../../animations';
 @Component({
   selector: 'app-collection-header',
   templateUrl: './collection-header.component.html',
-  styleUrls: ['./collection-header.component.scss'],
+  styleUrls: [],
   animations: [fade],
 })
 export class CollectionHeaderComponent implements OnInit, OnDestroy {

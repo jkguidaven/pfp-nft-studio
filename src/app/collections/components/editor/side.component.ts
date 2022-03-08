@@ -23,7 +23,7 @@ import {
 @Component({
   selector: 'app-editor-side',
   templateUrl: './side.component.html',
-  styleUrls: ['./side.component.scss'],
+  styleUrls: [],
   animations: [fade, slide],
 })
 export class SideComponent implements OnInit {

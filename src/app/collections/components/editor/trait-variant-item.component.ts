@@ -4,7 +4,7 @@ import { TraitVariant } from 'src/app/store/models/trait';
 @Component({
   selector: 'app-trait-variant-item',
   templateUrl: './trait-variant-item.component.html',
-  styleUrls: ['./trait-variant-item.component.scss'],
+  styleUrls: [],
 })
 export class TraitVariantItemComponent implements OnInit {
   @Input() variant!: TraitVariant;

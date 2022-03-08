@@ -13,7 +13,7 @@ import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 @Component({
   selector: 'app-collection-card',
   templateUrl: './collection-card.component.html',
-  styleUrls: ['./collection-card.component.scss'],
+  styleUrls: [],
 })
 export class CollectionCardComponent implements OnInit {
   @Input() thumbnail!: string | undefined;
