@@ -43,5 +43,5 @@ export const updateCollection = createAction(
 
 export const setCurrentCollection = createAction(
   '[Collection] set current collection.',
-  props<{ id: number }>()
+  props<{ id: number | undefined }>()
 );

@@ -3,7 +3,7 @@ import { Trait } from '../models/trait';
 
 export const loadTraits = createAction(
   '[Traits] load traits.',
-  props<{ traits: Trait[] }>()
+  props<{ traits: Trait[] | undefined }>()
 );
 
 export const triggerLoadTraits = createAction(

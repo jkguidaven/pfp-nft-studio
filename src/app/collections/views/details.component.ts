@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
@@ -13,7 +13,7 @@ import { SideNavMenuItem } from '../components/details/side-nav.component';
   templateUrl: './details.component.html',
   styleUrls: ['./details.component.scss'],
 })
-export class DetailsComponent implements OnInit {
+export class DetailsComponent implements OnInit, OnDestroy {
   collection$!: Observable<Collection | undefined>;
   loading!: boolean;
 
@@ -36,5 +36,9 @@ export class DetailsComponent implements OnInit {
     this.collection$ = this.store.select(selectCurrentCollection);
     const id = Number(this.route.snapshot.params['id']);
     this.store.dispatch(setCurrentCollection({ id }));
+  }
+
+  ngOnDestroy(): void {
+    this.store.dispatch(setCurrentCollection({ id: undefined }));
   }
 }

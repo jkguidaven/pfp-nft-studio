@@ -4,7 +4,7 @@
     <span>Traits</span>
     <div class="spacer"></div>
     <mat-icon
-      *ngIf="traits | async"
+      *ngIf="(traits$ | async) && (collection$ | async)"
       matTooltip="Add"
       matTooltipClass="trait-tooltip"
       matTooltipPosition="above"
@@ -24,13 +24,14 @@
   </div>
 
   <div
+    *ngIf="(traits$ | async) && (collection$ | async)"
     class="trait-list"
     cdkDropList
     (cdkDropListDropped)="positionChange($event)"
   >
     <div
       class="trait"
-      *ngFor="let trait of traits | async; let i = index"
+      *ngFor="let trait of traits$ | async; let i = index"
       cdkDrag
       appDnd
       (fileDropped)="addVariantFromFileList(i, trait, $event)"

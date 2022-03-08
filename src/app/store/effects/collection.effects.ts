@@ -71,9 +71,11 @@ export class CollectionEffects {
   setCurrentCollection$ = createEffect(() =>
     this.action$.pipe(
       ofType(collectionsActions.setCurrentCollection),
-      switchMap(({ id }: { id: number }) => [
+      switchMap(({ id }: { id: number | undefined }) => [
         collectionsActions.triggerLoadCollections(),
-        traitActions.triggerLoadTraits({ collectionId: id }),
+        id === undefined
+          ? traitActions.loadTraits({ traits: undefined })
+          : traitActions.triggerLoadTraits({ collectionId: id }),
       ])
     )
   );

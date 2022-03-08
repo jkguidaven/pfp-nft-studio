@@ -9,8 +9,10 @@ import {
   removeTrait,
   updateTrait,
 } from 'src/app/store/actions/trait.action';
+import { Collection } from 'src/app/store/models/collection';
 import { Trait, TraitVariant } from 'src/app/store/models/trait';
 import { State as AppState } from 'src/app/store/reducers';
+import { selectCurrentCollection } from 'src/app/store/selectors/collection.selector';
 import { selectTraits } from 'src/app/store/selectors/trait.selector';
 import { fade, slide } from '../../animations';
 import {
@@ -26,7 +28,8 @@ import {
 })
 export class SideComponent implements OnInit {
   @ViewChild('traitInputField') traitInputField!: ElementRef;
-  traits!: Observable<Trait[] | undefined>;
+  traits$!: Observable<Trait[] | undefined>;
+  collection$!: Observable<Collection | undefined>;
 
   adding!: boolean;
 
@@ -35,7 +38,8 @@ export class SideComponent implements OnInit {
   constructor(private dialog: MatDialog, private store: Store<AppState>) {}
 
   ngOnInit(): void {
-    this.traits = this.store.select(selectTraits);
+    this.traits$ = this.store.select(selectTraits);
+    this.collection$ = this.store.select(selectCurrentCollection);
   }
 
   toggleAddTrait(): void {
