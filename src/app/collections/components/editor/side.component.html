@@ -81,7 +81,7 @@
   <ng-template #loadingTraits>
     <div class="trait-list loader">
       <app-trait-item-loader
-        *ngFor="let i of [].constructor(10)"
+        *ngFor="let i of [].constructor((traits$ | async)?.length ?? 1)"
       ></app-trait-item-loader>
     </div>
   </ng-template>
