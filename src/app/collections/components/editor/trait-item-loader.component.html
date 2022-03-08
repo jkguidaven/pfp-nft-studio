@@ -1,0 +1,52 @@
+<div class="trait-loader" @fade>
+  <ngx-skeleton-loader
+    animation="pulse"
+    [theme]="{
+      height: '20px',
+      width: '270px',
+      backgroundColor: this.backgroundColor
+    }"
+  ></ngx-skeleton-loader>
+
+  <div class="variant-loader">
+    <ngx-skeleton-loader
+      animation="pulse"
+      [theme]="{
+        height: '18px',
+        width: '18px',
+        backgroundColor: this.backgroundColor
+      }"
+    ></ngx-skeleton-loader>
+
+    <ngx-skeleton-loader
+      animation="pulse"
+      [theme]="{
+        height: '18px',
+        width: '230px',
+        marginLeft: '10px',
+        backgroundColor: this.backgroundColor
+      }"
+    ></ngx-skeleton-loader>
+  </div>
+
+  <div class="variant-loader">
+    <ngx-skeleton-loader
+      animation="pulse"
+      [theme]="{
+        height: '18px',
+        width: '18px',
+        backgroundColor: this.backgroundColor
+      }"
+    ></ngx-skeleton-loader>
+
+    <ngx-skeleton-loader
+      animation="pulse"
+      [theme]="{
+        height: '18px',
+        width: '200px',
+        marginLeft: '10px',
+        backgroundColor: this.backgroundColor
+      }"
+    ></ngx-skeleton-loader>
+  </div>
+</div>

@@ -84,6 +84,11 @@
       width: 100%;
       overflow: auto;
 
+      &.loader {
+        overflow: hidden;
+        padding: calc(var(--spacing) / 3);
+      }
+
       .trait {
         display: flex;
         flex-direction: column;

@@ -42,6 +42,7 @@ import { InlineInputFieldComponent } from './components/common/inline-input-fiel
 import { EditTraitFormComponent } from './components/forms/edit-trait-form.component';
 import { TraitVariantItemComponent } from './components/editor/trait-variant-item.component';
 import { DndDirective } from './directives/common/dnd.directive';
+import { TraitItemLoaderComponent } from './components/editor/trait-item-loader.component';
 
 @NgModule({
   declarations: [
@@ -66,6 +67,7 @@ import { DndDirective } from './directives/common/dnd.directive';
     EditTraitFormComponent,
     TraitVariantItemComponent,
     DndDirective,
+    TraitItemLoaderComponent,
   ],
   imports: [
     CommonModule,

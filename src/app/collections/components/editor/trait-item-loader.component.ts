@@ -1,33 +1,21 @@
-import {
-  Component,
-  EventEmitter,
-  Input,
-  OnDestroy,
-  OnInit,
-  Output,
-} from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
-import { Collection } from 'src/app/store/models/collection';
 import { State as AppState } from 'src/app/store/reducers';
 import { selectThemeDarkMode } from 'src/app/store/selectors/theme.selector';
 import { fade } from '../../animations';
 
 @Component({
-  selector: 'app-collection-header',
-  templateUrl: './collection-header.component.html',
-  styleUrls: ['./collection-header.component.scss'],
+  selector: 'app-trait-item-loader',
+  templateUrl: './trait-item-loader.component.html',
+  styleUrls: ['./trait-item-loader.component.scss'],
   animations: [fade],
 })
-export class CollectionHeaderComponent implements OnInit, OnDestroy {
-  @Input() collection?: Collection | null;
-  @Output() back: EventEmitter<void> = new EventEmitter<any>();
-
+export class TraitItemLoaderComponent implements OnInit {
   backgroundColor!: string;
   themeColorListener!: Subscription;
 
-  constructor(public router: Router, private store: Store<AppState>) {}
+  constructor(private store: Store<AppState>) {}
 
   ngOnInit(): void {
     this.themeColorListener = this.store

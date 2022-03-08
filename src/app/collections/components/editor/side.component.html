@@ -24,7 +24,7 @@
   </div>
 
   <div
-    *ngIf="(traits$ | async) && (collection$ | async)"
+    *ngIf="(traits$ | async) && (collection$ | async); else loadingTraits"
     class="trait-list"
     cdkDropList
     (cdkDropListDropped)="positionChange($event)"
@@ -77,4 +77,12 @@
       </div>
     </div>
   </div>
+
+  <ng-template #loadingTraits>
+    <div class="trait-list loader">
+      <app-trait-item-loader
+        *ngFor="let i of [].constructor(10)"
+      ></app-trait-item-loader>
+    </div>
+  </ng-template>
 </div>

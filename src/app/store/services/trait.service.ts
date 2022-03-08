@@ -11,7 +11,8 @@ export class TraitService {
 
   getAll(key: number): Observable<Trait[]> {
     return from(this.dbService.getFromStore(STORES.TRAIT, key)).pipe(
-      map((result) => (result ? result.traits : []))
+      map((result) => (result ? result.traits : [])),
+      delay(300)
     );
   }
 
