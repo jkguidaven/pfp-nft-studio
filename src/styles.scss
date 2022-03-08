@@ -129,6 +129,26 @@ $pfp-studio-dark-theme: mat.define-dark-theme(
 @include collection_editor_side.theme($pfp-studio-light-theme);
 @include collection_editor_trait_variant_item.theme($pfp-studio-light-theme);
 
+/* width */
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: rgb(214, 214, 214);
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: rgb(189, 189, 189);
+}
+
 .dark-mode {
   @include mat.all-component-colors($pfp-studio-dark-theme);
   @include collection_card.theme($pfp-studio-dark-theme);
@@ -139,6 +159,21 @@ $pfp-studio-dark-theme: mat.define-dark-theme(
   @include collection_side_nav.theme($pfp-studio-dark-theme);
   @include collection_editor_side.theme($pfp-studio-dark-theme);
   @include collection_editor_trait_variant_item.theme($pfp-studio-dark-theme);
+
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #525252;
+  }
+
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: rgb(49, 49, 49);
+  }
+
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgb(36, 36, 36);
+  }
 }
 /* You can add global styles to this file, and also import other style files */
 
