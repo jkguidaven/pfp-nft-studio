@@ -103,12 +103,13 @@ export class SideComponent implements OnInit {
     });
   }
 
-  addNewVariant(index: number, trait: Trait): void {
+  addNewVariant(index: number, trait: Trait, src: string): void {
     this.updateTrait(index, {
       ...trait,
       variants: [
         {
           name: `Variant ${trait.variants.length + 1}`,
+          src,
         },
         ...trait.variants,
       ],

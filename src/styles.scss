@@ -17,6 +17,8 @@
   collection_editor_side;
 @use "./app/collections/components/editor/trait-variant-item.component.scss" as
   collection_editor_trait_variant_item;
+@use "./app/collections/components/editor/add-trait-variant-button.component.scss"
+  as collection_editor_add_trait_variant_button;
 @use "./app/collections/components/forms/create-collection-form.component.scss"
   as create_collection_form;
 
@@ -128,6 +130,9 @@ $pfp-studio-dark-theme: mat.define-dark-theme(
 @include collection_side_nav.theme($pfp-studio-light-theme);
 @include collection_editor_side.theme($pfp-studio-light-theme);
 @include collection_editor_trait_variant_item.theme($pfp-studio-light-theme);
+@include collection_editor_add_trait_variant_button.theme(
+  $pfp-studio-light-theme
+);
 
 /* width */
 ::-webkit-scrollbar {
@@ -160,6 +165,9 @@ $pfp-studio-dark-theme: mat.define-dark-theme(
   @include collection_side_nav.theme($pfp-studio-dark-theme);
   @include collection_editor_side.theme($pfp-studio-dark-theme);
   @include collection_editor_trait_variant_item.theme($pfp-studio-dark-theme);
+  @include collection_editor_add_trait_variant_button.theme(
+    $pfp-studio-dark-theme
+  );
 
   /* Track */
   ::-webkit-scrollbar-track {

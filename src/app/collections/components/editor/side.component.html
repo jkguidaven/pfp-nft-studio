@@ -63,15 +63,8 @@
       </div>
 
       <div *ngIf="trait.expand" class="trait-details">
-        <div
-          class="add-variant-button"
-          (click)="addNewVariant(i, trait)"
-          matTooltip="Add Variant"
-          matTooltipClass="variant-tooltip"
-          matTooltipPosition="below"
-        >
-          <i-feather name="plus"></i-feather>
-        </div>
+        <app-add-trait-variant-button (add)="addNewVariant(i, trait, $event)">
+        </app-add-trait-variant-button>
 
         <app-trait-variant-item
           *ngFor="let variant of trait.variants; let vi = index"

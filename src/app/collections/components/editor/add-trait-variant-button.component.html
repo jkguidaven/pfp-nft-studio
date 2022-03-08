@@ -1,0 +1,17 @@
+<div
+  class="add-trait-variant-button"
+  (click)="photoSelector.click()"
+  matTooltip="Add Variant"
+  matTooltipClass="variant-tooltip"
+  matTooltipPosition="below"
+>
+  <i-feather name="plus"></i-feather>
+
+  <input
+    type="file"
+    class="file-input"
+    (change)="onPhotoSelected($event)"
+    accept="image/*"
+    #photoSelector
+  />
+</div>

@@ -43,6 +43,7 @@ import { EditTraitFormComponent } from './components/forms/edit-trait-form.compo
 import { TraitVariantItemComponent } from './components/editor/trait-variant-item.component';
 import { DndDirective } from './directives/common/dnd.directive';
 import { TraitItemLoaderComponent } from './components/editor/trait-item-loader.component';
+import { AddTraitVariantButtonComponent } from './components/editor/add-trait-variant-button.component';
 
 @NgModule({
   declarations: [
@@ -68,6 +69,7 @@ import { TraitItemLoaderComponent } from './components/editor/trait-item-loader.
     TraitVariantItemComponent,
     DndDirective,
     TraitItemLoaderComponent,
+    AddTraitVariantButtonComponent,
   ],
   imports: [
     CommonModule,
