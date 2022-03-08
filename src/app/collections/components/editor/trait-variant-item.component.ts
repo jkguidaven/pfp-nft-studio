@@ -10,6 +10,7 @@ export class TraitVariantItemComponent implements OnInit {
   @Input() variant!: TraitVariant;
   @Output() variantChange: EventEmitter<TraitVariant> =
     new EventEmitter<TraitVariant>();
+  @Output() delete: EventEmitter<void> = new EventEmitter<void>();
 
   constructor() {}
 
@@ -32,5 +33,16 @@ export class TraitVariantItemComponent implements OnInit {
 
   backgroundImageURL(): string {
     return `url(${this.variant.src})`;
+  }
+
+  get name(): string {
+    return this.variant.name;
+  }
+
+  set name(value: string) {
+    this.variantChange.emit({
+      ...this.variant,
+      name: value,
+    });
   }
 }

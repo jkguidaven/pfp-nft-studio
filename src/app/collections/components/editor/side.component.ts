@@ -148,6 +148,31 @@ export class SideComponent implements OnInit {
     });
   }
 
+  onVariantChange(
+    traitIndex: number,
+    variant: TraitVariant,
+    trait: Trait,
+    variantIndex: number
+  ): void {
+    this.updateTrait(traitIndex, {
+      ...trait,
+      variants: trait.variants.map((value, i) =>
+        i === variantIndex ? { ...value, ...variant } : value
+      ),
+    });
+  }
+
+  onDeleteVariant(
+    traitIndex: number,
+    trait: Trait,
+    variantIndex: number
+  ): void {
+    this.updateTrait(traitIndex, {
+      ...trait,
+      variants: trait.variants.filter((_, i) => i !== variantIndex),
+    });
+  }
+
   updateTrait(index: number, trait: Trait): void {
     this.store.dispatch(
       updateTrait({
@@ -155,13 +180,6 @@ export class SideComponent implements OnInit {
         trait,
       })
     );
-  }
-
-  onVariantChange(variant: TraitVariant, trait: Trait, index: number): void {
-    trait.variants[index] = {
-      ...trait.variants[index],
-      ...variant,
-    };
   }
 
   positionChange(event: CdkDragDrop<any[]>): void {

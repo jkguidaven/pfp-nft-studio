@@ -66,7 +66,8 @@
         <app-trait-variant-item
           *ngFor="let variant of trait.variants; let vi = index"
           [variant]="variant"
-          (variantChange)="onVariantChange($event, trait, vi)"
+          (variantChange)="onVariantChange(i, $event, trait, vi)"
+          (delete)="onDeleteVariant(i, trait, vi)"
         >
         </app-trait-variant-item>
 

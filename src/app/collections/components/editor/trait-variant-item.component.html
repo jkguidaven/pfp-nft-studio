@@ -5,11 +5,11 @@
     [ngStyle]="{ 'background-image': backgroundImageURL() }"
   ></div>
 
-  <app-inline-input-field [(value)]="variant.name"></app-inline-input-field>
+  <app-inline-input-field [(value)]="name"></app-inline-input-field>
 
   <span class="spacer"></span>
 
-  <i-feather name="minus"></i-feather>
+  <i-feather name="minus" (click)="delete.emit()"></i-feather>
 
   <input
     type="file"
