@@ -77,15 +77,10 @@ export class SideComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result: EditTraitFormResult) => {
       if (result) {
         if (result.type === 'save' && result.data) {
-          this.store.dispatch(
-            updateTrait({
-              index,
-              trait: {
-                ...data,
-                ...result.data,
-              },
-            })
-          );
+          this.updateTrait(index, {
+            ...data,
+            ...result.data,
+          });
         } else if (result.type === 'remove') {
           this.store.dispatch(
             removeTrait({
@@ -97,10 +92,65 @@ export class SideComponent implements OnInit {
     });
   }
 
-  addNewVariant(trait: Trait): void {
-    trait.variants.push({
-      name: `Variant ${trait.variants.length + 1}`,
+  toggleExpandTraitDetails(index: number, trait: Trait): void {
+    this.updateTrait(index, {
+      ...trait,
+      expand: !trait.expand,
     });
+  }
+
+  addNewVariant(index: number, trait: Trait): void {
+    this.updateTrait(index, {
+      ...trait,
+      variants: [
+        ...trait.variants,
+        {
+          name: `Variant ${trait.variants.length + 1}`,
+        },
+      ],
+    });
+  }
+
+  async addVariantFromFileList(
+    index: number,
+    trait: Trait,
+    files: FileList
+  ): Promise<void> {
+    const variants: TraitVariant[] = [];
+    for (let i = 0; i < files.length; i++) {
+      const file: File = files[i];
+
+      if (file.type.startsWith('image/')) {
+        variants.push({
+          name: file.name,
+          src: await this.getSrcFromFile(file),
+        });
+      }
+    }
+
+    this.updateTrait(index, {
+      ...trait,
+      variants: [...trait.variants, ...variants],
+    });
+  }
+
+  private getSrcFromFile(file: File): Promise<string> {
+    return new Promise((resolve) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        resolve(reader.result as string);
+      };
+    });
+  }
+
+  updateTrait(index: number, trait: Trait): void {
+    this.store.dispatch(
+      updateTrait({
+        index,
+        trait,
+      })
+    );
   }
 
   onVariantChange(variant: TraitVariant, trait: Trait, index: number): void {
@@ -117,22 +167,5 @@ export class SideComponent implements OnInit {
         toIndex: event.currentIndex,
       })
     );
-  }
-
-  addVariantFromFileList(trait: Trait, files: FileList): void {
-    for (let i = 0; i < files.length; i++) {
-      const file: File = files[i];
-
-      if (file.type.startsWith('image/')) {
-        const reader = new FileReader();
-        reader.readAsDataURL(file);
-        reader.onload = () => {
-          trait.variants.push({
-            name: file.name,
-            src: reader.result as string,
-          });
-        };
-      }
-    }
   }
 }

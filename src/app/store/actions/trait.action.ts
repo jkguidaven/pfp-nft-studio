@@ -30,3 +30,5 @@ export const moveTrait = createAction(
   '[Traits] update trait.',
   props<{ fromIndex: number; toIndex: number }>()
 );
+
+export const persistTraits = createAction('[Traits] persist traits.');

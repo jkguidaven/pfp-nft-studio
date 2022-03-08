@@ -12,7 +12,7 @@ export const STORES = {
 
 const STORE_CONFIG = {
   [STORES.COLLECTION]: { autoIncrement: true },
-  [STORES.TRAIT]: { keyPath: 'id' },
+  [STORES.TRAIT]: { keyPath: 'id', autoIncrement: true },
 };
 
 @Injectable({
@@ -73,6 +73,12 @@ export class DBService {
       id: result,
       ...data,
     };
+  }
+
+  async updateToStore(storeName: string, data: any): Promise<any> {
+    const db = await this.getDB();
+    await db.put(storeName, data);
+    return data;
   }
 
   async deleteFromStore(storeName: string, key: any): Promise<void> {

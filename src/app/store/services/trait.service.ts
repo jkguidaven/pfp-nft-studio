@@ -10,6 +10,17 @@ export class TraitService {
   constructor(private dbService: DBService) {}
 
   getAll(key: number): Observable<Trait[]> {
-    return from(this.dbService.getFromStore(STORES.TRAIT, key));
+    return from(this.dbService.getFromStore(STORES.TRAIT, key)).pipe(
+      map((result) => (result ? result.traits : []))
+    );
+  }
+
+  update(id: number, traits: Trait[]): Observable<Trait[]> {
+    return from(
+      this.dbService.updateToStore(STORES.TRAIT, {
+        id,
+        traits,
+      })
+    );
   }
 }
