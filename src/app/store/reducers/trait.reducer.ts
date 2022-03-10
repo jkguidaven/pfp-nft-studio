@@ -26,19 +26,15 @@ export const reducer = createReducer(
     traits: state.traits ? [trait, ...state.traits] : [trait],
   })),
 
-  on(TraitActions.removeTrait, (state, { index }) => ({
+  on(TraitActions.removeTrait, (state, { id }) => ({
     ...state,
-    traits: state.traits
-      ? state.traits.filter((_, position) => position !== index)
-      : [],
+    traits: state.traits ? state.traits.filter((trait) => trait.id !== id) : [],
   })),
 
-  on(TraitActions.updateTrait, (state, { index, trait }) => ({
+  on(TraitActions.updateTrait, (state, { trait }) => ({
     ...state,
     traits: state.traits
-      ? state.traits.map((value, position) =>
-          position === index ? trait : value
-        )
+      ? state.traits.map((value) => (value.id === trait.id ? trait : value))
       : [],
   })),
 

@@ -16,18 +16,38 @@ export const addTrait = createAction(
   props<{ trait: Trait }>()
 );
 
+export const triggerAddTrait = createAction(
+  '[Traits] trigger add trait.',
+  props<{ trait: Trait }>()
+);
+
 export const removeTrait = createAction(
   '[Traits] remove trait.',
-  props<{ index: number }>()
+  props<{ id: number }>()
+);
+
+export const triggerRemoveTrait = createAction(
+  '[Traits] trigger remove trait.',
+  props<{ id: number }>()
 );
 
 export const updateTrait = createAction(
   '[Traits] update trait.',
-  props<{ index: number; trait: Trait }>()
+  props<{ trait: Trait }>()
+);
+
+export const triggerUpdateTrait = createAction(
+  '[Traits] trigger update trait.',
+  props<{ trait: Trait }>()
 );
 
 export const moveTrait = createAction(
-  '[Traits] update trait.',
+  '[Traits] move trait.',
+  props<{ fromIndex: number; toIndex: number }>()
+);
+
+export const triggerMoveTrait = createAction(
+  '[Traits] trigger move trait.',
   props<{ fromIndex: number; toIndex: number }>()
 );
 

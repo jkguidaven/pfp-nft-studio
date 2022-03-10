@@ -4,13 +4,13 @@ import { MatDialog } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import {
-  addTrait,
   addTraitVariants,
-  moveTrait,
-  removeTrait,
   removeTraitVariant,
   selectTraitVariant,
-  updateTrait,
+  triggerAddTrait,
+  triggerMoveTrait,
+  triggerRemoveTrait,
+  triggerUpdateTrait,
   updateTraitVariant,
 } from 'src/app/store/actions/trait.action';
 import { Collection } from 'src/app/store/models/collection';
@@ -59,7 +59,7 @@ export class SideComponent implements OnInit {
   addNewTrait(): void {
     if (this.newTraitName) {
       this.store.dispatch(
-        addTrait({
+        triggerAddTrait({
           trait: {
             name: this.newTraitName,
             expand: true,
@@ -89,10 +89,10 @@ export class SideComponent implements OnInit {
             ...data,
             ...result.data,
           });
-        } else if (result.type === 'remove') {
+        } else if (result.type === 'remove' && data.id) {
           this.store.dispatch(
-            removeTrait({
-              index,
+            triggerRemoveTrait({
+              id: data.id,
             })
           );
         }
@@ -181,8 +181,7 @@ export class SideComponent implements OnInit {
 
   updateTrait(index: number, trait: Trait): void {
     this.store.dispatch(
-      updateTrait({
-        index,
+      triggerUpdateTrait({
         trait,
       })
     );
@@ -190,7 +189,7 @@ export class SideComponent implements OnInit {
 
   positionChange(event: CdkDragDrop<any[]>): void {
     this.store.dispatch(
-      moveTrait({
+      triggerMoveTrait({
         fromIndex: event.previousIndex,
         toIndex: event.currentIndex,
       })

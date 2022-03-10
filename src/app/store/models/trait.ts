@@ -1,4 +1,6 @@
 export interface Trait {
+  id?: number;
+  collectionId?: number;
   name: string;
   guarantee: number;
   expand?: boolean;

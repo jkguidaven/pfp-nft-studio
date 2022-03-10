@@ -26,4 +26,10 @@ export class CollectionService {
   get(id: number): Observable<Collection | undefined> {
     return from(this.dbService.getFromStore(STORES.COLLECTION, id));
   }
+
+  update(collection: Collection): Observable<Collection | undefined> {
+    return from(
+      this.dbService.updateToStore(STORES.COLLECTION, collection, collection.id)
+    );
+  }
 }

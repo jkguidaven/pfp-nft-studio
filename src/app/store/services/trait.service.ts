@@ -10,18 +10,25 @@ export class TraitService {
   constructor(private dbService: DBService) {}
 
   getAll(key: number): Observable<Trait[]> {
-    return from(this.dbService.getFromStore(STORES.TRAIT, key)).pipe(
-      map((result) => (result ? result.traits : []))
+    return from(
+      this.dbService.getFromStoreIndex(STORES.TRAIT, 'collectionId', key)
+    ).pipe(
+      map((result) => {
+        return result ?? [];
+      })
       // delay(300)
     );
   }
 
-  update(id: number, traits: Trait[]): Observable<Trait[]> {
-    return from(
-      this.dbService.updateToStore(STORES.TRAIT, {
-        id,
-        traits,
-      })
-    );
+  add(trait: Trait): Observable<Trait> {
+    return from(this.dbService.addToStore(STORES.TRAIT, trait));
+  }
+
+  remove(id: number): Observable<void> {
+    return from(this.dbService.deleteFromStore(STORES.TRAIT, id));
+  }
+
+  update(trait: Trait): Observable<Trait> {
+    return from(this.dbService.updateToStore(STORES.TRAIT, trait, trait.id));
   }
 }

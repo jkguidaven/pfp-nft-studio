@@ -50,6 +50,7 @@ export class CreateCollectionFormComponent implements OnInit {
         public: this.form.get('maxMintPublic')?.value,
       },
       coverPhoto: this.coverPhoto,
+      traitsOrdering: [],
     };
 
     this.dialogRef.close(collection);

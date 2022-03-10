@@ -12,7 +12,11 @@ export const STORES = {
 
 const STORE_CONFIG = {
   [STORES.COLLECTION]: { autoIncrement: true },
-  [STORES.TRAIT]: { keyPath: 'id', autoIncrement: true },
+  [STORES.TRAIT]: { autoIncrement: true },
+};
+
+const STORE_INDEXES = {
+  [STORES.TRAIT]: ['collectionId'],
 };
 
 @Injectable({
@@ -26,7 +30,13 @@ export class DBService {
     this.db = await openDB(DB_NAME, DB_VERSION, {
       upgrade(db) {
         for (let store of Object.values(STORES)) {
-          db.createObjectStore(store, STORE_CONFIG[store]);
+          const objStore = db.createObjectStore(store, STORE_CONFIG[store]);
+
+          if (STORE_INDEXES[store]) {
+            for (let index of STORE_INDEXES[store]) {
+              objStore.createIndex(index, index);
+            }
+          }
         }
       },
     });
@@ -49,6 +59,29 @@ export class DBService {
     return store.get(key);
   }
 
+  async getFromStoreIndex(
+    storeName: string,
+    indexName: string,
+    key: any
+  ): Promise<any> {
+    const db = await this.getDB();
+    const store = db.transaction(storeName).objectStore(storeName);
+    const index = store.index(indexName);
+    let cursor = await index.openCursor();
+
+    const results: any[] = [];
+
+    while (cursor) {
+      results.push({
+        id: cursor.primaryKey,
+        ...cursor.value,
+      });
+      cursor = await cursor.continue();
+    }
+
+    return results;
+  }
+
   async getAllFromStore(storeName: string): Promise<any[]> {
     const db = await this.getDB();
     let cursor = await db.transaction(storeName).store.openCursor();
@@ -57,7 +90,7 @@ export class DBService {
 
     while (cursor) {
       results.push({
-        id: cursor.key,
+        id: cursor.primaryKey,
         ...cursor.value,
       });
       cursor = await cursor.continue();
@@ -75,9 +108,9 @@ export class DBService {
     };
   }
 
-  async updateToStore(storeName: string, data: any): Promise<any> {
+  async updateToStore(storeName: string, data: any, key: any): Promise<any> {
     const db = await this.getDB();
-    await db.put(storeName, data);
+    await db.put(storeName, data, key);
     return data;
   }
 

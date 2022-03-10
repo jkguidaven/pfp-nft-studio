@@ -22,12 +22,5 @@ export interface Collection {
     public: Date;
   }>;
   royalty?: number;
+  traitsOrdering: number[];
 }
-
-export const UNKNOWN_COLLECTION: Collection = {
-  id: undefined,
-  name: 'unknown',
-  description: 'unknown',
-  width: 0,
-  height: 0,
-};
