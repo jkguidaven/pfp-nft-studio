@@ -3,6 +3,7 @@ import { Actions, concatLatestFrom, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { catchError, EMPTY, map, mergeMap, withLatestFrom } from 'rxjs';
 import * as traitActions from '../actions/trait.action';
+import * as traitVariantActions from '../actions/trait-variant.action';
 import { Collection } from '../models/collection';
 import { Trait } from '../models/trait';
 import { State as AppState } from '../reducers';
@@ -23,42 +24,39 @@ export class TraitEffects {
   loadTraits$ = createEffect(() =>
     this.actions$.pipe(
       ofType(traitActions.triggerLoadTraits),
-      mergeMap(
-        ({ collectionId }: { collectionId: number }) =>
-          this.collectionService.get(collectionId).pipe(
-            mergeMap((collection: Collection | undefined) => {
-              return this.traitService.getAll(collection?.id ?? 0).pipe(
-                map((traits: Trait[]) => {
-                  const orderedTraits: Trait[] = collection
-                    ? collection?.traitsOrdering.reduce((ordered, id) => {
-                        const found = traits.find(
-                          (trait: Trait) => trait.id === id
-                        );
+      mergeMap(({ collectionId }: { collectionId: number }) =>
+        this.collectionService.get(collectionId).pipe(
+          mergeMap((collection: Collection | undefined) => {
+            return this.traitService.getAll(collection?.id ?? 0).pipe(
+              map((traits: Trait[]) => {
+                const orderedTraits: Trait[] = collection
+                  ? collection?.traitsOrdering.reduce((ordered, id) => {
+                      const found = traits.find(
+                        (trait: Trait) => trait.id === id
+                      );
 
-                        if (found) ordered.push(found);
+                      if (found) ordered.push(found);
 
-                        return ordered;
-                      }, [] as Trait[])
-                    : [];
+                      return ordered;
+                    }, [] as Trait[])
+                  : [];
 
-                  return traitActions.loadTraits({
-                    traits: orderedTraits,
-                  });
-                })
-              );
-            }),
-            catchError(() => EMPTY)
-          )
-        // this.traitService.getAll(collection.id).pipe(
-        //   map((traits: Trait[]) => {
-        //     const sortedTraits = collection.traitsOrdering.map((id: number) =>
-        //       traits.find((trait: Trait) => trait.id === id)
-        //     );
-        //     return traitActions.loadTraits({ traits: sortedTraits });
-        //   }),
-        //   catchError(() => EMPTY)
-        // )
+                return traitActions.loadTraits({
+                  traits: orderedTraits,
+                });
+              })
+            );
+          }),
+          catchError(() => EMPTY)
+        )
       )
+    )
+  );
+
+  loadTraitVariant$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(traitActions.loadTraits),
+      map(() => traitVariantActions.triggerLoadTraitVariants())
     )
   );
 
@@ -144,25 +142,4 @@ export class TraitEffects {
       )
     )
   );
-
-  // persistTrait$ = createEffect(() =>
-  //   this.actions$.pipe(
-  //     ofType(traitActions.persistTraits),
-  //     concatLatestFrom(() => [
-  //       this.store.select(selectCurrentCollection),
-  //       this.store.select(selectTraits),
-  //     ]),
-  //     mergeMap(([, collection, traits]: any[]) => {
-  //       return this.traitService.update(collection.id, traits).pipe(
-  //         map(() => ({
-  //           type: 'noAction',
-  //         })),
-  //         catchError((err) => {
-  //           console.log(err);
-  //           return EMPTY;
-  //         })
-  //       );
-  //     })
-  //   )
-  // );
 }

@@ -8,15 +8,18 @@ const DB_NAME = 'localDB';
 export const STORES = {
   COLLECTION: 'collection_store',
   TRAIT: 'trait_store',
+  TRAIT_VARIANT: 'trait_variant',
 };
 
 const STORE_CONFIG = {
   [STORES.COLLECTION]: { autoIncrement: true },
   [STORES.TRAIT]: { autoIncrement: true },
+  [STORES.TRAIT_VARIANT]: { autoIncrement: true },
 };
 
 const STORE_INDEXES = {
   [STORES.TRAIT]: ['collectionId'],
+  [STORES.TRAIT_VARIANT]: ['traitId'],
 };
 
 @Injectable({
@@ -72,10 +75,11 @@ export class DBService {
     const results: any[] = [];
 
     while (cursor) {
-      results.push({
-        id: cursor.primaryKey,
-        ...cursor.value,
-      });
+      if (cursor.key === key)
+        results.push({
+          id: cursor.primaryKey,
+          ...cursor.value,
+        });
       cursor = await cursor.continue();
     }
 

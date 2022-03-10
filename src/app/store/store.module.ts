@@ -10,6 +10,7 @@ import { LocalStorageEffects } from './effects/local-storage.effects';
 import { HttpClientModule } from '@angular/common/http';
 import { CollectionEffects } from './effects/collection.effects';
 import { TraitEffects } from './effects/trait.effects';
+import { TraitVariantEffects } from './effects/trait-variant.effects';
 
 @NgModule({
   declarations: [],
@@ -21,6 +22,7 @@ import { TraitEffects } from './effects/trait.effects';
       LocalStorageEffects,
       CollectionEffects,
       TraitEffects,
+      TraitVariantEffects,
     ]),
     StoreDevtoolsModule.instrument({
       maxAge: 25,

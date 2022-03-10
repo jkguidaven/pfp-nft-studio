@@ -34,7 +34,7 @@
       *ngFor="let trait of traits$ | async; let i = index"
       cdkDrag
       appDnd
-      (fileDropped)="addVariantsFromFileList(i, $event)"
+      (fileDropped)="addVariantsFromFileList(trait.id, $event)"
     >
       <div class="trait-header">
         <i-feather
@@ -63,11 +63,14 @@
       </div>
 
       <div *ngIf="trait.expand" class="trait-details">
-        <app-add-trait-variant-button (add)="addNewVariant(i, $event)">
+        <app-add-trait-variant-button (add)="addNewVariant(trait.id, $event)">
         </app-add-trait-variant-button>
 
         <app-trait-variant-item
-          *ngFor="let variant of trait.variants; let vi = index"
+          *ngFor="
+            let variant of getTraitVariantList(trait) | async;
+            let vi = index
+          "
           [variant]="variant"
           (variantChange)="onVariantChange(i, $event, vi)"
           (select)="onVariantSelected(i, vi)"

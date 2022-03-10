@@ -9,14 +9,17 @@ import { DBService, STORES } from './db.service';
 export class TraitService {
   constructor(private dbService: DBService) {}
 
-  getAll(key: number): Observable<Trait[]> {
+  getAll(collectionId: number): Observable<Trait[]> {
     return from(
-      this.dbService.getFromStoreIndex(STORES.TRAIT, 'collectionId', key)
+      this.dbService.getFromStoreIndex(
+        STORES.TRAIT,
+        'collectionId',
+        collectionId
+      )
     ).pipe(
       map((result) => {
         return result ?? [];
       })
-      // delay(300)
     );
   }
 

@@ -2,9 +2,9 @@ import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
+import { triggerAddTraitVariants } from 'src/app/store/actions/trait-variant.action';
 import {
-  addTraitVariants,
   removeTraitVariant,
   selectTraitVariant,
   triggerAddTrait,
@@ -14,9 +14,14 @@ import {
   updateTraitVariant,
 } from 'src/app/store/actions/trait.action';
 import { Collection } from 'src/app/store/models/collection';
-import { Trait, TraitVariant } from 'src/app/store/models/trait';
+import {
+  Trait,
+  TraitVariant,
+  TraitVariantDictionary,
+} from 'src/app/store/models/trait';
 import { State as AppState } from 'src/app/store/reducers';
 import { selectCurrentCollection } from 'src/app/store/selectors/collection.selector';
+import { selectTraitVariants } from 'src/app/store/selectors/trait-variant.selector';
 import { selectTraits } from 'src/app/store/selectors/trait.selector';
 import { fade, slide } from '../../animations';
 import {
@@ -34,6 +39,7 @@ export class SideComponent implements OnInit {
   @ViewChild('traitInputField') traitInputField!: ElementRef;
   traits$!: Observable<Trait[] | undefined>;
   collection$!: Observable<Collection | undefined>;
+  traitVariantDictionary$!: Observable<TraitVariantDictionary | undefined>;
 
   adding!: boolean;
 
@@ -44,6 +50,7 @@ export class SideComponent implements OnInit {
   ngOnInit(): void {
     this.traits$ = this.store.select(selectTraits);
     this.collection$ = this.store.select(selectCurrentCollection);
+    this.traitVariantDictionary$ = this.store.select(selectTraitVariants);
   }
 
   toggleAddTrait(): void {
@@ -65,7 +72,6 @@ export class SideComponent implements OnInit {
             expand: true,
             guarantee: 100,
             hidden: false,
-            variants: [],
           },
         })
       );
@@ -107,30 +113,35 @@ export class SideComponent implements OnInit {
     });
   }
 
-  addNewVariant(traitIndex: number, src: string): void {
-    this.store.dispatch(
-      addTraitVariants({
-        traitIndex,
-        variants: [
-          {
-            name: `New Variant`,
-            src,
-          },
-        ],
-      })
-    );
+  addNewVariant(traitId: number | undefined, src: string): void {
+    if (traitId) {
+      this.store.dispatch(
+        triggerAddTraitVariants({
+          variants: [
+            {
+              traitId,
+              name: `New Variant`,
+              src,
+            },
+          ],
+        })
+      );
+    }
   }
 
   async addVariantsFromFileList(
-    traitIndex: number,
+    traitId: number | undefined,
     files: FileList
   ): Promise<void> {
+    if (!traitId) return;
+
     const variants: TraitVariant[] = [];
     for (let i = 0; i < files.length; i++) {
       const file: File = files[i];
 
       if (file.type.startsWith('image/')) {
         variants.push({
+          traitId,
           name: file.name,
           src: await this.getSrcFromFile(file),
         });
@@ -139,8 +150,7 @@ export class SideComponent implements OnInit {
 
     if (variants.length) {
       this.store.dispatch(
-        addTraitVariants({
-          traitIndex,
+        triggerAddTraitVariants({
           variants,
         })
       );
@@ -192,6 +202,14 @@ export class SideComponent implements OnInit {
       triggerMoveTrait({
         fromIndex: event.previousIndex,
         toIndex: event.currentIndex,
+      })
+    );
+  }
+
+  getTraitVariantList(trait: Trait): Observable<TraitVariant[]> {
+    return this.traitVariantDictionary$.pipe(
+      map((dictionary) => {
+        return dictionary ? dictionary[`${trait.id}`] : [];
       })
     );
   }
