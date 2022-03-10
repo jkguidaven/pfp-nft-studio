@@ -91,11 +91,11 @@ export class TraitEffects {
 
   updateTrait$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(traitActions.triggerUpdateTrait),
+      ofType(traitActions.updateTrait),
       mergeMap(({ trait }: { trait: Trait }) =>
         this.traitService.update(trait).pipe(
           map(() => {
-            return traitActions.updateTrait({ trait });
+            return { type: 'noAction' };
           }),
           catchError(() => EMPTY)
         )

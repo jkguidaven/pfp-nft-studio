@@ -22,15 +22,20 @@ export const triggerAddTraitVariants = createAction(
 
 export const removeTraitVariant = createAction(
   '[Trait Variants] remove trait variant .',
-  props<{ traitIndex: number; variantIndex: number }>()
+  props<{ id: number }>()
 );
 
-export const selectTraitVariant = createAction(
-  '[Trait Variants] select trait variant .',
-  props<{ traitIndex: number; variantIndex: number }>()
+export const triggerRemoveTraitVariant = createAction(
+  '[Trait Variants] trigger remove trait variant .',
+  props<{ id: number }>()
 );
 
 export const updateTraitVariant = createAction(
   '[Trait Variants] update trait variant.',
-  props<{ traitIndex: number; variantIndex: number; variant: TraitVariant }>()
+  props<{ variant: TraitVariant }>()
+);
+
+export const triggerUpdateTraitVariant = createAction(
+  '[Trait Variants] trigger update trait variant.',
+  props<{ variant: TraitVariant }>()
 );

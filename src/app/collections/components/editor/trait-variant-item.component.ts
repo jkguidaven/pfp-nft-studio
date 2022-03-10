@@ -15,6 +15,7 @@ import { TraitVariant } from 'src/app/store/models/trait';
 })
 export class TraitVariantItemComponent implements OnInit {
   @Input() variant!: TraitVariant;
+  @Input() selected!: boolean;
   @Output() variantChange: EventEmitter<TraitVariant> =
     new EventEmitter<TraitVariant>();
   @Output() delete: EventEmitter<void> = new EventEmitter<void>();

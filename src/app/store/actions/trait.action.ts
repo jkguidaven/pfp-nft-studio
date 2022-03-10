@@ -36,11 +36,6 @@ export const updateTrait = createAction(
   props<{ trait: Trait }>()
 );
 
-export const triggerUpdateTrait = createAction(
-  '[Traits] trigger update trait.',
-  props<{ trait: Trait }>()
-);
-
 export const moveTrait = createAction(
   '[Traits] move trait.',
   props<{ fromIndex: number; toIndex: number }>()
@@ -49,19 +44,4 @@ export const moveTrait = createAction(
 export const triggerMoveTrait = createAction(
   '[Traits] trigger move trait.',
   props<{ fromIndex: number; toIndex: number }>()
-);
-
-export const removeTraitVariant = createAction(
-  '[Traits] remove trait variant .',
-  props<{ traitIndex: number; variantIndex: number }>()
-);
-
-export const selectTraitVariant = createAction(
-  '[Traits] select trait variant .',
-  props<{ traitIndex: number; variantIndex: number }>()
-);
-
-export const updateTraitVariant = createAction(
-  '[Traits] update trait variant.',
-  props<{ traitIndex: number; variantIndex: number; variant: TraitVariant }>()
 );

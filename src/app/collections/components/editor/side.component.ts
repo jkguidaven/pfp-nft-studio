@@ -3,15 +3,16 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
 import { map, Observable } from 'rxjs';
-import { triggerAddTraitVariants } from 'src/app/store/actions/trait-variant.action';
 import {
-  removeTraitVariant,
-  selectTraitVariant,
+  triggerAddTraitVariants,
+  triggerRemoveTraitVariant,
+  updateTraitVariant,
+} from 'src/app/store/actions/trait-variant.action';
+import {
   triggerAddTrait,
   triggerMoveTrait,
   triggerRemoveTrait,
-  triggerUpdateTrait,
-  updateTraitVariant,
+  updateTrait,
 } from 'src/app/store/actions/trait.action';
 import { Collection } from 'src/app/store/models/collection';
 import {
@@ -45,6 +46,9 @@ export class SideComponent implements OnInit {
 
   newTraitName: string = '';
 
+  private expanded: Record<number, boolean> = {};
+  private selectedVariants: Record<number, number | undefined> = {};
+
   constructor(private dialog: MatDialog, private store: Store<AppState>) {}
 
   ngOnInit(): void {
@@ -69,7 +73,6 @@ export class SideComponent implements OnInit {
         triggerAddTrait({
           trait: {
             name: this.newTraitName,
-            expand: true,
             guarantee: 100,
             hidden: false,
           },
@@ -80,7 +83,7 @@ export class SideComponent implements OnInit {
     this.toggleAddTrait();
   }
 
-  openTraitForm(data: Trait, index: number): void {
+  openTraitForm(data: Trait): void {
     const dialogRef = this.dialog.open(EditTraitFormComponent, {
       panelClass: 'custom-mat-dialog-container',
       width: '500px',
@@ -91,7 +94,7 @@ export class SideComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result: EditTraitFormResult) => {
       if (result) {
         if (result.type === 'save' && result.data) {
-          this.updateTrait(index, {
+          this.updateTrait({
             ...data,
             ...result.data,
           });
@@ -106,11 +109,10 @@ export class SideComponent implements OnInit {
     });
   }
 
-  toggleExpandTraitDetails(index: number, trait: Trait): void {
-    this.updateTrait(index, {
-      ...trait,
-      expand: !trait.expand,
-    });
+  toggleExpandTraitDetails(trait: Trait): void {
+    if (trait.id) {
+      this.expanded[trait.id] = !this.expanded[trait.id];
+    }
   }
 
   addNewVariant(traitId: number | undefined, src: string): void {
@@ -167,31 +169,32 @@ export class SideComponent implements OnInit {
     });
   }
 
-  onVariantChange(
-    traitIndex: number,
-    variant: TraitVariant,
-    variantIndex: number
-  ): void {
+  onVariantChange(variant: TraitVariant): void {
     this.store.dispatch(
       updateTraitVariant({
-        traitIndex,
-        variantIndex,
         variant,
       })
     );
   }
 
-  onVariantSelected(traitIndex: number, variantIndex: number): void {
-    this.store.dispatch(selectTraitVariant({ traitIndex, variantIndex }));
+  onVariantSelected(trait: Trait, selectedVariant: number | undefined): void {
+    if (trait.id && selectedVariant) {
+      this.selectedVariants[trait.id] =
+        this.selectedVariants[trait.id] === selectedVariant
+          ? undefined
+          : selectedVariant;
+    }
   }
 
-  onDeleteVariant(traitIndex: number, variantIndex: number): void {
-    this.store.dispatch(removeTraitVariant({ traitIndex, variantIndex }));
+  onDeleteVariant(id: number | undefined): void {
+    if (id) {
+      this.store.dispatch(triggerRemoveTraitVariant({ id }));
+    }
   }
 
-  updateTrait(index: number, trait: Trait): void {
+  updateTrait(trait: Trait): void {
     this.store.dispatch(
-      triggerUpdateTrait({
+      updateTrait({
         trait,
       })
     );
@@ -212,5 +215,13 @@ export class SideComponent implements OnInit {
         return dictionary ? dictionary[`${trait.id}`] : [];
       })
     );
+  }
+
+  isTraitPanelExpanded(trait: Trait): boolean {
+    return trait.id ? this.expanded[trait.id] : false;
+  }
+
+  isVariantSelected(trait: Trait, variant: TraitVariant): boolean {
+    return trait.id ? this.selectedVariants[trait.id] === variant.id : false;
   }
 }

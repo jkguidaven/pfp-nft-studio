@@ -3,7 +3,6 @@ export interface Trait {
   collectionId?: number;
   name: string;
   guarantee: number;
-  expand?: boolean;
   hidden?: boolean;
 }
 
@@ -12,7 +11,6 @@ export interface TraitVariant {
   traitId?: number;
   name: string;
   src?: string;
-  selected?: boolean;
 }
 
 export type TraitVariantDictionary = Record<string, TraitVariant[]>;
