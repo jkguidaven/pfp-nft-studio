@@ -40,6 +40,10 @@ export class TraitEffects {
           traitActions.removeTrait,
           traitActions.updateTrait,
           traitActions.moveTrait,
+          traitActions.addTraitVariants,
+          traitActions.removeTraitVariant,
+          traitActions.updateTraitVariant,
+          traitActions.selectTraitVariant,
         ]
       ),
       map(() => traitActions.persistTraits())

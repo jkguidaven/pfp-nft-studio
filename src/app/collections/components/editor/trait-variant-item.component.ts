@@ -1,4 +1,11 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  HostListener,
+  Input,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { TraitVariant } from 'src/app/store/models/trait';
 
 @Component({
@@ -8,7 +15,6 @@ import { TraitVariant } from 'src/app/store/models/trait';
 })
 export class TraitVariantItemComponent implements OnInit {
   @Input() variant!: TraitVariant;
-  @Input() selected!: boolean;
   @Output() variantChange: EventEmitter<TraitVariant> =
     new EventEmitter<TraitVariant>();
   @Output() delete: EventEmitter<void> = new EventEmitter<void>();
@@ -31,6 +37,12 @@ export class TraitVariantItemComponent implements OnInit {
         });
       };
     }
+  }
+
+  @HostListener('contextmenu', ['$event'])
+  onContextMenu(event: MouseEvent) {
+    event.preventDefault();
+    event.stopPropagation();
   }
 
   backgroundImageURL(): string {

@@ -5,9 +5,13 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import {
   addTrait,
+  addTraitVariants,
   moveTrait,
   removeTrait,
+  removeTraitVariant,
+  selectTraitVariant,
   updateTrait,
+  updateTraitVariant,
 } from 'src/app/store/actions/trait.action';
 import { Collection } from 'src/app/store/models/collection';
 import { Trait, TraitVariant } from 'src/app/store/models/trait';
@@ -103,22 +107,22 @@ export class SideComponent implements OnInit {
     });
   }
 
-  addNewVariant(index: number, trait: Trait, src: string): void {
-    this.updateTrait(index, {
-      ...trait,
-      variants: [
-        {
-          name: `Variant ${trait.variants.length + 1}`,
-          src,
-        },
-        ...trait.variants,
-      ],
-    });
+  addNewVariant(traitIndex: number, src: string): void {
+    this.store.dispatch(
+      addTraitVariants({
+        traitIndex,
+        variants: [
+          {
+            name: `New Variant`,
+            src,
+          },
+        ],
+      })
+    );
   }
 
-  async addVariantFromFileList(
-    index: number,
-    trait: Trait,
+  async addVariantsFromFileList(
+    traitIndex: number,
     files: FileList
   ): Promise<void> {
     const variants: TraitVariant[] = [];
@@ -133,10 +137,14 @@ export class SideComponent implements OnInit {
       }
     }
 
-    this.updateTrait(index, {
-      ...trait,
-      variants: [...variants, ...trait.variants],
-    });
+    if (variants.length) {
+      this.store.dispatch(
+        addTraitVariants({
+          traitIndex,
+          variants,
+        })
+      );
+    }
   }
 
   private getSrcFromFile(file: File): Promise<string> {
@@ -152,38 +160,23 @@ export class SideComponent implements OnInit {
   onVariantChange(
     traitIndex: number,
     variant: TraitVariant,
-    trait: Trait,
     variantIndex: number
   ): void {
-    this.updateTrait(traitIndex, {
-      ...trait,
-      variants: trait.variants.map((value, i) =>
-        i === variantIndex ? { ...value, ...variant } : value
-      ),
-    });
+    this.store.dispatch(
+      updateTraitVariant({
+        traitIndex,
+        variantIndex,
+        variant,
+      })
+    );
   }
 
-  onVariantSelected(
-    traitIndex: number,
-    trait: Trait,
-    variantIndex: number
-  ): void {
-    this.updateTrait(traitIndex, {
-      ...trait,
-      selectedVariant:
-        trait.selectedVariant === variantIndex ? undefined : variantIndex,
-    });
+  onVariantSelected(traitIndex: number, variantIndex: number): void {
+    this.store.dispatch(selectTraitVariant({ traitIndex, variantIndex }));
   }
 
-  onDeleteVariant(
-    traitIndex: number,
-    trait: Trait,
-    variantIndex: number
-  ): void {
-    this.updateTrait(traitIndex, {
-      ...trait,
-      variants: trait.variants.filter((_, i) => i !== variantIndex),
-    });
+  onDeleteVariant(traitIndex: number, variantIndex: number): void {
+    this.store.dispatch(removeTraitVariant({ traitIndex, variantIndex }));
   }
 
   updateTrait(index: number, trait: Trait): void {
