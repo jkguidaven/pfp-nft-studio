@@ -4,14 +4,18 @@
 @mixin theme($theme) {
   // Get the color config from the theme.
   $color-config: mat.get-color-config($theme);
+  $background: map.get($color-config, background);
   $accent: map.get($color-config, accent);
   $is-dark-theme: map.get($color-config, "is-dark");
   $accent-color: mat.get-color-from-palette($accent, 400);
+  $background-color: mat.get-color-from-palette($background, app-bar);
 
   .trait-variant-item {
     box-sizing: border-box;
     display: flex;
     margin: calc(var(--spacing) / 4);
+    overflow: hidden;
+    border-radius: 5px;
 
     i-feather {
       display: none;
@@ -19,32 +23,53 @@
       height: 18px;
     }
 
-    &:hover {
-      background-color: rgba($accent-color, 0.2);
-    }
-
     .src-container {
-      min-width: 50px;
-      min-height: 50px;
-      border-radius: 10px;
-      background-color: rgba(white, 0.5);
+      min-width: 80px;
+      min-height: 80px;
       box-sizing: border-box;
 
-      @if $is-dark-theme {
-        border: 1px solid rgba($accent-color, 0.1);
-      } @else {
-        border: 1px solid rgba($accent-color, 0.8);
+      &:hover {
+        .action-panel {
+          display: flex;
+        }
       }
-      border-radius: 5px;
+
       background-size: 100% auto;
       background-repeat: no-repeat;
       background-position: center center;
+      display: flex;
+      align-items: flex-end;
       cursor: pointer;
+
+      .action-panel {
+        width: calc(100% + 2px);
+        box-sizing: border-box;
+        margin-bottom: -5px;
+        height: 30px;
+        padding: 5px 10px 10px;
+
+        background-color: rgba($background-color, 0.8);
+        display: none;
+
+        align-items: center;
+        justify-content: space-between;
+
+        i-feather {
+          width: 15px;
+          height: 15px;
+        }
+      }
     }
 
     &.selected {
-      .src-container {
-        border: 2px solid rgba(limegreen, 0.5);
+      box-shadow: 0 0 1px 2px rgba(limegreen, 0.5);
+
+      .action-panel {
+        display: flex;
+
+        i-feather {
+          display: inline;
+        }
       }
     }
   }

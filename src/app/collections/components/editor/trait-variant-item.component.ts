@@ -44,6 +44,8 @@ export class TraitVariantItemComponent implements OnInit {
   onContextMenu(event: MouseEvent) {
     event.preventDefault();
     event.stopPropagation();
+
+    this.select.emit();
   }
 
   backgroundImageURL(): string {

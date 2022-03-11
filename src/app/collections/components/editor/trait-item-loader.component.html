@@ -3,19 +3,19 @@
     animation="pulse"
     [theme]="{
       height: '20px',
-      width: '270px',
+      width: '280px',
       backgroundColor: this.backgroundColor
     }"
   ></ngx-skeleton-loader>
 
   <div class="variant-loader">
     <ngx-skeleton-loader
-      *ngFor="let i of [].constructor(4)"
+      *ngFor="let i of [].constructor(3)"
       animation="pulse"
       [theme]="{
-        height: '50px',
-        width: '50px',
-        margin: 'calc(var(--spacing) / 4)',
+        height: '80px',
+        width: '80px',
+        margin: 'calc(var(--spacing) / 5)',
         backgroundColor: this.backgroundColor
       }"
     ></ngx-skeleton-loader>

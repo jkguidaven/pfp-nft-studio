@@ -112,7 +112,7 @@ export class TraitEffects {
     )
   );
 
-  changeTrait$ = createEffect(() =>
+  reorderTraits$ = createEffect(() =>
     this.actions$.pipe(
       ofType(
         ...[

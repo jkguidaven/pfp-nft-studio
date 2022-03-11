@@ -32,5 +32,31 @@ export const reducer = createReducer(
       ...state,
       ...dictionary,
     };
+  }),
+
+  on(TraitVariantActions.removeTraitVariant, (state, { variant }) => {
+    if (variant.traitId) {
+      return {
+        ...state,
+        [variant.traitId]: state[variant.traitId].filter(
+          ({ id }) => id !== variant.id
+        ),
+      };
+    } else {
+      return state;
+    }
+  }),
+
+  on(TraitVariantActions.updateTraitVariant, (state, { variant }) => {
+    if (variant.traitId) {
+      return {
+        ...state,
+        [variant.traitId]: state[variant.traitId].map((old) =>
+          old.id === variant.id ? variant : old
+        ),
+      };
+    } else {
+      return state;
+    }
   })
 );

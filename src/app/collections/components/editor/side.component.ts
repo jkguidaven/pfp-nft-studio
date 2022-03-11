@@ -1,4 +1,4 @@
-import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
@@ -46,7 +46,7 @@ export class SideComponent implements OnInit {
 
   newTraitName: string = '';
 
-  private expanded: Record<number, boolean> = {};
+  private collapsed: Record<number, boolean> = {};
   private selectedVariants: Record<number, number | undefined> = {};
 
   constructor(private dialog: MatDialog, private store: Store<AppState>) {}
@@ -111,7 +111,7 @@ export class SideComponent implements OnInit {
 
   toggleExpandTraitDetails(trait: Trait): void {
     if (trait.id) {
-      this.expanded[trait.id] = !this.expanded[trait.id];
+      this.collapsed[trait.id] = !this.collapsed[trait.id];
     }
   }
 
@@ -170,11 +170,7 @@ export class SideComponent implements OnInit {
   }
 
   onVariantChange(variant: TraitVariant): void {
-    this.store.dispatch(
-      updateTraitVariant({
-        variant,
-      })
-    );
+    this.store.dispatch(updateTraitVariant({ variant }));
   }
 
   onVariantSelected(trait: Trait, selectedVariant: number | undefined): void {
@@ -186,18 +182,12 @@ export class SideComponent implements OnInit {
     }
   }
 
-  onDeleteVariant(id: number | undefined): void {
-    if (id) {
-      this.store.dispatch(triggerRemoveTraitVariant({ id }));
-    }
+  onDeleteVariant(variant: TraitVariant): void {
+    this.store.dispatch(triggerRemoveTraitVariant({ variant }));
   }
 
   updateTrait(trait: Trait): void {
-    this.store.dispatch(
-      updateTrait({
-        trait,
-      })
-    );
+    this.store.dispatch(updateTrait({ trait }));
   }
 
   positionChange(event: CdkDragDrop<any[]>): void {
@@ -218,7 +208,7 @@ export class SideComponent implements OnInit {
   }
 
   isTraitPanelExpanded(trait: Trait): boolean {
-    return trait.id ? this.expanded[trait.id] : false;
+    return trait.id ? !this.collapsed[trait.id] : false;
   }
 
   isVariantSelected(trait: Trait, variant: TraitVariant): boolean {

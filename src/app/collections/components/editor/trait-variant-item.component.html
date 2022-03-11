@@ -9,7 +9,24 @@
   <div
     class="src-container"
     [ngStyle]="{ 'background-image': backgroundImageURL() }"
-  ></div>
+  >
+    <div class="action-panel">
+      <i-feather
+        name="image"
+        matTooltip="Change Image"
+        matTooltipClass="trait-tooltip"
+        matTooltipPosition="below"
+        (click)="photoSelector.click()"
+      ></i-feather>
+      <i-feather
+        name="trash-2"
+        matTooltip="Remove"
+        matTooltipClass="trait-tooltip"
+        matTooltipPosition="below"
+        (click)="delete.emit()"
+      ></i-feather>
+    </div>
+  </div>
 
   <input
     type="file"

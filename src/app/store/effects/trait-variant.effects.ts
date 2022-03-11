@@ -68,4 +68,32 @@ export class TraitVariantEffects {
       })
     )
   );
+
+  removeTraitVariant$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(traitVariantActions.triggerRemoveTraitVariant),
+      mergeMap(({ variant }) => {
+        return this.traitVariantService.remove(variant.id ?? 0).pipe(
+          map(() => {
+            return traitVariantActions.removeTraitVariant({ variant });
+          }),
+          catchError(() => EMPTY)
+        );
+      })
+    )
+  );
+
+  updateTraitVariant$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(traitVariantActions.updateTraitVariant),
+      mergeMap(({ variant }) => {
+        return this.traitVariantService.update(variant).pipe(
+          map(() => {
+            return { type: 'noAction ' };
+          }),
+          catchError(() => EMPTY)
+        );
+      })
+    )
+  );
 }
