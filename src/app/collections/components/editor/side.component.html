@@ -38,12 +38,14 @@
     >
       <div class="trait-header">
         <i-feather
-          [matTooltip]="isTraitPanelExpanded(trait) ? 'collapse' : 'expand'"
+          [matTooltip]="
+            (isTraitPanelCollapsed(trait) | async) ? 'expand' : 'collapse'
+          "
           matTooltipClass="trait-tooltip"
           matTooltipPosition="above"
           class="expand-button"
-          [ngClass]="{ expand: isTraitPanelExpanded(trait) }"
-          (click)="toggleExpandTraitDetails(trait)"
+          [ngClass]="{ expand: !(isTraitPanelCollapsed(trait) | async) }"
+          (click)="toggleCollapse(trait)"
           name="chevron-right"
         ></i-feather>
 
@@ -62,14 +64,17 @@
         ></i-feather>
       </div>
 
-      <div *ngIf="isTraitPanelExpanded(trait)" class="trait-details">
+      <div
+        *ngIf="!(isTraitPanelCollapsed(trait) | async)"
+        class="trait-details"
+      >
         <app-add-trait-variant-button (add)="addNewVariant(trait.id, $event)">
         </app-add-trait-variant-button>
 
         <app-trait-variant-item
           *ngFor="let variant of getTraitVariantList(trait) | async"
           [variant]="variant"
-          [selected]="isVariantSelected(trait, variant)"
+          [selected]="!!(isVariantSelected(trait, variant) | async)"
           (variantChange)="onVariantChange($event)"
           (select)="onVariantSelected(trait, variant.id)"
           (delete)="onDeleteVariant(variant)"

@@ -3,6 +3,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
 import { map, Observable } from 'rxjs';
+import * as editorActions from 'src/app/store/actions/editor.action';
 import {
   triggerAddTraitVariants,
   triggerRemoveTraitVariant,
@@ -22,6 +23,10 @@ import {
 } from 'src/app/store/models/trait';
 import { State as AppState } from 'src/app/store/reducers';
 import { selectCurrentCollection } from 'src/app/store/selectors/collection.selector';
+import {
+  selectEditorCollapsed,
+  selectEditorSelected,
+} from 'src/app/store/selectors/editor.selector';
 import { selectTraitVariants } from 'src/app/store/selectors/trait-variant.selector';
 import { selectTraits } from 'src/app/store/selectors/trait.selector';
 import { fade, slide } from '../../animations';
@@ -41,13 +46,12 @@ export class SideComponent implements OnInit {
   traits$!: Observable<Trait[] | undefined>;
   collection$!: Observable<Collection | undefined>;
   traitVariantDictionary$!: Observable<TraitVariantDictionary | undefined>;
+  editorCollapsed$!: Observable<Record<number, boolean> | undefined>;
+  editorSelected$!: Observable<Record<number, number> | undefined>;
 
   adding!: boolean;
 
   newTraitName: string = '';
-
-  private collapsed: Record<number, boolean> = {};
-  private selectedVariants: Record<number, number | undefined> = {};
 
   constructor(private dialog: MatDialog, private store: Store<AppState>) {}
 
@@ -55,6 +59,8 @@ export class SideComponent implements OnInit {
     this.traits$ = this.store.select(selectTraits);
     this.collection$ = this.store.select(selectCurrentCollection);
     this.traitVariantDictionary$ = this.store.select(selectTraitVariants);
+    this.editorCollapsed$ = this.store.select(selectEditorCollapsed);
+    this.editorSelected$ = this.store.select(selectEditorSelected);
   }
 
   toggleAddTrait(): void {
@@ -109,9 +115,9 @@ export class SideComponent implements OnInit {
     });
   }
 
-  toggleExpandTraitDetails(trait: Trait): void {
+  toggleCollapse(trait: Trait): void {
     if (trait.id) {
-      this.collapsed[trait.id] = !this.collapsed[trait.id];
+      this.store.dispatch(editorActions.toggleCollapse({ traitId: trait.id }));
     }
   }
 
@@ -175,10 +181,12 @@ export class SideComponent implements OnInit {
 
   onVariantSelected(trait: Trait, selectedVariant: number | undefined): void {
     if (trait.id && selectedVariant) {
-      this.selectedVariants[trait.id] =
-        this.selectedVariants[trait.id] === selectedVariant
-          ? undefined
-          : selectedVariant;
+      this.store.dispatch(
+        editorActions.setSelectedTraitVariant({
+          traitId: trait.id,
+          variantId: selectedVariant,
+        })
+      );
     }
   }
 
@@ -207,11 +215,17 @@ export class SideComponent implements OnInit {
     );
   }
 
-  isTraitPanelExpanded(trait: Trait): boolean {
-    return trait.id ? !this.collapsed[trait.id] : false;
+  isTraitPanelCollapsed(trait: Trait): Observable<boolean> {
+    return this.editorCollapsed$.pipe(
+      map((collapsed) => (trait.id && collapsed ? collapsed[trait.id] : false))
+    );
   }
 
-  isVariantSelected(trait: Trait, variant: TraitVariant): boolean {
-    return trait.id ? this.selectedVariants[trait.id] === variant.id : false;
+  isVariantSelected(trait: Trait, variant: TraitVariant): Observable<boolean> {
+    return this.editorSelected$.pipe(
+      map((selected) =>
+        trait.id && selected ? selected[trait.id] === variant.id : false
+      )
+    );
   }
 }
