@@ -16,3 +16,12 @@ export const selectCurrentCollection = createSelector(
       ? state.list.find(({ id }: Collection) => id === state.current)
       : undefined
 );
+
+export const selectCurrentCollectionTraitOrdering = createSelector(
+  selectCollectionState,
+  (state: CollectionState) =>
+    state.current && state.list
+      ? state.list.find(({ id }: Collection) => id === state.current)
+          ?.traitsOrdering
+      : undefined
+);

@@ -3,9 +3,11 @@ import { Store } from '@ngrx/store';
 import { fabric } from 'fabric';
 import { Observable, take } from 'rxjs';
 import { updateTraitVariant } from 'src/app/store/actions/trait-variant.action';
-import { TraitVariant } from 'src/app/store/models/trait';
+import { Trait, TraitVariant } from 'src/app/store/models/trait';
 import { State as AppState } from 'src/app/store/reducers';
+import { selectCurrentCollectionTraitOrdering } from 'src/app/store/selectors/collection.selector';
 import { selectActiveTraitVariants } from 'src/app/store/selectors/editor.selector';
+import { selectTraits } from 'src/app/store/selectors/trait.selector';
 
 @Component({
   selector: 'app-editor-canvas',
@@ -14,13 +16,16 @@ import { selectActiveTraitVariants } from 'src/app/store/selectors/editor.select
 })
 export class CanvasComponent implements OnInit {
   private canvas!: fabric.Canvas;
-  private variants$!: Observable<any>;
+  private traits$!: Observable<Trait[] | undefined>;
+  private variants$!: Observable<TraitVariant[]>;
+  private traitsOrdering: (number | undefined)[] | undefined;
 
   private images: Record<number, fabric.Image> = {};
 
   constructor(private zone: NgZone, private store: Store<AppState>) {}
 
   ngOnInit(): void {
+    this.traits$ = this.store.select(selectTraits);
     this.variants$ = this.store.select(selectActiveTraitVariants);
 
     this.zone.runOutsideAngular(() => {
@@ -36,9 +41,40 @@ export class CanvasComponent implements OnInit {
     });
 
     this.variants$.subscribe((active) => this.onActiveVariantChange(active));
+    this.traits$.subscribe((value) => {
+      const traitsOrdering = value?.map(({ id }) => id);
+
+      let shouldUpdate = false;
+
+      if (traitsOrdering && this.traitsOrdering) {
+        if (traitsOrdering.length !== this.traitsOrdering.length) {
+          shouldUpdate = true;
+        } else {
+          for (let i = 0; i < traitsOrdering.length; i++) {
+            if (traitsOrdering[i] !== this.traitsOrdering[i]) {
+              shouldUpdate = true;
+              break;
+            }
+          }
+        }
+      } else {
+        shouldUpdate = true;
+      }
+
+      if (shouldUpdate) {
+        this.traitsOrdering = traitsOrdering;
+        this.variants$
+          .pipe(take(1))
+          .subscribe((active) => this.onActiveVariantChange(active));
+      }
+    });
   }
 
   onActiveVariantChange(selected: TraitVariant[]) {
+    if (!this.traitsOrdering || this.traitsOrdering.length === 0) return;
+
+    const traitsOrdering = this.traitsOrdering;
+
     const prevSelected: number[] = Object.keys(this.images).map((key) =>
       Number(key)
     );
@@ -66,6 +102,9 @@ export class CanvasComponent implements OnInit {
               scaleY: variant.scaleY ?? 1,
               top: variant.top ?? 0,
               left: variant.left ?? 0,
+              data: {
+                id: variant.traitId,
+              },
             }
           );
         }
@@ -76,6 +115,17 @@ export class CanvasComponent implements OnInit {
       this.canvas.remove(this.images[id]);
       delete this.images[id];
     });
+
+    setTimeout(() => {
+      for (let i = 0; i < this.canvas._objects.length; i++) {
+        this.canvas._objects[i].data.zIndex = traitsOrdering.indexOf(
+          this.canvas._objects[i].data.id
+        );
+      }
+
+      this.canvas._objects.sort((a, b) => b.data.zIndex - a.data.zIndex);
+      this.canvas.renderAll();
+    }, 1);
   }
 
   onCanvasObjectModified(obj: any) {
@@ -85,17 +135,19 @@ export class CanvasComponent implements OnInit {
 
     this.variants$.pipe(take(1)).subscribe((variants) => {
       const toUpdate = variants.find(({ id }: any) => id === Number(key));
-      this.store.dispatch(
-        updateTraitVariant({
-          variant: {
-            ...toUpdate,
-            scaleX: obj.target.scaleX,
-            scaleY: obj.target.scaleY,
-            top: obj.target.top,
-            left: obj.target.left,
-          },
-        })
-      );
+      if (toUpdate) {
+        this.store.dispatch(
+          updateTraitVariant({
+            variant: {
+              ...toUpdate,
+              scaleX: obj.target.scaleX,
+              scaleY: obj.target.scaleY,
+              top: obj.target.top,
+              left: obj.target.left,
+            },
+          })
+        );
+      }
     });
   }
 }
