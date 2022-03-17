@@ -22,11 +22,12 @@
     }
 
     .save-button {
-      background-color: green;
+      background-color: var(--action-primary-color);
+      color: var(--action-primary-text-color);
     }
   }
 
-  .delete-button {
-    background-color: red;
+  .delete-button:hover {
+    color: var(--action-danger-color);
   }
 }

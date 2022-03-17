@@ -1,6 +1,11 @@
 <div class="no-item-message">
   <div class="content">
     <i-feather name="alert-circle"></i-feather>
-    No generated editions found.
+    <span>No generated models found.</span>
+
+    <div class="buttons">
+      <a class="generate-button">Generate Models</a>
+      <a class="editor-button" (click)="gotToEditor()">Template Editor</a>
+    </div>
   </div>
 </div>

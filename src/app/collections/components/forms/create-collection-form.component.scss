@@ -49,7 +49,13 @@
 
           button {
             margin: 0 var(--spacing) var(--spacing);
-            background-color: green;
+
+            background-color: var(--action-primary-color);
+            color: var(--action-primary-text-color);
+
+            &:disabled {
+              opacity: 0.5;
+            }
           }
         }
       }

@@ -10,7 +10,11 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    opacity: 0.8;
+    margin-top: -100px;
+
+    span {
+      font-size: 1.5rem;
+    }
 
     i-feather {
       display: block;
@@ -18,6 +22,30 @@
       height: 100px;
       margin: calc(var(--spacing) / 2);
       opacity: 0.5;
+    }
+
+    .buttons {
+      cursor: pointer;
+      margin: calc(var(--spacing) * 2) 0 0;
+
+      a,
+      a:active {
+        padding: calc(var(--spacing) / 2);
+        border-radius: 10px;
+
+        &.generate-button {
+          background-color: var(--action-primary-color);
+          color: var(--action-primary-text-color);
+        }
+
+        &.editor-button {
+          opacity: 0.8;
+
+          &:hover {
+            opacity: 1;
+          }
+        }
+      }
     }
   }
 }

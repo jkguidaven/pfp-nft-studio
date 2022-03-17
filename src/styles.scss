@@ -213,4 +213,7 @@ body {
 :root {
   // Global config outside the material theming
   --spacing: 32px;
+  --action-primary-color: rgb(0, 102, 255);
+  --action-primary-text-color: white;
+  --action-danger-color: rgb(212, 47, 47);
 }

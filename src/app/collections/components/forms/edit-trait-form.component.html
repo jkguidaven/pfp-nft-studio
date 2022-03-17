@@ -33,12 +33,17 @@
 </div>
 
 <div class="action-panel">
-  <button mat-flat-button color="primary" (click)="remove()">
+  <button mat-flat-button class="delete-button" (click)="remove()">
     Delete Layer
   </button>
 
   <span class="spacer"></span>
-  <button mat-flat-button (click)="save()" [disabled]="!form.valid">
+  <button
+    mat-flat-button
+    class="save-button"
+    (click)="save()"
+    [disabled]="!form.valid"
+  >
     Save
   </button>
 </div>
