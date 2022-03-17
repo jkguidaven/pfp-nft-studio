@@ -1,23 +1,24 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { CollectionsComponent } from './collections.component';
-import { DetailsComponent } from './views/details.component';
-import { EditorComponent } from './views/editor.component';
-import { ItemsComponent } from './views/items.component';
-import { ListComponent } from './views/list.component';
+import { CollectionsViewComponent } from './collections.component';
+import { CollectionDetailsViewComponent } from './views/details.component';
+import { CollectionEditorViewComponent } from './views/editor.component';
+import { CollectionItemsViewComponent } from './views/items.component';
+import { CollectionListViewComponent } from './views/list.component';
+import { CollectionSetupViewComponent } from './views/setup.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: CollectionsComponent,
+    component: CollectionsViewComponent,
     children: [
       {
         path: '',
-        component: ListComponent,
+        component: CollectionListViewComponent,
       },
       {
         path: ':id',
-        component: DetailsComponent,
+        component: CollectionDetailsViewComponent,
         children: [
           {
             path: '',
@@ -26,11 +27,15 @@ const routes: Routes = [
           },
           {
             path: 'items',
-            component: ItemsComponent,
+            component: CollectionItemsViewComponent,
           },
           {
             path: 'editor',
-            component: EditorComponent,
+            component: CollectionEditorViewComponent,
+          },
+          {
+            path: 'setup',
+            component: CollectionSetupViewComponent,
           },
         ],
       },

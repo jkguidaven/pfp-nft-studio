@@ -13,20 +13,25 @@ import { SideNavMenuItem } from '../components/details/side-nav.component';
   templateUrl: './details.component.html',
   styleUrls: ['./details.component.scss'],
 })
-export class DetailsComponent implements OnInit, OnDestroy {
+export class CollectionDetailsViewComponent implements OnInit, OnDestroy {
   collection$!: Observable<Collection | undefined>;
   loading!: boolean;
 
   menuItems: SideNavMenuItem[] = [
     {
-      label: 'Items',
+      label: 'Generated models',
       icon: 'grid',
       link: 'items',
     },
     {
-      label: 'Editor',
+      label: 'Template Editor',
       icon: 'edit',
       link: 'editor',
+    },
+    {
+      label: 'Setup',
+      icon: 'settings',
+      link: 'setup',
     },
   ];
 

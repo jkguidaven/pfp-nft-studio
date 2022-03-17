@@ -5,7 +5,7 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './editor.component.html',
   styleUrls: ['./editor.component.scss'],
 })
-export class EditorComponent implements OnInit {
+export class CollectionEditorViewComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {}

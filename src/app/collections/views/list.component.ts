@@ -20,7 +20,7 @@ import { CreateCollectionFormComponent } from '../components/forms/create-collec
   styleUrls: ['./list.component.scss'],
   animations: [fade, expand],
 })
-export class ListComponent implements OnInit {
+export class CollectionListViewComponent implements OnInit {
   collections$!: Observable<Collection[] | undefined>;
 
   constructor(
