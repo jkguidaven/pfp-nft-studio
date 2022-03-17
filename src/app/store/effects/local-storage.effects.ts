@@ -12,13 +12,28 @@ export class LocalStorageEffects {
   loadThemeMode$ = createEffect(() =>
     this.actions$.pipe(
       ofType(ThemeActions.loadThemeMode),
-      mergeMap(() =>
-        of<any>(
+      mergeMap(() => {
+        let darkMode =
+          window.matchMedia &&
+          window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+        console.log({
+          darkMode,
+          storage: localStorage.getItem(LOCAL_STORAGE_DARK_MODE_KEY),
+        });
+
+        if (localStorage.getItem(LOCAL_STORAGE_DARK_MODE_KEY)) {
+          darkMode =
+            localStorage.getItem(LOCAL_STORAGE_DARK_MODE_KEY) === 'true';
+        }
+        console.log({ darkMode });
+
+        return of<any>(
           ThemeActions.setDarkMode({
-            mode: !!localStorage.getItem(LOCAL_STORAGE_DARK_MODE_KEY),
+            mode: darkMode,
           })
-        )
-      )
+        );
+      })
     )
   );
 
@@ -29,7 +44,7 @@ export class LocalStorageEffects {
         if (mode) {
           localStorage.setItem(LOCAL_STORAGE_DARK_MODE_KEY, 'true');
         } else {
-          localStorage.removeItem(LOCAL_STORAGE_DARK_MODE_KEY);
+          localStorage.setItem(LOCAL_STORAGE_DARK_MODE_KEY, 'false');
         }
 
         // We do not need to do anything at this point
