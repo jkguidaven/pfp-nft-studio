@@ -20,12 +20,12 @@ export class DetailsComponent implements OnInit, OnDestroy {
   menuItems: SideNavMenuItem[] = [
     {
       label: 'Items',
-      icon: 'apps',
+      icon: 'grid',
       link: 'items',
     },
     {
       label: 'Editor',
-      icon: 'photo_filter',
+      icon: 'edit',
       link: 'editor',
     },
   ];
