@@ -5,6 +5,7 @@ import * as fromCollection from './collection.reducer';
 import * as fromTrait from './trait.reducer';
 import * as fromTraitVariant from './trait-variant.reducer';
 import * as fromEditor from './editor.reducer';
+import * as fromModels from './model.reducer';
 import { TraitVariantDictionary } from '../models/trait';
 
 export interface State {
@@ -13,6 +14,7 @@ export interface State {
   [fromTrait.traitFeatureKey]: fromTrait.TraitState;
   [fromEditor.editorFeatureKey]: fromEditor.EditorState;
   [fromTraitVariant.traitVariantFeatureKey]: TraitVariantDictionary;
+  [fromModels.modelsFeatureKey]: fromModels.ModelsState;
 }
 
 export const reducers: ActionReducerMap<State> = {
@@ -21,6 +23,7 @@ export const reducers: ActionReducerMap<State> = {
   [fromTrait.traitFeatureKey]: fromTrait.reducer,
   [fromEditor.editorFeatureKey]: fromEditor.reducer,
   [fromTraitVariant.traitVariantFeatureKey]: fromTraitVariant.reducer,
+  [fromModels.modelsFeatureKey]: fromModels.reducer,
 };
 
 export const metaReducers: MetaReducer<State>[] = !environment.production

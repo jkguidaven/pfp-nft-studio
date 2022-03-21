@@ -11,6 +11,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { CollectionEffects } from './effects/collection.effects';
 import { TraitEffects } from './effects/trait.effects';
 import { TraitVariantEffects } from './effects/trait-variant.effects';
+import { ModelEffects } from './effects/model.effects';
 
 @NgModule({
   declarations: [],
@@ -23,6 +24,7 @@ import { TraitVariantEffects } from './effects/trait-variant.effects';
       CollectionEffects,
       TraitEffects,
       TraitVariantEffects,
+      ModelEffects,
     ]),
     StoreDevtoolsModule.instrument({
       maxAge: 25,
