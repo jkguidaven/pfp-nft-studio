@@ -16,6 +16,7 @@ import { MatSliderModule } from '@angular/material/slider';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
+import { A11yModule } from '@angular/cdk/a11y';
 import { FeatherModule } from 'angular-feather';
 import { allIcons } from 'angular-feather/icons';
 
@@ -44,6 +45,7 @@ import { AppHeaderComponent } from './components/common/app-header.component';
 import { DarkModeToggleComponent } from './components/common/dark-mode-toggle.component';
 import { CollectionCardComponent } from './components/list/collection-card.component';
 import { CollectionCardLoaderComponent } from './components/list/collection-card-loader.component';
+import { ConfirmGenerateModelDialogComponent } from './components/items/confirm-generate-model-dialog.component';
 
 @NgModule({
   declarations: [
@@ -71,6 +73,7 @@ import { CollectionCardLoaderComponent } from './components/list/collection-card
     DndDirective,
     TraitItemLoaderComponent,
     AddTraitVariantButtonComponent,
+    ConfirmGenerateModelDialogComponent,
   ],
   imports: [
     CommonModule,
@@ -92,6 +95,7 @@ import { CollectionCardLoaderComponent } from './components/list/collection-card
     NgxSkeletonLoaderModule,
     DragDropModule,
     FeatherModule.pick(allIcons),
+    A11yModule,
   ],
   providers: [
     {

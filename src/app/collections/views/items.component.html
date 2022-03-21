@@ -4,7 +4,9 @@
     <span>No generated models found.</span>
 
     <div class="buttons">
-      <a class="generate-button">Generate Models</a>
+      <a class="generate-button" (click)="confirmGenerateModels()"
+        >Generate Models</a
+      >
       <a class="editor-button" (click)="gotToEditor()">Template Editor</a>
     </div>
   </div>
