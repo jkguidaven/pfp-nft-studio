@@ -30,7 +30,7 @@ import { SideComponent } from './components/editor/side.component';
 import { CollectionDetailsViewComponent } from './views/details.component';
 import { CollectionHeaderComponent } from './components/details/collection-header.component';
 import { SideNavComponent } from './components/details/side-nav.component';
-import { CollectionItemsViewComponent } from './views/items.component';
+import { CollectionModelsViewComponent } from './views/models.component';
 import { InlineInputFieldComponent } from './components/common/inline-input-field.component';
 import { EditTraitFormComponent } from './components/forms/edit-trait-form.component';
 import { TraitVariantItemComponent } from './components/editor/trait-variant-item.component';
@@ -46,7 +46,8 @@ import { AppHeaderComponent } from './components/common/app-header.component';
 import { DarkModeToggleComponent } from './components/common/dark-mode-toggle.component';
 import { CollectionCardComponent } from './components/list/collection-card.component';
 import { CollectionCardLoaderComponent } from './components/list/collection-card-loader.component';
-import { ConfirmGenerateModelDialogComponent } from './components/items/confirm-generate-model-dialog.component';
+import { ConfirmGenerateModelDialogComponent } from './components/models/confirm-generate-model-dialog.component';
+import { ModelCardComponent } from './components/models/model-card.component';
 
 @NgModule({
   declarations: [
@@ -55,7 +56,7 @@ import { ConfirmGenerateModelDialogComponent } from './components/items/confirm-
     CollectionSetupViewComponent,
     CollectionEditorViewComponent,
     CollectionDetailsViewComponent,
-    CollectionItemsViewComponent,
+    CollectionModelsViewComponent,
     AppHeaderComponent,
     DarkModeToggleComponent,
     CollectionCardComponent,
@@ -75,6 +76,7 @@ import { ConfirmGenerateModelDialogComponent } from './components/items/confirm-
     TraitItemLoaderComponent,
     AddTraitVariantButtonComponent,
     ConfirmGenerateModelDialogComponent,
+    ModelCardComponent,
   ],
   imports: [
     CommonModule,

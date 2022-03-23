@@ -15,14 +15,14 @@ import { selectCurrentCollection } from 'src/app/store/selectors/collection.sele
 import { selectGeneratedModelQueue } from 'src/app/store/selectors/model.selector';
 import { selectTraitVariants } from 'src/app/store/selectors/trait-variant.selector';
 import { selectTraits } from 'src/app/store/selectors/trait.selector';
-import { ConfirmGenerateModelDialogComponent } from '../components/items/confirm-generate-model-dialog.component';
+import { ConfirmGenerateModelDialogComponent } from '../components/models/confirm-generate-model-dialog.component';
 
 @Component({
-  selector: 'app-items',
-  templateUrl: './items.component.html',
-  styleUrls: ['./items.component.scss'],
+  selector: 'app-models',
+  templateUrl: './models.component.html',
+  styleUrls: ['./models.component.scss'],
 })
-export class CollectionItemsViewComponent implements OnInit {
+export class CollectionModelsViewComponent implements OnInit {
   collection$!: Observable<Collection | undefined>;
   traits$!: Observable<Trait[] | undefined>;
   traitVariantDictionary$!: Observable<TraitVariantDictionary | undefined>;

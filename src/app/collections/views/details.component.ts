@@ -21,7 +21,7 @@ export class CollectionDetailsViewComponent implements OnInit, OnDestroy {
     {
       label: 'Generated models',
       icon: 'grid',
-      link: 'items',
+      link: 'models',
     },
     {
       label: 'Template Editor',

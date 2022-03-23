@@ -1,7 +1,11 @@
 <div class="queue-container" *ngIf="currentQueue$ | async; else noQueue">
   <mat-progress-bar mode="indeterminate"></mat-progress-bar>
 
-  generating..
+  <app-model-card
+    *ngFor="let model of (currentQueue$ | async)?.models"
+    [model]="model"
+  >
+  </app-model-card>
 </div>
 
 <ng-template #noQueue>
