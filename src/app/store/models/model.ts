@@ -1,3 +1,5 @@
+import { TraitVariant } from './trait';
+
 export interface Model {
   id?: number;
   image?: string;
@@ -5,7 +7,7 @@ export interface Model {
 }
 
 export interface ModelLayer {
-  variantId: number | undefined;
+  variant: TraitVariant;
   overrides: {
     top?: number;
     left?: number;

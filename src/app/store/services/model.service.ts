@@ -22,6 +22,9 @@ const shuffleArray = (array: any[]) => {
   return array;
 };
 
+export const GENERATOR_CANVAS = 'generatorCanvas';
+import { fabric } from 'fabric';
+
 @Injectable({
   providedIn: 'root',
 })
@@ -44,6 +47,42 @@ export class ModelService {
       0,
       Math.min(maxSupply - 1, models.length)
     );
+  }
+
+  getModelImage(width: number, height: number, model: Model): Promise<string> {
+    const canvas = new fabric.Canvas(GENERATOR_CANVAS, {
+      width,
+      height,
+      backgroundColor: '#fff',
+      selection: false,
+      preserveObjectStacking: true,
+    });
+
+    canvas.clear();
+    for (let layer of model.layers) {
+      const { variant } = layer;
+
+      if (variant) {
+        fabric.Image.fromURL(
+          variant.src || '',
+          (image) => {
+            canvas.add(image);
+          },
+          {
+            scaleX: layer.overrides.scaleX ?? variant.scaleX ?? 1,
+            scaleY: layer.overrides.scaleY ?? variant.scaleY ?? 1,
+            top: layer.overrides.top ?? variant.top ?? 0,
+            left: layer.overrides.left ?? variant.left ?? 0,
+          }
+        );
+      }
+    }
+
+    canvas.renderAll();
+
+    return new Promise((resolve) => {
+      setTimeout(() => resolve(canvas.toDataURL()));
+    });
   }
 
   private getSortedTraits(ordering: number[], traits: Trait[]): Trait[] {
@@ -86,7 +125,7 @@ export class ModelService {
 
       for (let variant of variants) {
         models.push({
-          layers: [{ variantId: variant.id, overrides: {} }],
+          layers: [{ variant, overrides: {} }],
         });
       }
 
@@ -99,7 +138,7 @@ export class ModelService {
           traits.slice(1),
           traitVariantDictionary
         )) {
-          model.layers.push({ variantId: variant.id, overrides: {} });
+          model.layers.push({ variant, overrides: {} });
           models.push(model);
         }
       }

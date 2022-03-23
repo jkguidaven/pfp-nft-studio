@@ -47,5 +47,17 @@ export const reducer = createReducer(
         currentIndex: state[collectionId].currentIndex + 1,
       },
     };
+  }),
+
+  on(modelsActions.setModelImage, (state, { collectionId, image, index }) => {
+    return {
+      ...state,
+      [collectionId]: {
+        ...state[collectionId],
+        models: state[collectionId].models.map((model, target) => {
+          return index === target ? { ...model, image } : model;
+        }),
+      },
+    };
   })
 );

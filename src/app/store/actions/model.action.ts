@@ -25,3 +25,8 @@ export const setNextModel = createAction(
   '[Model] set next model',
   props<{ collectionId: number }>()
 );
+
+export const setModelImage = createAction(
+  '[Model] set image model',
+  props<{ collectionId: number; index: number; image: string }>()
+);

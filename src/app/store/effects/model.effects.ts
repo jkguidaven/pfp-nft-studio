@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Actions, concatLatestFrom, createEffect, ofType } from '@ngrx/effects';
-import { TraitVariantDictionary } from '../models/trait';
 import { ModelService } from '../services/model.service';
 import * as modelActions from '../actions/model.action';
-import { delay, mergeMap, of, queue, withLatestFrom } from 'rxjs';
+import { delay, from, map, mergeMap, of, withLatestFrom } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { State as AppState } from '../reducers';
 import { selectCurrentCollection } from '../selectors/collection.selector';
@@ -53,12 +52,30 @@ export class ModelEffects {
       withLatestFrom(this.store.select(selectGeneratedModelQueue)),
       mergeMap(([{ collectionId }, queues]: [any, ModelsState]) => {
         const queue = queues[collectionId];
-        const hasNext = queue.currentIndex < queue.models.length;
+        const hasNext = queue.models[queue.currentIndex];
 
-        return hasNext
-          ? of(modelActions.setNextModel({ collectionId })).pipe(delay(1000))
-          : of({ type: 'noAction' });
+        if (hasNext) {
+          const model = queue.models[queue.currentIndex];
+          return from(this.modelService.getModelImage(600, 600, model)).pipe(
+            map((image) =>
+              modelActions.setModelImage({
+                collectionId,
+                image,
+                index: queue.currentIndex,
+              })
+            )
+          );
+        } else {
+          return of({ type: 'noAction' });
+        }
       })
+    )
+  );
+
+  moveToNextModel$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(modelActions.setModelImage),
+      map(({ collectionId }) => modelActions.setNextModel({ collectionId }))
     )
   );
 }

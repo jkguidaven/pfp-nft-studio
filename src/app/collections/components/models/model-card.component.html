@@ -1,3 +1,7 @@
 <div class="model-card" [ngClass]="{ processing }">
-  <i-feather [name]="icon" *ngIf="!model.image"></i-feather>
+  <i-feather [name]="icon" *ngIf="!model.image; else displayImage"></i-feather>
+
+  <ng-template #displayImage>
+    <img [src]="model.image" />
+  </ng-template>
 </div>

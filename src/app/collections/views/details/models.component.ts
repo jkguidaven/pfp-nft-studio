@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
+import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
@@ -15,6 +16,7 @@ import { selectCurrentCollection } from 'src/app/store/selectors/collection.sele
 import { selectGeneratedModelQueue } from 'src/app/store/selectors/model.selector';
 import { selectTraitVariants } from 'src/app/store/selectors/trait-variant.selector';
 import { selectTraits } from 'src/app/store/selectors/trait.selector';
+import { GENERATOR_CANVAS } from 'src/app/store/services/model.service';
 import { ConfirmGenerateModelDialogComponent } from '../../components/models/confirm-generate-model-dialog.component';
 
 @Component({
@@ -32,7 +34,8 @@ export class CollectionModelsViewComponent implements OnInit {
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private store: Store<AppState>,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    @Inject(DOCUMENT) private document: Document
   ) {}
 
   ngOnInit(): void {
@@ -40,6 +43,15 @@ export class CollectionModelsViewComponent implements OnInit {
     this.traits$ = this.store.select(selectTraits);
     this.traitVariantDictionary$ = this.store.select(selectTraitVariants);
     this.queues$ = this.store.select(selectGeneratedModelQueue);
+
+    if (!this.document.getElementById(GENERATOR_CANVAS)) {
+      const canvas = this.document.createElement('canvas');
+      canvas.id = GENERATOR_CANVAS;
+      canvas.style.position = 'absolute';
+      canvas.style.left = '100000px';
+      canvas.style.top = '-100000px';
+      this.document.body.appendChild(canvas);
+    }
   }
 
   gotToEditor(): void {
