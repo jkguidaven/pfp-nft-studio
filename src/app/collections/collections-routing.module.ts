@@ -2,10 +2,10 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CollectionsViewComponent } from './collections.component';
 import { CollectionDetailsViewComponent } from './views/details.component';
-import { CollectionEditorViewComponent } from './views/editor.component';
-import { CollectionModelsViewComponent } from './views/models.component';
+import { CollectionEditorViewComponent } from './views/details/editor.component';
+import { CollectionModelsViewComponent } from './views/details/models.component';
+import { CollectionSetupViewComponent } from './views/details/setup.component';
 import { CollectionListViewComponent } from './views/list.component';
-import { CollectionSetupViewComponent } from './views/setup.component';
 
 const routes: Routes = [
   {
