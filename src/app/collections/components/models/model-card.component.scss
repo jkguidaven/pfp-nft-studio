@@ -22,10 +22,18 @@
     justify-content: center;
 
     i-feather {
-      animation: spin 600ms linear infinite;
-      opacity: 0.8;
+      opacity: 0.3;
       width: 30px;
       height: 30px;
+    }
+
+    &.processing {
+      border: 3px solid rgba($text-color, 0.5);
+
+      i-feather {
+        animation: spin 600ms linear infinite;
+        opacity: 0.8;
+      }
     }
   }
 }

@@ -3,8 +3,9 @@
 
   <div class="content">
     <app-model-card
-      *ngFor="let model of (currentQueue$ | async)?.models"
+      *ngFor="let model of (currentQueue$ | async)?.models; let i = index"
       [model]="model"
+      [processing]="(currentQueue$ | async)?.currentIndex === i"
     >
     </app-model-card>
   </div>

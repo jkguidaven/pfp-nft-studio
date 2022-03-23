@@ -7,9 +7,14 @@ import { Model } from 'src/app/store/models/model';
   styleUrls: ['./model-card.component.scss'],
 })
 export class ModelCardComponent implements OnInit {
+  @Input() processing!: boolean;
   @Input() model!: Model;
 
   constructor() {}
 
   ngOnInit(): void {}
+
+  get icon(): string {
+    return this.processing ? 'refresh-cw' : 'alert-circle';
+  }
 }

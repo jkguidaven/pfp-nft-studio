@@ -1,3 +1,3 @@
-<div class="model-card">
-  <i-feather name="refresh-cw" *ngIf="!model.image"></i-feather>
+<div class="model-card" [ngClass]="{ processing }">
+  <i-feather [name]="icon" *ngIf="!model.image"></i-feather>
 </div>

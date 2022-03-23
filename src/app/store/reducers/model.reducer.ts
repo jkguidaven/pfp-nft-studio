@@ -33,6 +33,7 @@ export const reducer = createReducer(
       ...state,
       [collectionId]: {
         ...state[collectionId],
+        currentIndex: 0,
         models,
       },
     };
