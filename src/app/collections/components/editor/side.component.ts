@@ -47,7 +47,7 @@ export class SideComponent implements OnInit {
   collection$!: Observable<Collection | undefined>;
   traitVariantDictionary$!: Observable<TraitVariantDictionary | undefined>;
   editorCollapsed$!: Observable<Record<number, boolean> | undefined>;
-  editorSelected$!: Observable<Record<number, number> | undefined>;
+  editorSelected$!: Observable<Record<number, number | undefined> | undefined>;
 
   adding!: boolean;
 

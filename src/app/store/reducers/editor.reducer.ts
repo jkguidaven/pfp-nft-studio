@@ -4,7 +4,7 @@ import * as editorActions from '../actions/editor.action';
 export const editorFeatureKey = 'editor';
 
 export interface EditorState {
-  selected: Record<number, number>;
+  selected: Record<number, number | undefined>;
   collapsed: Record<number, boolean>;
 }
 
@@ -31,7 +31,8 @@ export const reducer = createReducer(
       ...state,
       selected: {
         ...state.selected,
-        [traitId]: variantId,
+        [traitId]:
+          state.selected[traitId] === variantId ? undefined : variantId,
       },
     };
   })
