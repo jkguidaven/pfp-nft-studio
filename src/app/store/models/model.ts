@@ -5,7 +5,7 @@ export interface Model {
 }
 
 export interface ModelLayer {
-  variantId: number;
+  variantId: number | undefined;
   overrides: {
     top?: number;
     left?: number;

@@ -14,6 +14,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import { A11yModule } from '@angular/cdk/a11y';
@@ -92,6 +93,7 @@ import { ConfirmGenerateModelDialogComponent } from './components/items/confirm-
     MatTooltipModule,
     MatSliderModule,
     MatCheckboxModule,
+    MatProgressBarModule,
     NgxSkeletonLoaderModule,
     DragDropModule,
     FeatherModule.pick(allIcons),

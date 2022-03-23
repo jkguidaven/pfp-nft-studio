@@ -2,11 +2,17 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { forkJoin, Observable, take } from 'rxjs';
+import { forkJoin, map, Observable, take } from 'rxjs';
+import {
+  generateModelQueue,
+  resetGeneratingQueue,
+} from 'src/app/store/actions/model.action';
 import { Collection } from 'src/app/store/models/collection';
 import { Trait, TraitVariantDictionary } from 'src/app/store/models/trait';
 import { State as AppState } from 'src/app/store/reducers';
+import { GeneratedModelQueue } from 'src/app/store/reducers/model.reducer';
 import { selectCurrentCollection } from 'src/app/store/selectors/collection.selector';
+import { selectGeneratedModelQueue } from 'src/app/store/selectors/model.selector';
 import { selectTraitVariants } from 'src/app/store/selectors/trait-variant.selector';
 import { selectTraits } from 'src/app/store/selectors/trait.selector';
 import { ConfirmGenerateModelDialogComponent } from '../components/items/confirm-generate-model-dialog.component';
@@ -20,6 +26,7 @@ export class CollectionItemsViewComponent implements OnInit {
   collection$!: Observable<Collection | undefined>;
   traits$!: Observable<Trait[] | undefined>;
   traitVariantDictionary$!: Observable<TraitVariantDictionary | undefined>;
+  queues$!: Observable<Record<number, GeneratedModelQueue> | undefined>;
 
   constructor(
     private router: Router,
@@ -32,6 +39,7 @@ export class CollectionItemsViewComponent implements OnInit {
     this.collection$ = this.store.select(selectCurrentCollection);
     this.traits$ = this.store.select(selectTraits);
     this.traitVariantDictionary$ = this.store.select(selectTraitVariants);
+    this.queues$ = this.store.select(selectGeneratedModelQueue);
   }
 
   gotToEditor(): void {
@@ -40,6 +48,19 @@ export class CollectionItemsViewComponent implements OnInit {
     if (id) {
       this.router.navigate(['/collections', id, 'editor']);
     }
+  }
+
+  get currentQueue$(): Observable<GeneratedModelQueue | undefined> {
+    return forkJoin([
+      this.collection$.pipe(take(1)),
+      this.queues$.pipe(take(1)),
+    ]).pipe(
+      map(([collection, queues]) =>
+        collection && collection.id && queues
+          ? queues[collection.id]
+          : undefined
+      )
+    );
   }
 
   confirmGenerateModels(): void {
@@ -71,8 +92,10 @@ export class CollectionItemsViewComponent implements OnInit {
       });
 
       dialogRef.afterClosed().subscribe((confirmed) => {
-        if (confirmed) {
-          // TO-DO begin generating
+        const collectionId = collection?.id;
+        if (confirmed && collectionId) {
+          this.store.dispatch(resetGeneratingQueue({ collectionId }));
+          this.store.dispatch(generateModelQueue({ collectionId }));
         }
       });
     });

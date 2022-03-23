@@ -27,16 +27,14 @@ export class ModelEffects {
         this.store.select(selectTraitVariants),
       ]),
       mergeMap(([{ collectionId }, collection, traits, variantDictionary]) => {
-        const maxSupply = collection?.supply ?? 0;
         const models =
-          traits && variantDictionary
+          collection && traits && variantDictionary
             ? this.modelService.generateModelCombinations(
+                collection,
                 traits,
-                variantDictionary,
-                maxSupply
+                variantDictionary
               )
             : [];
-
         return of(
           modelActions.setGeneratingQueue({
             collectionId,

@@ -1,13 +1,21 @@
-<div class="no-item-message">
-  <div class="content">
-    <i-feather name="alert-circle"></i-feather>
-    <span>No generated models found.</span>
+<div class="queue-container" *ngIf="currentQueue$ | async; else noQueue">
+  <mat-progress-bar mode="indeterminate"></mat-progress-bar>
 
-    <div class="buttons">
-      <a class="generate-button" (click)="confirmGenerateModels()"
-        >Generate Models</a
-      >
-      <a class="editor-button" (click)="gotToEditor()">Template Editor</a>
+  generating..
+</div>
+
+<ng-template #noQueue>
+  <div class="no-item-message">
+    <div class="content">
+      <i-feather name="alert-circle"></i-feather>
+      <span>No generated models found.</span>
+
+      <div class="buttons">
+        <a class="generate-button" (click)="confirmGenerateModels()"
+          >Generate Models</a
+        >
+        <a class="editor-button" (click)="gotToEditor()">Template Editor</a>
+      </div>
     </div>
   </div>
-</div>
+</ng-template>
