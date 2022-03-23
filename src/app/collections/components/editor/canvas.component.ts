@@ -3,9 +3,10 @@ import { Store } from '@ngrx/store';
 import { fabric } from 'fabric';
 import { Observable, take } from 'rxjs';
 import { updateTraitVariant } from 'src/app/store/actions/trait-variant.action';
+import { Collection } from 'src/app/store/models/collection';
 import { Trait, TraitVariant } from 'src/app/store/models/trait';
 import { State as AppState } from 'src/app/store/reducers';
-import { selectCurrentCollectionTraitOrdering } from 'src/app/store/selectors/collection.selector';
+import { selectCurrentCollection } from 'src/app/store/selectors/collection.selector';
 import { selectActiveTraitVariants } from 'src/app/store/selectors/editor.selector';
 import { selectTraits } from 'src/app/store/selectors/trait.selector';
 
@@ -15,7 +16,8 @@ import { selectTraits } from 'src/app/store/selectors/trait.selector';
   styleUrls: ['./canvas.component.scss'],
 })
 export class CanvasComponent implements OnInit {
-  private canvas!: fabric.Canvas;
+  canvas!: fabric.Canvas;
+  public collection$!: Observable<Collection | undefined>;
   private traits$!: Observable<Trait[] | undefined>;
   private variants$!: Observable<TraitVariant[]>;
   private traitsOrdering: (number | undefined)[] | undefined;
@@ -25,47 +27,56 @@ export class CanvasComponent implements OnInit {
   constructor(private zone: NgZone, private store: Store<AppState>) {}
 
   ngOnInit(): void {
+    this.collection$ = this.store.select(selectCurrentCollection);
     this.traits$ = this.store.select(selectTraits);
     this.variants$ = this.store.select(selectActiveTraitVariants);
 
-    this.zone.runOutsideAngular(() => {
-      this.canvas = new fabric.Canvas('canvas', {
-        backgroundColor: '#fff',
-        selection: false,
-        preserveObjectStacking: true,
-      });
+    this.collection$.subscribe((collection) => {
+      if (collection && !this.canvas) {
+        this.zone.runOutsideAngular(() => {
+          this.canvas = new fabric.Canvas('canvas', {
+            width: collection?.width ?? 600,
+            height: collection?.height ?? 600,
+            backgroundColor: '#fff',
+            selection: false,
+            preserveObjectStacking: true,
+          });
 
-      this.canvas.on('object:modified', ($event) =>
-        this.onCanvasObjectModified($event)
-      );
-    });
+          this.canvas.on('object:modified', ($event) =>
+            this.onCanvasObjectModified($event)
+          );
+        });
 
-    this.variants$.subscribe((active) => this.onActiveVariantChange(active));
-    this.traits$.subscribe((value) => {
-      const traitsOrdering = value?.map(({ id }) => id);
+        this.variants$.subscribe((active) =>
+          this.onActiveVariantChange(active)
+        );
+        this.traits$.subscribe((value) => {
+          const traitsOrdering = value?.map(({ id }) => id);
 
-      let shouldUpdate = false;
+          let shouldUpdate = false;
 
-      if (traitsOrdering && this.traitsOrdering) {
-        if (traitsOrdering.length !== this.traitsOrdering.length) {
-          shouldUpdate = true;
-        } else {
-          for (let i = 0; i < traitsOrdering.length; i++) {
-            if (traitsOrdering[i] !== this.traitsOrdering[i]) {
+          if (traitsOrdering && this.traitsOrdering) {
+            if (traitsOrdering.length !== this.traitsOrdering.length) {
               shouldUpdate = true;
-              break;
+            } else {
+              for (let i = 0; i < traitsOrdering.length; i++) {
+                if (traitsOrdering[i] !== this.traitsOrdering[i]) {
+                  shouldUpdate = true;
+                  break;
+                }
+              }
             }
+          } else {
+            shouldUpdate = true;
           }
-        }
-      } else {
-        shouldUpdate = true;
-      }
 
-      if (shouldUpdate) {
-        this.traitsOrdering = traitsOrdering;
-        this.variants$
-          .pipe(take(1))
-          .subscribe((active) => this.onActiveVariantChange(active));
+          if (shouldUpdate) {
+            this.traitsOrdering = traitsOrdering;
+            this.variants$
+              .pipe(take(1))
+              .subscribe((active) => this.onActiveVariantChange(active));
+          }
+        });
       }
     });
   }

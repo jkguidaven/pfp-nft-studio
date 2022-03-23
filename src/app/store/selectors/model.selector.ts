@@ -8,3 +8,9 @@ export const selectGeneratedModelQueue = createSelector(
   selectModelState,
   (state: ModelsState) => state
 );
+
+export const selectCurrentModel = (collectionId: number) =>
+  createSelector(
+    selectModelState,
+    (state: ModelsState) => state[collectionId]?.currentIndex
+  );

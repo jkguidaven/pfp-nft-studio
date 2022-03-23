@@ -14,8 +14,8 @@ export class CreateCollectionFormComponent implements OnInit {
   form: FormGroup = new FormGroup({
     name: new FormControl('', [Validators.required]),
     description: new FormControl('', [Validators.required]),
-    width: new FormControl(1024, [Validators.required]),
-    height: new FormControl(1024, [Validators.required]),
+    width: new FormControl(600, [Validators.required]),
+    height: new FormControl(600, [Validators.required]),
     supply: new FormControl(10000),
     royalty: new FormControl(5),
     mintPricePresale: new FormControl(0.5),

@@ -15,3 +15,13 @@ export const generateModelQueue = createAction(
   '[Model] generate model queue',
   props<{ collectionId: number }>()
 );
+
+export const proccessCurrentModel = createAction(
+  '[Model] process current model',
+  props<{ collectionId: number }>()
+);
+
+export const setNextModel = createAction(
+  '[Model] set next model',
+  props<{ collectionId: number }>()
+);

@@ -3,12 +3,14 @@ import { Actions, concatLatestFrom, createEffect, ofType } from '@ngrx/effects';
 import { TraitVariantDictionary } from '../models/trait';
 import { ModelService } from '../services/model.service';
 import * as modelActions from '../actions/model.action';
-import { mergeMap, of, withLatestFrom } from 'rxjs';
+import { delay, mergeMap, of, queue, withLatestFrom } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { State as AppState } from '../reducers';
 import { selectCurrentCollection } from '../selectors/collection.selector';
 import { selectTraits } from '../selectors/trait.selector';
 import { selectTraitVariants } from '../selectors/trait-variant.selector';
+import { selectGeneratedModelQueue } from '../selectors/model.selector';
+import { ModelsState } from '../reducers/model.reducer';
 
 @Injectable()
 export class ModelEffects {
@@ -41,6 +43,21 @@ export class ModelEffects {
             models,
           })
         );
+      })
+    )
+  );
+
+  processCurrentModel$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(...[modelActions.setGeneratingQueue, modelActions.setNextModel]),
+      withLatestFrom(this.store.select(selectGeneratedModelQueue)),
+      mergeMap(([{ collectionId }, queues]: [any, ModelsState]) => {
+        const queue = queues[collectionId];
+        const hasNext = queue.currentIndex < queue.models.length;
+
+        return hasNext
+          ? of(modelActions.setNextModel({ collectionId })).pipe(delay(1000))
+          : of({ type: 'noAction' });
       })
     )
   );

@@ -37,5 +37,15 @@ export const reducer = createReducer(
         models,
       },
     };
+  }),
+
+  on(modelsActions.setNextModel, (state, { collectionId }) => {
+    return {
+      ...state,
+      [collectionId]: {
+        ...state[collectionId],
+        currentIndex: state[collectionId].currentIndex + 1,
+      },
+    };
   })
 );
