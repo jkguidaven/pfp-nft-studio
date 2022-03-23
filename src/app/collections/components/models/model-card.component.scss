@@ -1,0 +1,38 @@
+@use "sass:map";
+@use "@angular/material" as mat;
+
+@mixin theme($theme) {
+  // Get the color config from the theme.
+  $color-config: mat.get-color-config($theme);
+  $primary: map.get($color-config, primary);
+  $foreground: map.get($color-config, foreground);
+  $background-color: mat.get-color-from-palette($primary, 500);
+  $text-color: mat.get-color-from-palette($foreground, text);
+
+  .model-card {
+    width: 150px;
+    height: 150px;
+    border-radius: 5px;
+    padding: 10px;
+    transition: all 100ms ease-out;
+    background-color: rgba($background-color, 0.5);
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    i-feather {
+      animation: spin 600ms linear infinite;
+      opacity: 0.8;
+      width: 30px;
+      height: 30px;
+    }
+  }
+}
+
+@keyframes spin {
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
