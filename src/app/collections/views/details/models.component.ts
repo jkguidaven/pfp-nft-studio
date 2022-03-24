@@ -1,5 +1,5 @@
 import { DOCUMENT } from '@angular/common';
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, HostListener, Inject, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
@@ -29,6 +29,10 @@ export class CollectionModelsViewComponent implements OnInit {
   traits$!: Observable<Trait[] | undefined>;
   traitVariantDictionary$!: Observable<TraitVariantDictionary | undefined>;
   queues$!: Observable<Record<number, GeneratedModelQueue> | undefined>;
+
+  pageSizeOptions: number[] = [10, 25, 50, 100];
+  pageSize = this.pageSizeOptions[0];
+  pageIndex = 0;
 
   constructor(
     private router: Router,
@@ -75,6 +79,22 @@ export class CollectionModelsViewComponent implements OnInit {
     );
   }
 
+  get pending(): Observable<boolean> {
+    return this.currentQueue$.pipe(
+      map((queue: GeneratedModelQueue | undefined) => {
+        return queue && queue.currentIndex > -1
+          ? queue.currentIndex < queue.models.length
+          : false;
+      })
+    );
+  }
+
+  get length(): Observable<number> {
+    return this.currentQueue$.pipe(
+      map((queue) => (queue ? queue.models.length : 0))
+    );
+  }
+
   confirmGenerateModels(): void {
     forkJoin([
       this.collection$.pipe(take(1)),
@@ -111,5 +131,10 @@ export class CollectionModelsViewComponent implements OnInit {
         }
       });
     });
+  }
+
+  onPageChange({ pageIndex, pageSize }: any): void {
+    this.pageSize = pageSize;
+    this.pageIndex = pageIndex;
   }
 }

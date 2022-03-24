@@ -1,15 +1,35 @@
-<div class="queue-container" *ngIf="currentQueue$ | async; else noQueue">
-  <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+<mat-progress-bar
+  mode="indeterminate"
+  *ngIf="pending | async"
+></mat-progress-bar>
 
-  <div class="content">
-    <app-model-card
-      *ngFor="let model of (currentQueue$ | async)?.models; let i = index"
-      [model]="model"
-      [processing]="(currentQueue$ | async)?.currentIndex === i"
+<main *ngIf="currentQueue$ | async; else noQueue">
+  <div class="toolbar">
+    <mat-paginator
+      [length]="length | async"
+      [pageSize]="pageSize"
+      [pageSizeOptions]="pageSizeOptions"
+      (page)="onPageChange($event)"
+      aria-label="Select page"
     >
-    </app-model-card>
+    </mat-paginator>
   </div>
-</div>
+
+  <div class="queue-container">
+    <div class="content">
+      <app-model-card
+        *ngFor="
+          let model of (currentQueue$ | async)?.models
+            | slice: pageIndex:pageIndex + pageSize;
+          let i = index
+        "
+        [model]="model"
+        [processing]="(currentQueue$ | async)?.currentIndex === i"
+      >
+      </app-model-card>
+    </div>
+  </div>
+</main>
 
 <ng-template #noQueue>
   <div class="no-item-message">

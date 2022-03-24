@@ -15,6 +15,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatSelectModule } from '@angular/material/select';
+import { MatPaginatorModule } from '@angular/material/paginator';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import { A11yModule } from '@angular/cdk/a11y';
@@ -96,6 +98,8 @@ import { ModelCardComponent } from './components/models/model-card.component';
     MatSliderModule,
     MatCheckboxModule,
     MatProgressBarModule,
+    MatSelectModule,
+    MatPaginatorModule,
     NgxSkeletonLoaderModule,
     DragDropModule,
     FeatherModule.pick(allIcons),
