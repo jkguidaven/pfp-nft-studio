@@ -31,7 +31,7 @@ export class CollectionModelsViewComponent implements OnInit {
   queues$!: Observable<Record<number, GeneratedModelQueue> | undefined>;
 
   pageSizeOptions: number[] = [10, 25, 50, 100];
-  pageSize = this.pageSizeOptions[0];
+  pageSize = this.pageSizeOptions[2];
   pageIndex = 0;
 
   constructor(
@@ -76,16 +76,6 @@ export class CollectionModelsViewComponent implements OnInit {
           ? queues[collection.id]
           : undefined
       )
-    );
-  }
-
-  get pending(): Observable<boolean> {
-    return this.currentQueue$.pipe(
-      map((queue: GeneratedModelQueue | undefined) => {
-        return queue && queue.currentIndex > -1
-          ? queue.currentIndex < queue.models.length
-          : false;
-      })
     );
   }
 
