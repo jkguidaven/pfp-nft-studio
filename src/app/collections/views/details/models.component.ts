@@ -14,7 +14,7 @@ import { State as AppState } from 'src/app/store/reducers';
 import { GeneratedModelQueue } from 'src/app/store/reducers/model.reducer';
 import { selectCurrentCollection } from 'src/app/store/selectors/collection.selector';
 import { selectGeneratedModelQueue } from 'src/app/store/selectors/model.selector';
-import { selectTraitVariants } from 'src/app/store/selectors/trait-variant.selector';
+import { selectTraitDictioniary } from 'src/app/store/selectors/trait-variant.selector';
 import { selectTraits } from 'src/app/store/selectors/trait.selector';
 import { GENERATOR_CANVAS } from 'src/app/store/services/model.service';
 import { ConfirmGenerateModelDialogComponent } from '../../components/models/confirm-generate-model-dialog.component';
@@ -45,7 +45,7 @@ export class CollectionModelsViewComponent implements OnInit {
   ngOnInit(): void {
     this.collection$ = this.store.select(selectCurrentCollection);
     this.traits$ = this.store.select(selectTraits);
-    this.traitVariantDictionary$ = this.store.select(selectTraitVariants);
+    this.traitVariantDictionary$ = this.store.select(selectTraitDictioniary);
     this.queues$ = this.store.select(selectGeneratedModelQueue);
 
     if (!this.document.getElementById(GENERATOR_CANVAS)) {

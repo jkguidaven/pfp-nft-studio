@@ -6,14 +6,13 @@ import * as fromTrait from './trait.reducer';
 import * as fromTraitVariant from './trait-variant.reducer';
 import * as fromEditor from './editor.reducer';
 import * as fromModels from './model.reducer';
-import { TraitVariantDictionary } from '../models/trait';
 
 export interface State {
   [fromTheme.themeFeatureKey]: fromTheme.ThemeState;
   [fromCollection.collectionFeatureKey]: fromCollection.CollectionState;
   [fromTrait.traitFeatureKey]: fromTrait.TraitState;
   [fromEditor.editorFeatureKey]: fromEditor.EditorState;
-  [fromTraitVariant.traitVariantFeatureKey]: TraitVariantDictionary;
+  [fromTraitVariant.traitVariantFeatureKey]: fromTraitVariant.TraitVariantState;
   [fromModels.modelsFeatureKey]: fromModels.ModelsState;
 }
 

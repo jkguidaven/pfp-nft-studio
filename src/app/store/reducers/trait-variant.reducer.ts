@@ -4,33 +4,45 @@ import * as TraitVariantActions from '../actions/trait-variant.action';
 
 export const traitVariantFeatureKey = 'traits-variant';
 
-export const initialState: TraitVariantDictionary = {};
+export interface TraitVariantState {
+  traitDictionary: TraitVariantDictionary;
+}
+
+export const initialState: TraitVariantState = {
+  traitDictionary: {},
+};
 
 export const reducer = createReducer(
   initialState,
 
-  on(TraitVariantActions.loadTraitVariants, (_, { dictionary }) => ({
-    ...dictionary,
+  on(TraitVariantActions.loadTraitVariants, (state, { traitDictionary }) => ({
+    ...state,
+    traitDictionary,
   })),
 
   on(TraitVariantActions.addTraitVariants, (state, { variants }) => {
-    const dictionary: TraitVariantDictionary = {};
+    const traitDictionary: TraitVariantDictionary = {};
 
     for (let variant of variants) {
       if (variant.traitId) {
-        if (!dictionary[variant.traitId]) {
-          dictionary[variant.traitId] = state[variant.traitId]
-            ? [...state[variant.traitId]]
+        if (!traitDictionary[variant.traitId]) {
+          traitDictionary[variant.traitId] = state.traitDictionary[
+            variant.traitId
+          ]
+            ? [...state.traitDictionary[variant.traitId]]
             : [];
         }
 
-        dictionary[variant.traitId].unshift(variant);
+        traitDictionary[variant.traitId].unshift(variant);
       }
     }
 
     return {
       ...state,
-      ...dictionary,
+      traitDictionary: {
+        ...state.traitDictionary,
+        ...traitDictionary,
+      },
     };
   }),
 
@@ -38,9 +50,12 @@ export const reducer = createReducer(
     if (variant.traitId) {
       return {
         ...state,
-        [variant.traitId]: state[variant.traitId].filter(
-          ({ id }) => id !== variant.id
-        ),
+        traitDictionary: {
+          ...state.traitDictionary,
+          [variant.traitId]: state.traitDictionary[variant.traitId].filter(
+            ({ id }) => id !== variant.id
+          ),
+        },
       };
     } else {
       return state;
@@ -51,9 +66,12 @@ export const reducer = createReducer(
     if (variant.traitId) {
       return {
         ...state,
-        [variant.traitId]: state[variant.traitId].map((old) =>
-          old.id === variant.id ? variant : old
-        ),
+        traitDictionary: {
+          ...state.traitDictionary,
+          [variant.traitId]: state.traitDictionary[variant.traitId].map((old) =>
+            old.id === variant.id ? variant : old
+          ),
+        },
       };
     } else {
       return state;

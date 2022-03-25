@@ -3,12 +3,12 @@ import { Actions, concatLatestFrom, createEffect, ofType } from '@ngrx/effects';
 import { ModelService } from '../services/model.service';
 import * as modelActions from '../actions/model.action';
 import * as collectionActions from '../actions/collection.action';
-import { delay, from, map, mergeMap, of, withLatestFrom } from 'rxjs';
+import { from, map, mergeMap, of, withLatestFrom } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { State as AppState } from '../reducers';
 import { selectCurrentCollection } from '../selectors/collection.selector';
 import { selectTraits } from '../selectors/trait.selector';
-import { selectTraitVariants } from '../selectors/trait-variant.selector';
+import { selectTraitDictioniary } from '../selectors/trait-variant.selector';
 import { selectGeneratedModelQueue } from '../selectors/model.selector';
 import { ModelsState } from '../reducers/model.reducer';
 
@@ -52,7 +52,7 @@ export class ModelEffects {
       concatLatestFrom(() => [
         this.store.select(selectCurrentCollection),
         this.store.select(selectTraits),
-        this.store.select(selectTraitVariants),
+        this.store.select(selectTraitDictioniary),
       ]),
       mergeMap(([{ collectionId }, collection, traits, variantDictionary]) => {
         const models =

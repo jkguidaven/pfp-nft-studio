@@ -6,7 +6,7 @@ import { EditorState } from '../reducers/editor.reducer';
 export const selectEditorState = (state: State) => state.editor;
 export const selectEditorAndTraitVariants = (state: State) => ({
   editor: state.editor,
-  dictionary: state['traits-variant'],
+  dictionary: state['traits-variant'].traitDictionary,
 });
 
 export const selectEditorCollapsed = createSelector(

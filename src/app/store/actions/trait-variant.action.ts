@@ -3,7 +3,7 @@ import { TraitVariant, TraitVariantDictionary } from '../models/trait';
 
 export const loadTraitVariants = createAction(
   '[Trait Variants] load trait variants.',
-  props<{ dictionary: TraitVariantDictionary }>()
+  props<{ traitDictionary: TraitVariantDictionary }>()
 );
 
 export const triggerLoadTraitVariants = createAction(

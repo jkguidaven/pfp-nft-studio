@@ -27,7 +27,7 @@ import {
   selectEditorCollapsed,
   selectEditorSelected,
 } from 'src/app/store/selectors/editor.selector';
-import { selectTraitVariants } from 'src/app/store/selectors/trait-variant.selector';
+import { selectTraitDictioniary } from 'src/app/store/selectors/trait-variant.selector';
 import { selectTraits } from 'src/app/store/selectors/trait.selector';
 import { fade, slide } from '../../animations';
 import {
@@ -58,7 +58,7 @@ export class SideComponent implements OnInit {
   ngOnInit(): void {
     this.traits$ = this.store.select(selectTraits);
     this.collection$ = this.store.select(selectCurrentCollection);
-    this.traitVariantDictionary$ = this.store.select(selectTraitVariants);
+    this.traitVariantDictionary$ = this.store.select(selectTraitDictioniary);
     this.editorCollapsed$ = this.store.select(selectEditorCollapsed);
     this.editorSelected$ = this.store.select(selectEditorSelected);
   }

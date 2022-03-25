@@ -37,19 +37,21 @@ export class TraitVariantEffects {
             })
           ).pipe(
             map((results) => {
-              const dictionary: TraitVariantDictionary = {};
+              const traitDictionary: TraitVariantDictionary = {};
 
               for (let i = 0; i < traits.length; i++) {
                 const trait = traits[i];
-                dictionary[`${trait.id}`] = results[i].reverse();
+                traitDictionary[`${trait.id}`] = results[i].reverse();
               }
 
-              return traitVariantActions.loadTraitVariants({ dictionary });
+              return traitVariantActions.loadTraitVariants({ traitDictionary });
             })
           );
         }
 
-        return of(traitVariantActions.loadTraitVariants({ dictionary: {} }));
+        return of(
+          traitVariantActions.loadTraitVariants({ traitDictionary: {} })
+        );
       })
     )
   );
