@@ -31,6 +31,16 @@ export class TraitService {
     return from(this.dbService.deleteFromStore(STORES.TRAIT, id));
   }
 
+  removeAll(collectionId: number): Observable<number[]> {
+    return from(
+      this.dbService.deleteFromStoreIndex(
+        STORES.TRAIT,
+        'collectionId',
+        collectionId
+      )
+    );
+  }
+
   update(trait: Trait): Observable<Trait> {
     return from(this.dbService.updateToStore(STORES.TRAIT, trait, trait.id));
   }

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Actions, concatLatestFrom, createEffect, ofType } from '@ngrx/effects';
 import { ModelService } from '../services/model.service';
 import * as modelActions from '../actions/model.action';
+import * as collectionActions from '../actions/collection.action';
 import { delay, from, map, mergeMap, of, withLatestFrom } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { State as AppState } from '../reducers';
@@ -18,6 +19,32 @@ export class ModelEffects {
     private modelService: ModelService,
     private store: Store<AppState>
   ) {}
+
+  createModelQueue$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(collectionActions.addCollection),
+      mergeMap(({ collection }) => {
+        if (collection.id) {
+          return this.modelService
+            .addModelQueue(collection.id)
+            .pipe(map(() => ({ type: 'noAcrtion' })));
+        } else {
+          return of({ type: 'noAction' });
+        }
+      })
+    )
+  );
+
+  removeModelQueue$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(collectionActions.removeCollection),
+      mergeMap(({ id }) => {
+        return this.modelService
+          .removeModelQueue(id)
+          .pipe(map(() => ({ type: 'noAcrtion' })));
+      })
+    )
+  );
 
   generateModelQueue$ = createEffect(() =>
     this.actions$.pipe(

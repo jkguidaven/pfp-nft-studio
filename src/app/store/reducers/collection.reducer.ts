@@ -36,7 +36,7 @@ export const reducer = createReducer(
   on(CollectionActions.removeCollection, (state, { id }) => {
     return {
       ...state,
-      collections: state.list
+      list: state.list
         ? state.list.filter((collection) => collection.id !== id)
         : [],
     };

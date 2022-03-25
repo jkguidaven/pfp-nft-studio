@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Actions, concatLatestFrom, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { catchError, EMPTY, map, mergeMap, withLatestFrom } from 'rxjs';
+import * as collectionActions from '../actions/collection.action';
 import * as traitActions from '../actions/trait.action';
 import * as traitVariantActions from '../actions/trait-variant.action';
 import { Collection } from '../models/collection';
@@ -50,6 +51,21 @@ export class TraitEffects {
           catchError(() => EMPTY)
         )
       )
+    )
+  );
+
+  removeCollectionTraits$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(collectionActions.removeCollection),
+      mergeMap(({ id }) => {
+        return this.traitService
+          .removeAll(id)
+          .pipe(
+            map((ids) =>
+              traitVariantActions.removeAllTraitVariantByTraitIds({ ids })
+            )
+          );
+      })
     )
   );
 

@@ -34,3 +34,8 @@ export const updateTraitVariant = createAction(
   '[Trait Variants] update trait variant.',
   props<{ variant: TraitVariant }>()
 );
+
+export const removeAllTraitVariantByTraitIds = createAction(
+  '[Trait Variants] remove all trait variant by trait ids.',
+  props<{ ids: any[] }>()
+);

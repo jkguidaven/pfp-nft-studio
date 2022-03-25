@@ -2,6 +2,7 @@ import { TraitVariant } from './trait';
 
 export interface Model {
   id?: number;
+  collectionId?: number;
   image?: string;
   layers: ModelLayer[];
 }
@@ -14,4 +15,9 @@ export interface ModelLayer {
     scaleX?: number;
     scaleY?: number;
   };
+}
+
+export interface ModelQueue {
+  collectionId: number;
+  currentIndex: number;
 }

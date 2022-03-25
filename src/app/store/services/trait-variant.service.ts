@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { from, map, Observable } from 'rxjs';
-import { TraitVariant } from '../models/trait';
+import { forkJoin, from, map, Observable } from 'rxjs';
+import { Trait, TraitVariant } from '../models/trait';
 import { DBService, STORES } from './db.service';
 
 @Injectable({
@@ -21,6 +21,28 @@ export class TraitVariantService {
 
   remove(id: number): Observable<void> {
     return from(this.dbService.deleteFromStore(STORES.TRAIT_VARIANT, id));
+  }
+
+  removeAllByTraitId(id: number): Observable<any[]> {
+    return from(
+      this.dbService.deleteFromStoreIndex(STORES.TRAIT_VARIANT, 'traitId', id)
+    );
+  }
+
+  removeAllByTraitIds(ids: number[]): Observable<any[]> {
+    const removeCalls = ids.map((id) => {
+      return from(
+        this.dbService.deleteFromStoreIndex(STORES.TRAIT_VARIANT, 'traitId', id)
+      );
+    });
+
+    return forkJoin(removeCalls).pipe(
+      map((deletedKeys) => {
+        return deletedKeys.reduce((all, keys) => {
+          return [...all, ...keys];
+        }, []);
+      })
+    );
   }
 
   update(trait: TraitVariant): Observable<TraitVariant> {

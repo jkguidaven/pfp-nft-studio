@@ -10,6 +10,7 @@ import {
   of,
   withLatestFrom,
 } from 'rxjs';
+import * as traitActions from '../actions/trait.action';
 import * as traitVariantActions from '../actions/trait-variant.action';
 import { Trait, TraitVariantDictionary } from '../models/trait';
 import { State as AppState } from '../reducers';
@@ -49,6 +50,28 @@ export class TraitVariantEffects {
         }
 
         return of(traitVariantActions.loadTraitVariants({ dictionary: {} }));
+      })
+    )
+  );
+
+  removeAllTraitVariantsByTraitId$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(traitActions.removeTrait),
+      mergeMap(({ id }) => {
+        return this.traitVariantService
+          .removeAllByTraitId(id)
+          .pipe(map(() => ({ type: 'noAction' })));
+      })
+    )
+  );
+
+  removeAllTraitVariantsByTraitIds$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(traitVariantActions.removeAllTraitVariantByTraitIds),
+      mergeMap(({ ids }) => {
+        return this.traitVariantService
+          .removeAllByTraitIds(ids)
+          .pipe(map(() => ({ type: 'noAction' })));
       })
     )
   );

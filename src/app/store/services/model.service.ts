@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Collection } from '../models/collection';
-import { Model } from '../models/model';
+import { Model, ModelQueue } from '../models/model';
 import { Trait, TraitVariantDictionary } from '../models/trait';
 
 const shuffleArray = (array: any[]) => {
@@ -24,11 +24,46 @@ const shuffleArray = (array: any[]) => {
 
 export const GENERATOR_CANVAS = 'generatorCanvas';
 import { fabric } from 'fabric';
+import { DBService, STORES } from './db.service';
+import { from, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ModelService {
+  constructor(private dbService: DBService) {}
+
+  addModelQueue(collectionId: number): Observable<ModelQueue> {
+    return from(
+      this.dbService.addToStore(STORES.COLLECTION_MODEL_QUEUE, {
+        collectionId,
+        currentIndex: -1,
+      })
+    );
+  }
+
+  resetModelQueue(collectionId: number): Observable<ModelQueue> {
+    return from(
+      this.dbService.updateToStore(
+        STORES.COLLECTION_MODEL_QUEUE,
+        {
+          collectionId,
+          currentIndex: -1,
+        },
+        collectionId
+      )
+    );
+  }
+
+  removeModelQueue(collectionId: number): Observable<void> {
+    return from(
+      this.dbService.deleteFromStore(
+        STORES.COLLECTION_MODEL_QUEUE,
+        collectionId
+      )
+    );
+  }
+
   generateModelCombinations(
     collection: Collection,
     traits: Trait[],

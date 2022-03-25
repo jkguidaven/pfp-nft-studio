@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { IDBPDatabase, openDB } from 'idb';
-import { from, Observable } from 'rxjs';
 
 const DB_VERSION = 1;
 const DB_NAME = 'localDB';
 
 export const STORES = {
   COLLECTION: 'collection_store',
+  COLLECTION_MODEL_QUEUE: 'collection_model_queue_store',
   TRAIT: 'trait_store',
   TRAIT_VARIANT: 'trait_variant',
 };
@@ -15,6 +15,7 @@ const STORE_CONFIG = {
   [STORES.COLLECTION]: { autoIncrement: true },
   [STORES.TRAIT]: { autoIncrement: true },
   [STORES.TRAIT_VARIANT]: { autoIncrement: true },
+  [STORES.COLLECTION_MODEL_QUEUE]: { keyPath: 'collectionId' },
 };
 
 const STORE_INDEXES = {
@@ -84,6 +85,28 @@ export class DBService {
     }
 
     return results;
+  }
+
+  async deleteFromStoreIndex(
+    storeName: string,
+    indexName: string,
+    key: any
+  ): Promise<any[]> {
+    const db = await this.getDB();
+    const store = db.transaction(storeName, 'readwrite').objectStore(storeName);
+    const index = store.index(indexName);
+    let cursor = await index.openCursor();
+
+    const deletedItems: any[] = [];
+    while (cursor) {
+      if (cursor.key === key) {
+        store.delete(cursor.primaryKey);
+        deletedItems.push(cursor.primaryKey);
+      }
+      cursor = await cursor.continue();
+    }
+
+    return deletedItems;
   }
 
   async getAllFromStore(storeName: string): Promise<any[]> {
