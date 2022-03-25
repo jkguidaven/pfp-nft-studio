@@ -19,7 +19,7 @@ import { Collection } from 'src/app/store/models/collection';
 import {
   Trait,
   TraitVariant,
-  TraitVariantDictionary,
+  TraitVariantListDictionary,
 } from 'src/app/store/models/trait';
 import { State as AppState } from 'src/app/store/reducers';
 import { selectCurrentCollection } from 'src/app/store/selectors/collection.selector';
@@ -27,7 +27,7 @@ import {
   selectEditorCollapsed,
   selectEditorSelected,
 } from 'src/app/store/selectors/editor.selector';
-import { selectTraitDictioniary } from 'src/app/store/selectors/trait-variant.selector';
+import { selectTraitVariantListDictioniary } from 'src/app/store/selectors/trait-variant.selector';
 import { selectTraits } from 'src/app/store/selectors/trait.selector';
 import { fade, slide } from '../../animations';
 import {
@@ -45,7 +45,9 @@ export class SideComponent implements OnInit {
   @ViewChild('traitInputField') traitInputField!: ElementRef;
   traits$!: Observable<Trait[] | undefined>;
   collection$!: Observable<Collection | undefined>;
-  traitVariantDictionary$!: Observable<TraitVariantDictionary | undefined>;
+  traitVariantListDictionary$!: Observable<
+    TraitVariantListDictionary | undefined
+  >;
   editorCollapsed$!: Observable<Record<number, boolean> | undefined>;
   editorSelected$!: Observable<Record<number, number | undefined> | undefined>;
 
@@ -58,7 +60,9 @@ export class SideComponent implements OnInit {
   ngOnInit(): void {
     this.traits$ = this.store.select(selectTraits);
     this.collection$ = this.store.select(selectCurrentCollection);
-    this.traitVariantDictionary$ = this.store.select(selectTraitDictioniary);
+    this.traitVariantListDictionary$ = this.store.select(
+      selectTraitVariantListDictioniary
+    );
     this.editorCollapsed$ = this.store.select(selectEditorCollapsed);
     this.editorSelected$ = this.store.select(selectEditorSelected);
   }
@@ -208,7 +212,7 @@ export class SideComponent implements OnInit {
   }
 
   getTraitVariantList(trait: Trait): Observable<TraitVariant[]> {
-    return this.traitVariantDictionary$.pipe(
+    return this.traitVariantListDictionary$.pipe(
       map((dictionary) => {
         return dictionary ? dictionary[`${trait.id}`] : [];
       })

@@ -12,7 +12,7 @@ import {
 } from 'rxjs';
 import * as traitActions from '../actions/trait.action';
 import * as traitVariantActions from '../actions/trait-variant.action';
-import { Trait, TraitVariantDictionary } from '../models/trait';
+import { Trait, TraitVariantListDictionary } from '../models/trait';
 import { State as AppState } from '../reducers';
 import { selectTraits } from '../selectors/trait.selector';
 import { TraitVariantService } from '../services/trait-variant.service';
@@ -37,20 +37,25 @@ export class TraitVariantEffects {
             })
           ).pipe(
             map((results) => {
-              const traitDictionary: TraitVariantDictionary = {};
+              const traitVariantListDictionary: TraitVariantListDictionary = {};
 
               for (let i = 0; i < traits.length; i++) {
                 const trait = traits[i];
-                traitDictionary[`${trait.id}`] = results[i].reverse();
+                traitVariantListDictionary[`${trait.id}`] =
+                  results[i].reverse();
               }
 
-              return traitVariantActions.loadTraitVariants({ traitDictionary });
+              return traitVariantActions.loadTraitVariants({
+                traitVariantListDictionary,
+              });
             })
           );
         }
 
         return of(
-          traitVariantActions.loadTraitVariants({ traitDictionary: {} })
+          traitVariantActions.loadTraitVariants({
+            traitVariantListDictionary: {},
+          })
         );
       })
     )

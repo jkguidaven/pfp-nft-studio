@@ -1,11 +1,10 @@
 import { createSelector } from '@ngrx/store';
-import { TraitVariantDictionary } from '../models/trait';
 import { State } from '../reducers';
 import { TraitVariantState } from '../reducers/trait-variant.reducer';
 
 export const selectTraitVariantState = (state: State) =>
   state['traits-variant'];
-export const selectTraitDictioniary = createSelector(
+export const selectTraitVariantListDictioniary = createSelector(
   selectTraitVariantState,
-  (state: TraitVariantState) => state.traitDictionary
+  (state: TraitVariantState) => state.traitVariantListDictionary
 );

@@ -8,7 +8,7 @@ import { Store } from '@ngrx/store';
 import { State as AppState } from '../reducers';
 import { selectCurrentCollection } from '../selectors/collection.selector';
 import { selectTraits } from '../selectors/trait.selector';
-import { selectTraitDictioniary } from '../selectors/trait-variant.selector';
+import { selectTraitVariantListDictioniary } from '../selectors/trait-variant.selector';
 import { selectGeneratedModelQueue } from '../selectors/model.selector';
 import { ModelsState } from '../reducers/model.reducer';
 
@@ -52,24 +52,31 @@ export class ModelEffects {
       concatLatestFrom(() => [
         this.store.select(selectCurrentCollection),
         this.store.select(selectTraits),
-        this.store.select(selectTraitDictioniary),
+        this.store.select(selectTraitVariantListDictioniary),
       ]),
-      mergeMap(([{ collectionId }, collection, traits, variantDictionary]) => {
-        const models =
-          collection && traits && variantDictionary
-            ? this.modelService.generateModelCombinations(
-                collection,
-                traits,
-                variantDictionary
-              )
-            : [];
-        return of(
-          modelActions.setGeneratingQueue({
-            collectionId,
-            models,
-          })
-        );
-      })
+      mergeMap(
+        ([
+          { collectionId },
+          collection,
+          traits,
+          traitVariantListDictionary,
+        ]) => {
+          const models =
+            collection && traits && traitVariantListDictionary
+              ? this.modelService.generateModelCombinations(
+                  collection,
+                  traits,
+                  traitVariantListDictionary
+                )
+              : [];
+          return of(
+            modelActions.setGeneratingQueue({
+              collectionId,
+              models,
+            })
+          );
+        }
+      )
     )
   );
 

@@ -1,12 +1,12 @@
 import { createSelector } from '@ngrx/store';
-import { TraitVariant, TraitVariantDictionary } from '../models/trait';
+import { TraitVariant, TraitVariantListDictionary } from '../models/trait';
 import { State } from '../reducers';
 import { EditorState } from '../reducers/editor.reducer';
 
 export const selectEditorState = (state: State) => state.editor;
 export const selectEditorAndTraitVariants = (state: State) => ({
   editor: state.editor,
-  dictionary: state['traits-variant'].traitDictionary,
+  dictionary: state['traits-variant'].traitVariantListDictionary,
 });
 
 export const selectEditorCollapsed = createSelector(
@@ -26,7 +26,7 @@ export const selectActiveTraitVariants = createSelector(
     dictionary,
   }: {
     editor: EditorState;
-    dictionary: TraitVariantDictionary;
+    dictionary: TraitVariantListDictionary;
   }) => {
     const selected: TraitVariant[] = Object.keys(editor.selected).reduce(
       (list, key) => {

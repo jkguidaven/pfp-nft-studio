@@ -17,4 +17,4 @@ export interface TraitVariant {
   top?: number;
 }
 
-export type TraitVariantDictionary = Record<string, TraitVariant[]>;
+export type TraitVariantListDictionary = Record<string, TraitVariant[]>;

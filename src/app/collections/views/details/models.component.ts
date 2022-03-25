@@ -9,12 +9,12 @@ import {
   resetGeneratingQueue,
 } from 'src/app/store/actions/model.action';
 import { Collection } from 'src/app/store/models/collection';
-import { Trait, TraitVariantDictionary } from 'src/app/store/models/trait';
+import { Trait, TraitVariantListDictionary } from 'src/app/store/models/trait';
 import { State as AppState } from 'src/app/store/reducers';
 import { GeneratedModelQueue } from 'src/app/store/reducers/model.reducer';
 import { selectCurrentCollection } from 'src/app/store/selectors/collection.selector';
 import { selectGeneratedModelQueue } from 'src/app/store/selectors/model.selector';
-import { selectTraitDictioniary } from 'src/app/store/selectors/trait-variant.selector';
+import { selectTraitVariantListDictioniary } from 'src/app/store/selectors/trait-variant.selector';
 import { selectTraits } from 'src/app/store/selectors/trait.selector';
 import { GENERATOR_CANVAS } from 'src/app/store/services/model.service';
 import { ConfirmGenerateModelDialogComponent } from '../../components/models/confirm-generate-model-dialog.component';
@@ -27,7 +27,9 @@ import { ConfirmGenerateModelDialogComponent } from '../../components/models/con
 export class CollectionModelsViewComponent implements OnInit {
   collection$!: Observable<Collection | undefined>;
   traits$!: Observable<Trait[] | undefined>;
-  traitVariantDictionary$!: Observable<TraitVariantDictionary | undefined>;
+  traitVariantListDictionary$!: Observable<
+    TraitVariantListDictionary | undefined
+  >;
   queues$!: Observable<Record<number, GeneratedModelQueue> | undefined>;
 
   pageSizeOptions: number[] = [10, 25, 50, 100];
@@ -45,7 +47,9 @@ export class CollectionModelsViewComponent implements OnInit {
   ngOnInit(): void {
     this.collection$ = this.store.select(selectCurrentCollection);
     this.traits$ = this.store.select(selectTraits);
-    this.traitVariantDictionary$ = this.store.select(selectTraitDictioniary);
+    this.traitVariantListDictionary$ = this.store.select(
+      selectTraitVariantListDictioniary
+    );
     this.queues$ = this.store.select(selectGeneratedModelQueue);
 
     if (!this.document.getElementById(GENERATOR_CANVAS)) {
@@ -89,15 +93,15 @@ export class CollectionModelsViewComponent implements OnInit {
     forkJoin([
       this.collection$.pipe(take(1)),
       this.traits$.pipe(take(1)),
-      this.traitVariantDictionary$.pipe(take(1)),
-    ]).subscribe(([collection, traits, traitVariantDictionary]) => {
+      this.traitVariantListDictionary$.pipe(take(1)),
+    ]).subscribe(([collection, traits, traitVariantListDictionary]) => {
       let totalPossibleCombinations = 1;
 
-      if (traits && traitVariantDictionary) {
+      if (traits && traitVariantListDictionary) {
         for (let trait of traits) {
           if (trait.id)
             totalPossibleCombinations *=
-              traitVariantDictionary[trait.id].length +
+              traitVariantListDictionary[trait.id].length +
               (trait.guarantee < 100 ? 1 : 0);
         }
       }

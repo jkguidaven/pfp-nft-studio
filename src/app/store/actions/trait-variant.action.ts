@@ -1,9 +1,9 @@
 import { createAction, props } from '@ngrx/store';
-import { TraitVariant, TraitVariantDictionary } from '../models/trait';
+import { TraitVariant, TraitVariantListDictionary } from '../models/trait';
 
 export const loadTraitVariants = createAction(
   '[Trait Variants] load trait variants.',
-  props<{ traitDictionary: TraitVariantDictionary }>()
+  props<{ traitVariantListDictionary: TraitVariantListDictionary }>()
 );
 
 export const triggerLoadTraitVariants = createAction(

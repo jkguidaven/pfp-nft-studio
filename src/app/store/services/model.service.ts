@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Collection } from '../models/collection';
 import { Model, ModelQueue } from '../models/model';
-import { Trait, TraitVariantDictionary } from '../models/trait';
+import { Trait, TraitVariantListDictionary } from '../models/trait';
 
 const shuffleArray = (array: any[]) => {
   var m = array.length,
@@ -67,7 +67,7 @@ export class ModelService {
   generateModelCombinations(
     collection: Collection,
     traits: Trait[],
-    traitVariantDictionary: TraitVariantDictionary
+    traitVariantListDictionary: TraitVariantListDictionary
   ): Model[] {
     const sortedTraits = this.getSortedTraits(
       collection.traitsOrdering,
@@ -76,7 +76,10 @@ export class ModelService {
 
     const maxSupply = collection.supply ?? 0;
 
-    const models = this.constructModels(sortedTraits, traitVariantDictionary);
+    const models = this.constructModels(
+      sortedTraits,
+      traitVariantListDictionary
+    );
 
     return shuffleArray(models).slice(
       0,
@@ -136,13 +139,13 @@ export class ModelService {
 
   private constructModels(
     traits: Trait[],
-    traitVariantDictionary: TraitVariantDictionary
+    traitVariantListDictionary: TraitVariantListDictionary
   ): Model[] {
     if (!traits.length) return [];
 
     const currentTrait = traits[0];
 
-    let variants = traitVariantDictionary[currentTrait.id ?? -1];
+    let variants = traitVariantListDictionary[currentTrait.id ?? -1];
 
     if (currentTrait.guarantee < 100) {
       // If current trait is not 100% guaranteed to appear, we add filler
@@ -171,7 +174,7 @@ export class ModelService {
       for (let variant of variants) {
         for (let model of this.constructModels(
           traits.slice(1),
-          traitVariantDictionary
+          traitVariantListDictionary
         )) {
           model.layers.push({ variant, overrides: {} });
           models.push(model);

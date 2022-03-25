@@ -1,47 +1,49 @@
 import { createReducer, on } from '@ngrx/store';
-import { TraitVariantDictionary } from '../models/trait';
+import { TraitVariantListDictionary } from '../models/trait';
 import * as TraitVariantActions from '../actions/trait-variant.action';
 
 export const traitVariantFeatureKey = 'traits-variant';
 
 export interface TraitVariantState {
-  traitDictionary: TraitVariantDictionary;
+  traitVariantListDictionary: TraitVariantListDictionary;
 }
 
 export const initialState: TraitVariantState = {
-  traitDictionary: {},
+  traitVariantListDictionary: {},
 };
 
 export const reducer = createReducer(
   initialState,
 
-  on(TraitVariantActions.loadTraitVariants, (state, { traitDictionary }) => ({
-    ...state,
-    traitDictionary,
-  })),
+  on(
+    TraitVariantActions.loadTraitVariants,
+    (state, { traitVariantListDictionary }) => ({
+      ...state,
+      traitVariantListDictionary,
+    })
+  ),
 
   on(TraitVariantActions.addTraitVariants, (state, { variants }) => {
-    const traitDictionary: TraitVariantDictionary = {};
+    const traitVariantListDictionary: TraitVariantListDictionary = {};
 
     for (let variant of variants) {
       if (variant.traitId) {
-        if (!traitDictionary[variant.traitId]) {
-          traitDictionary[variant.traitId] = state.traitDictionary[
-            variant.traitId
-          ]
-            ? [...state.traitDictionary[variant.traitId]]
+        if (!traitVariantListDictionary[variant.traitId]) {
+          traitVariantListDictionary[variant.traitId] = state
+            .traitVariantListDictionary[variant.traitId]
+            ? [...state.traitVariantListDictionary[variant.traitId]]
             : [];
         }
 
-        traitDictionary[variant.traitId].unshift(variant);
+        traitVariantListDictionary[variant.traitId].unshift(variant);
       }
     }
 
     return {
       ...state,
-      traitDictionary: {
-        ...state.traitDictionary,
-        ...traitDictionary,
+      traitVariantListDictionary: {
+        ...state.traitVariantListDictionary,
+        ...traitVariantListDictionary,
       },
     };
   }),
@@ -50,11 +52,11 @@ export const reducer = createReducer(
     if (variant.traitId) {
       return {
         ...state,
-        traitDictionary: {
-          ...state.traitDictionary,
-          [variant.traitId]: state.traitDictionary[variant.traitId].filter(
-            ({ id }) => id !== variant.id
-          ),
+        traitVariantListDictionary: {
+          ...state.traitVariantListDictionary,
+          [variant.traitId]: state.traitVariantListDictionary[
+            variant.traitId
+          ].filter(({ id }) => id !== variant.id),
         },
       };
     } else {
@@ -66,11 +68,11 @@ export const reducer = createReducer(
     if (variant.traitId) {
       return {
         ...state,
-        traitDictionary: {
-          ...state.traitDictionary,
-          [variant.traitId]: state.traitDictionary[variant.traitId].map((old) =>
-            old.id === variant.id ? variant : old
-          ),
+        traitVariantListDictionary: {
+          ...state.traitVariantListDictionary,
+          [variant.traitId]: state.traitVariantListDictionary[
+            variant.traitId
+          ].map((old) => (old.id === variant.id ? variant : old)),
         },
       };
     } else {
