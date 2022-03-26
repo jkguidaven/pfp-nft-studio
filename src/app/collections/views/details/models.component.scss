@@ -54,7 +54,7 @@ main {
   height: 100%;
   .queue-container {
     overflow: auto;
-    height: 100%;
+    height: calc(100% - 56px);
 
     .content {
       padding: var(--spacing);
