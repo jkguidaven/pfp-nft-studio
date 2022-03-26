@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { State as AppState } from 'src/app/store/reducers';
-import { selectThemeDarkMode } from 'src/app/store/selectors/theme.selector';
+import { selectThemeIsDarkMode } from 'src/app/store/selectors/preference.selector';
 import { fade } from '../../animations';
 
 @Component({
@@ -19,7 +19,7 @@ export class TraitItemLoaderComponent implements OnInit {
 
   ngOnInit(): void {
     this.themeColorListener = this.store
-      .select(selectThemeDarkMode)
+      .select(selectThemeIsDarkMode)
       .subscribe((darkMode: boolean) => {
         this.backgroundColor = darkMode ? 'grey' : 'lightgrey';
       });

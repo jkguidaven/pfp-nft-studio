@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { EMPTY, mergeMap, of } from 'rxjs';
-import * as ThemeActions from '../actions/theme.action';
+import { mergeMap, of } from 'rxjs';
+import * as PreferenceActions from '../actions/preference.action';
 
 const LOCAL_STORAGE_DARK_MODE_KEY = 'dark_mode_theme_enabled';
 
@@ -9,9 +9,9 @@ const LOCAL_STORAGE_DARK_MODE_KEY = 'dark_mode_theme_enabled';
 export class LocalStorageEffects {
   constructor(private actions$: Actions) {}
 
-  loadThemeMode$ = createEffect(() =>
+  loadThemeColorMode$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(ThemeActions.loadThemeMode),
+      ofType(PreferenceActions.loadThemeColorMode),
       mergeMap(() => {
         let darkMode =
           window.matchMedia &&
@@ -23,7 +23,7 @@ export class LocalStorageEffects {
         }
 
         return of<any>(
-          ThemeActions.setDarkMode({
+          PreferenceActions.setDarkMode({
             mode: darkMode,
           })
         );
@@ -33,7 +33,7 @@ export class LocalStorageEffects {
 
   updateThemeMode$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(ThemeActions.setDarkMode),
+      ofType(PreferenceActions.setDarkMode),
       mergeMap(({ mode }: any) => {
         if (mode) {
           localStorage.setItem(LOCAL_STORAGE_DARK_MODE_KEY, 'true');

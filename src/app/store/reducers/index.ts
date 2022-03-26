@@ -1,6 +1,6 @@
 import { ActionReducerMap, MetaReducer } from '@ngrx/store';
 import { environment } from '../../../environments/environment';
-import * as fromTheme from './theme.reducer';
+import * as fromPreference from './preference.reducer';
 import * as fromCollection from './collection.reducer';
 import * as fromTrait from './trait.reducer';
 import * as fromTraitVariant from './trait-variant.reducer';
@@ -8,7 +8,7 @@ import * as fromEditor from './editor.reducer';
 import * as fromModels from './model.reducer';
 
 export interface State {
-  [fromTheme.themeFeatureKey]: fromTheme.ThemeState;
+  [fromPreference.PreferenceFeatureKey]: fromPreference.PreferenceState;
   [fromCollection.collectionFeatureKey]: fromCollection.CollectionState;
   [fromTrait.traitFeatureKey]: fromTrait.TraitState;
   [fromEditor.editorFeatureKey]: fromEditor.EditorState;
@@ -17,7 +17,7 @@ export interface State {
 }
 
 export const reducers: ActionReducerMap<State> = {
-  [fromTheme.themeFeatureKey]: fromTheme.reducer,
+  [fromPreference.PreferenceFeatureKey]: fromPreference.reducer,
   [fromCollection.collectionFeatureKey]: fromCollection.reducer,
   [fromTrait.traitFeatureKey]: fromTrait.reducer,
   [fromEditor.editorFeatureKey]: fromEditor.reducer,

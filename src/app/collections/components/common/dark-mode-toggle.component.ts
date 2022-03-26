@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { take } from 'rxjs';
-import { setDarkMode } from 'src/app/store/actions/theme.action';
+import { setDarkMode } from 'src/app/store/actions/preference.action';
 import { State } from 'src/app/store/reducers';
-import { selectThemeDarkMode } from 'src/app/store/selectors/theme.selector';
+import { selectThemeIsDarkMode } from 'src/app/store/selectors/preference.selector';
 
 @Component({
   selector: 'app-dark-mode-toggle',
@@ -18,7 +18,7 @@ export class DarkModeToggleComponent implements OnInit {
 
   ngOnInit(): void {
     this.store
-      .select(selectThemeDarkMode)
+      .select(selectThemeIsDarkMode)
       .pipe(take(1))
       .subscribe((mode: boolean) => {
         this.darkModeToggle.setValue(mode);

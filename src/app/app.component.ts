@@ -2,9 +2,9 @@ import { OverlayContainer } from '@angular/cdk/overlay';
 import { Component, HostBinding, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { loadThemeMode } from './store/actions/theme.action';
+import { loadThemeColorMode } from './store/actions/preference.action';
 import { State } from './store/reducers';
-import { selectThemeDarkMode } from './store/selectors/theme.selector';
+import { selectThemeIsDarkMode } from './store/selectors/preference.selector';
 
 @Component({
   selector: 'app-root',
@@ -22,11 +22,11 @@ export class AppComponent implements OnInit {
     public store: Store<State>,
     private overlayContainer: OverlayContainer
   ) {
-    this.darkMode$ = store.select(selectThemeDarkMode);
+    this.darkMode$ = store.select(selectThemeIsDarkMode);
   }
 
   ngOnInit(): void {
-    this.store.dispatch(loadThemeMode());
+    this.store.dispatch(loadThemeColorMode());
 
     /*
      *  We will be listening for theme color changes and update the root component class to 'dark-mode'
