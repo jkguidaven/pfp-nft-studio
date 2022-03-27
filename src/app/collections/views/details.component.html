@@ -1,10 +1,9 @@
-<app-collection-header
-  [collection]="collection$ | async"
-></app-collection-header>
-
+<app-side-nav [menuItems]="menuItems"></app-side-nav>
 <main>
-  <app-side-nav [menuItems]="menuItems"></app-side-nav>
-  <div class="content">
+  <app-collection-header
+    [collection]="collection$ | async"
+  ></app-collection-header>
+  <div class="content" [ngClass]="{ 'offset-header': expandedHeader$ | async }">
     <router-outlet></router-outlet>
   </div>
 </main>

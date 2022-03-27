@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 export interface SideNavMenuItem {
   label: string;
@@ -14,7 +15,7 @@ export interface SideNavMenuItem {
 export class SideNavComponent implements OnInit {
   @Input() menuItems!: SideNavMenuItem[];
 
-  constructor() {}
+  constructor(public router: Router) {}
 
   ngOnInit(): void {}
 }

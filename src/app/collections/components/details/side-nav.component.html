@@ -1,13 +1,18 @@
-<div class="collection-details-sidenav">
-  <div
-    class="menu-item"
-    *ngFor="let menu of menuItems"
-    [matTooltip]="menu.label"
-    matTooltipPosition="after"
-    matTooltipClass="sidenav-tooltip"
-    [routerLink]="menu.link"
-    routerLinkActive="active"
-  >
-    <i-feather [name]="menu.icon"></i-feather>
+<div class="app-sidenav">
+  <div class="home-button" (click)="router.navigate(['/'])">
+    <i-feather name="home"></i-feather>
+  </div>
+  <div class="collection-details-sidenav">
+    <div
+      class="menu-item"
+      *ngFor="let menu of menuItems"
+      [matTooltip]="menu.label"
+      matTooltipPosition="after"
+      matTooltipClass="sidenav-tooltip"
+      [routerLink]="menu.link"
+      routerLinkActive="active"
+    >
+      <i-feather [name]="menu.icon"></i-feather>
+    </div>
   </div>
 </div>

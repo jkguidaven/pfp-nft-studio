@@ -1,9 +1,14 @@
-<div class="top">
-  <button mat-icon-button (click)="router.navigate(['collections'])">
-    <mat-icon>keyboard_backspace</mat-icon>
-  </button>
+<div class="top" [ngClass]="{ 'expand-layout': !(expandMode$ | async) }">
+  <i-feather
+    name="chevron-right"
+    class="expand-toggle"
+    (click)="toggleHeaderExpand()"
+    [ngClass]="{ expand: (expandMode$ | async) }"
+  ></i-feather>
 
-  <h1 *ngIf="collection; else noTitle" class="title">{{ collection?.name }}</h1>
+  <h1 *ngIf="collection; else noTitle" class="title">
+    {{ collection?.name }}
+  </h1>
 
   <ng-template #noTitle>
     <h1 class="title">
@@ -14,7 +19,7 @@
           height: '20px',
           width: '200px',
           marginBottom: '-2px',
-          backgroundColor: this.backgroundColor
+          backgroundColor: (darkMode$ | async) ? 'grey' : 'lightgrey'
         }"
       ></ngx-skeleton-loader>
     </h1>
@@ -25,77 +30,79 @@
   <app-dark-mode-toggle></app-dark-mode-toggle>
 </div>
 
-<div class="collection-header" *ngIf="collection; else noHeader">
-  <div class="cover-container">
-    <img [src]="collection?.coverPhoto" />
-  </div>
-
-  <p>
-    {{ collection?.description }}
-  </p>
-</div>
-
-<ng-template #noHeader>
-  <div class="collection-header">
-    <div class="cover-container">
-      <ngx-skeleton-loader
-        animation="pulse"
-        @fade
-        [theme]="{
-          height: '117px',
-          width: '117px',
-          borderRadius: '5px',
-          backgroundColor: this.backgroundColor
-        }"
-      ></ngx-skeleton-loader>
+<div *ngIf="expandMode$ | async">
+  <div class="collection-header" *ngIf="collection; else noHeader">
+    <div class="cover-container" (click)="toggleHeaderExpand()">
+      <img [src]="collection?.coverPhoto" />
     </div>
 
-    <p style="width: 100%; padding-top: 5px">
-      <ngx-skeleton-loader
-        @fade
-        animation="pulse"
-        [theme]="{
-          height: '15px',
-          width: '100%',
-          backgroundColor: this.backgroundColor
-        }"
-      ></ngx-skeleton-loader>
-
-      <br />
-
-      <ngx-skeleton-loader
-        @fade
-        animation="pulse"
-        [theme]="{
-          height: '15px',
-          width: '90%',
-          backgroundColor: this.backgroundColor
-        }"
-      ></ngx-skeleton-loader>
-
-      <br />
-
-      <ngx-skeleton-loader
-        @fade
-        animation="pulse"
-        [theme]="{
-          height: '15px',
-          width: '75%',
-          backgroundColor: this.backgroundColor
-        }"
-      ></ngx-skeleton-loader>
-
-      <br />
-
-      <ngx-skeleton-loader
-        @fade
-        animation="pulse"
-        [theme]="{
-          height: '15px',
-          width: '75%',
-          backgroundColor: this.backgroundColor
-        }"
-      ></ngx-skeleton-loader>
+    <p>
+      {{ collection?.description }}
     </p>
   </div>
-</ng-template>
+
+  <ng-template #noHeader>
+    <div class="collection-header">
+      <div class="cover-container">
+        <ngx-skeleton-loader
+          animation="pulse"
+          @fade
+          [theme]="{
+            height: '117px',
+            width: '117px',
+            borderRadius: '5px',
+            backgroundColor: (darkMode$ | async) ? 'grey' : 'lightgrey'
+          }"
+        ></ngx-skeleton-loader>
+      </div>
+
+      <p style="width: 100%; padding-top: 5px">
+        <ngx-skeleton-loader
+          @fade
+          animation="pulse"
+          [theme]="{
+            height: '15px',
+            width: '100%',
+            backgroundColor: (darkMode$ | async) ? 'grey' : 'lightgrey'
+          }"
+        ></ngx-skeleton-loader>
+
+        <br />
+
+        <ngx-skeleton-loader
+          @fade
+          animation="pulse"
+          [theme]="{
+            height: '15px',
+            width: '90%',
+            backgroundColor: (darkMode$ | async) ? 'grey' : 'lightgrey'
+          }"
+        ></ngx-skeleton-loader>
+
+        <br />
+
+        <ngx-skeleton-loader
+          @fade
+          animation="pulse"
+          [theme]="{
+            height: '15px',
+            width: '75%',
+            backgroundColor: (darkMode$ | async) ? 'grey' : 'lightgrey'
+          }"
+        ></ngx-skeleton-loader>
+
+        <br />
+
+        <ngx-skeleton-loader
+          @fade
+          animation="pulse"
+          [theme]="{
+            height: '15px',
+            width: '75%',
+            backgroundColor: (darkMode$ | async) ? 'grey' : 'lightgrey'
+          }"
+        ></ngx-skeleton-loader>
+      </p>
+    </div>
+  </ng-template>
+</div>

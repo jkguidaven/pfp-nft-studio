@@ -12,39 +12,60 @@
   $text-color: mat.get-color-from-palette($primary, text);
   $background-color: mat.get-color-from-palette($background, app-bar);
 
-  .sidenav-tooltip {
-    margin-left: 5px !important;
-  }
-
-  .collection-details-sidenav {
+  .app-sidenav {
     height: 100%;
-    width: 50px;
-
-    box-shadow: 0.5px 0.5px 1px rgba($background-color, 1);
-
-    @if $is-dark-theme {
-      background-color: rgba($background-color, 0.5);
-    } @else {
-      background-color: rgba($accent-color, 0.2);
+    .sidenav-tooltip {
+      margin-left: 5px !important;
     }
 
-    .menu-item {
-      box-sizing: border-box;
-      cursor: pointer;
-      padding: 10px;
-      color: rgba($text-color, 0.5);
-      height: 50px;
+    .collection-details-sidenav {
+      height: 100%;
+      width: 50px;
+
+      box-shadow: 0.5px 0.5px 1px rgba($background-color, 1);
+
+      @if $is-dark-theme {
+        background-color: rgba($background-color, 0.5);
+      } @else {
+        background-color: rgba($accent-color, 0.2);
+      }
+
+      .menu-item {
+        box-sizing: border-box;
+        cursor: pointer;
+        padding: 10px;
+        color: rgba($text-color, 0.5);
+        height: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        &:hover {
+          color: $text-color;
+        }
+
+        &.active {
+          border-left: 2px solid $text-color;
+          padding-left: 8px;
+        }
+      }
+    }
+
+    .home-button {
+      height: 56px;
       display: flex;
       align-items: center;
       justify-content: center;
+      background-color: var(--action-primary-color);
+      color: var(--action-primary-text-color);
+      box-sizing: border-box;
+      cursor: pointer;
 
-      &:hover {
-        color: $text-color;
-      }
-
-      &.active {
-        border-left: 2px solid $text-color;
-        padding-left: 8px;
+      @if $is-dark-theme {
+        border-bottom: 1px solid rgba(39, 39, 39);
+        box-shadow: 0.5px 0.5px 1px rgba($accent-color, 0.1);
+      } @else {
+        border-bottom: 1px solid rgba($accent-color, 0.8);
       }
     }
   }

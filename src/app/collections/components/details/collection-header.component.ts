@@ -1,45 +1,43 @@
-import {
-  Component,
-  EventEmitter,
-  Input,
-  OnDestroy,
-  OnInit,
-  Output,
-} from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { Subscription } from 'rxjs';
+import { Observable, take } from 'rxjs';
+import { setCollectionHeaderLayoutMode } from 'src/app/store/actions/preference.action';
 import { Collection } from 'src/app/store/models/collection';
 import { State as AppState } from 'src/app/store/reducers';
-import { selectThemeIsDarkMode } from 'src/app/store/selectors/preference.selector';
-import { fade } from '../../animations';
+import {
+  selectCollectionHeaderIsExpandedMode,
+  selectThemeIsDarkMode,
+} from 'src/app/store/selectors/preference.selector';
+import { fade, expand } from '../../animations';
 
 @Component({
   selector: 'app-collection-header',
   templateUrl: './collection-header.component.html',
   styleUrls: [],
-  animations: [fade],
+  animations: [fade, expand],
 })
-export class CollectionHeaderComponent implements OnInit, OnDestroy {
+export class CollectionHeaderComponent implements OnInit {
   @Input() collection?: Collection | null;
   @Output() back: EventEmitter<void> = new EventEmitter<any>();
 
-  backgroundColor!: string;
-  themeColorListener!: Subscription;
+  expandMode$!: Observable<boolean>;
+  darkMode$!: Observable<boolean>;
 
   constructor(public router: Router, private store: Store<AppState>) {}
 
   ngOnInit(): void {
-    this.themeColorListener = this.store
-      .select(selectThemeIsDarkMode)
-      .subscribe((darkMode: boolean) => {
-        this.backgroundColor = darkMode ? 'grey' : 'lightgrey';
-      });
+    this.expandMode$ = this.store.select(selectCollectionHeaderIsExpandedMode);
+    this.darkMode$ = this.store.select(selectThemeIsDarkMode);
   }
 
-  ngOnDestroy(): void {
-    if (this.themeColorListener) {
-      this.themeColorListener.unsubscribe();
-    }
+  toggleHeaderExpand(): void {
+    this.expandMode$.pipe(take(1)).subscribe((expand) => {
+      this.store.dispatch(setCollectionHeaderLayoutMode({ expand: !expand }));
+    });
+  }
+
+  backgroundImageURL(): string {
+    return this.collection ? `url(${this.collection.coverPhoto})` : '';
   }
 }

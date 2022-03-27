@@ -6,6 +6,7 @@ import { setCurrentCollection } from 'src/app/store/actions/collection.action';
 import { Collection } from 'src/app/store/models/collection';
 import { State as AppState } from 'src/app/store/reducers';
 import { selectCurrentCollection } from 'src/app/store/selectors/collection.selector';
+import { selectCollectionHeaderIsExpandedMode } from 'src/app/store/selectors/preference.selector';
 import { SideNavMenuItem } from '../components/details/side-nav.component';
 
 @Component({
@@ -15,6 +16,7 @@ import { SideNavMenuItem } from '../components/details/side-nav.component';
 })
 export class CollectionDetailsViewComponent implements OnInit, OnDestroy {
   collection$!: Observable<Collection | undefined>;
+  expandedHeader$!: Observable<boolean>;
   loading!: boolean;
 
   menuItems: SideNavMenuItem[] = [
@@ -38,6 +40,9 @@ export class CollectionDetailsViewComponent implements OnInit, OnDestroy {
   constructor(private store: Store<AppState>, private route: ActivatedRoute) {}
 
   ngOnInit(): void {
+    this.expandedHeader$ = this.store.select(
+      selectCollectionHeaderIsExpandedMode
+    );
     this.collection$ = this.store.select(selectCurrentCollection);
     const id = Number(this.route.snapshot.params['id']);
     this.store.dispatch(setCurrentCollection({ id }));

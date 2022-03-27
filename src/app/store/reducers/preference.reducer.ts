@@ -5,10 +5,12 @@ export const PreferenceFeatureKey = 'preference';
 
 export interface PreferenceState {
   darkMode: boolean;
+  collectionHeaderExpanded: boolean;
 }
 
 export const initialState: PreferenceState = {
   darkMode: false,
+  collectionHeaderExpanded: true,
 };
 
 export const reducer = createReducer(
@@ -16,5 +18,10 @@ export const reducer = createReducer(
   on(PreferenceActions.setDarkMode, (state, { mode }) => ({
     ...state,
     darkMode: mode,
+  })),
+
+  on(PreferenceActions.setCollectionHeaderLayoutMode, (state, { expand }) => ({
+    ...state,
+    collectionHeaderExpanded: expand,
   }))
 );

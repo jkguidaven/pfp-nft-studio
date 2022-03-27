@@ -1,13 +1,13 @@
 :host {
   display: flex;
-  flex-direction: column;
   height: 100%;
   width: 100%;
   overflow: hidden;
 
   main {
     display: flex;
-    height: calc(100% - 223px);
+    flex-direction: column;
+    height: 100%;
     width: 100%;
     overflow: hidden;
 
@@ -15,6 +15,10 @@
       flex-grow: 1;
       width: 100%;
       overflow: hidden;
+    }
+
+    &.offset-header {
+      height: calc(100% - 223px);
     }
   }
 }

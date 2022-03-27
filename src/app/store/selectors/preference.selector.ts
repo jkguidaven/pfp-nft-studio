@@ -8,3 +8,8 @@ export const selectThemeIsDarkMode = createSelector(
   selectPreferenceState,
   (state: PreferenceState) => state.darkMode
 );
+
+export const selectCollectionHeaderIsExpandedMode = createSelector(
+  selectPreferenceState,
+  (state: PreferenceState) => state.collectionHeaderExpanded
+);
