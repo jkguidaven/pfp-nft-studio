@@ -1,4 +1,5 @@
 <main *ngIf="currentQueue$ | async; else noQueue">
+  <app-model-toolbar></app-model-toolbar>
   <div class="queue-container">
     <div class="content">
       <app-model-card

@@ -50,6 +50,7 @@ import { CollectionCardComponent } from './components/list/collection-card.compo
 import { CollectionCardLoaderComponent } from './components/list/collection-card-loader.component';
 import { ConfirmGenerateModelDialogComponent } from './components/models/confirm-generate-model-dialog.component';
 import { ModelCardComponent } from './components/models/model-card.component';
+import { ModelToolbarComponent } from './components/models/toolbar.component';
 
 @NgModule({
   declarations: [
@@ -79,6 +80,7 @@ import { ModelCardComponent } from './components/models/model-card.component';
     AddTraitVariantButtonComponent,
     ConfirmGenerateModelDialogComponent,
     ModelCardComponent,
+    ModelToolbarComponent,
   ],
   imports: [
     CommonModule,

@@ -23,6 +23,8 @@
   as create_collection_form;
 @use "./app/collections/components/models/model-card.component.scss" as
   model_card;
+@use "./app/collections/components/models/toolbar.component.scss" as
+  model_toolbar;
 
 @import url("https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap");
 $pfp-studio-typography: mat.define-typography-config(
@@ -136,6 +138,7 @@ $pfp-studio-dark-theme: mat.define-dark-theme(
   $pfp-studio-light-theme
 );
 @include model_card.theme($pfp-studio-light-theme);
+@include model_toolbar.theme($pfp-studio-light-theme);
 
 /* width */
 ::-webkit-scrollbar {
@@ -172,6 +175,7 @@ $pfp-studio-dark-theme: mat.define-dark-theme(
     $pfp-studio-dark-theme
   );
   @include model_card.theme($pfp-studio-dark-theme);
+  @include model_toolbar.theme($pfp-studio-dark-theme);
 
   /* Track */
   ::-webkit-scrollbar-track {

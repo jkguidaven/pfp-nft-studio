@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CollectionListViewComponent } from './list.component';
+import { ModelToolbarComponent } from './toolbar.component';
 
-describe('CollectionListViewComponent', () => {
-  let component: CollectionListViewComponent;
-  let fixture: ComponentFixture<CollectionListViewComponent>;
+describe('ModelToolbarComponent', () => {
+  let component: ModelToolbarComponent;
+  let fixture: ComponentFixture<ModelToolbarComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [CollectionListViewComponent],
+      declarations: [ModelToolbarComponent],
     }).compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CollectionListViewComponent);
+    fixture = TestBed.createComponent(ModelToolbarComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
