@@ -17,7 +17,10 @@ import { selectGeneratedModelQueue } from 'src/app/store/selectors/model.selecto
 import { selectTraitVariantListDictioniary } from 'src/app/store/selectors/trait-variant.selector';
 import { selectTraits } from 'src/app/store/selectors/trait.selector';
 import { GENERATOR_CANVAS } from 'src/app/store/services/model.service';
+import { ConfirmClearModelDialogComponent } from '../../components/models/confirm-clear-model-dialog.component';
 import { ConfirmGenerateModelDialogComponent } from '../../components/models/confirm-generate-model-dialog.component';
+import { ConfirmRegenerateModelDialogComponent } from '../../components/models/confirm-regenerate-model-dialog.component';
+import { ConfirmReshuffleModelDialogComponent } from '../../components/models/confirm-reshuffle-model-dialog.component';
 
 @Component({
   selector: 'app-models',
@@ -130,5 +133,42 @@ export class CollectionModelsViewComponent implements OnInit {
   onPageChange({ pageIndex, pageSize }: any): void {
     this.pageSize = pageSize;
     this.pageIndex = pageIndex;
+  }
+
+  regenerate(): void {
+    const dialogRef = this.dialog.open(ConfirmRegenerateModelDialogComponent, {
+      width: '500px',
+      panelClass: 'custom-mat-dialog-container',
+    });
+
+    dialogRef.afterClosed().subscribe(() => {
+      // TO-DO
+    });
+  }
+
+  reshuffle(): void {
+    const dialogRef = this.dialog.open(ConfirmReshuffleModelDialogComponent, {
+      width: '500px',
+      panelClass: 'custom-mat-dialog-container',
+    });
+
+    dialogRef.afterClosed().subscribe(() => {
+      // TO-DO
+    });
+  }
+
+  reset(): void {
+    const dialogRef = this.dialog.open(ConfirmClearModelDialogComponent, {
+      width: '500px',
+      panelClass: 'custom-mat-dialog-container',
+    });
+
+    dialogRef.afterClosed().subscribe(() => {
+      // TO-DO
+    });
+  }
+
+  openFilterForm(): void {
+    // TO-DO
   }
 }

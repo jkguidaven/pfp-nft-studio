@@ -51,6 +51,9 @@ import { CollectionCardLoaderComponent } from './components/list/collection-card
 import { ConfirmGenerateModelDialogComponent } from './components/models/confirm-generate-model-dialog.component';
 import { ModelCardComponent } from './components/models/model-card.component';
 import { ModelToolbarComponent } from './components/models/toolbar.component';
+import { ConfirmClearModelDialogComponent } from './components/models/confirm-clear-model-dialog.component';
+import { ConfirmReshuffleModelDialogComponent } from './components/models/confirm-reshuffle-model-dialog.component';
+import { ConfirmRegenerateModelDialogComponent } from './components/models/confirm-regenerate-model-dialog.component';
 
 @NgModule({
   declarations: [
@@ -81,6 +84,9 @@ import { ModelToolbarComponent } from './components/models/toolbar.component';
     ConfirmGenerateModelDialogComponent,
     ModelCardComponent,
     ModelToolbarComponent,
+    ConfirmClearModelDialogComponent,
+    ConfirmReshuffleModelDialogComponent,
+    ConfirmRegenerateModelDialogComponent,
   ],
   imports: [
     CommonModule,

@@ -1,0 +1,15 @@
+<mat-toolbar> Reshuffle models? </mat-toolbar>
+<p>Are you sure you want to reshuffle current models?</p>
+
+<div class="action-panel" cdkTrapFocus>
+  <button mat-flat-button (click)="close()">No</button>
+  <button
+    mat-flat-button
+    (click)="confirm()"
+    class="confirm-button"
+    #confirmButton
+    cdkFocusInitial
+  >
+    Yes
+  </button>
+</div>

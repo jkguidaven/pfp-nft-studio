@@ -1,0 +1,19 @@
+:host {
+  padding: 0;
+
+  p,
+  .action-panel {
+    padding: calc(var(--spacing) / 2) var(--spacing);
+  }
+
+  .action-panel {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .confirm-button {
+    background-color: var(--action-primary-color);
+    color: white;
+    margin-left: var(--spacing);
+  }
+}

@@ -1,0 +1,18 @@
+<mat-toolbar> Regenerate new models? </mat-toolbar>
+<p>
+  Are you sure you want to regenerate new models? This will replace all current
+  models.
+</p>
+
+<div class="action-panel" cdkTrapFocus>
+  <button mat-flat-button (click)="close()">No</button>
+  <button
+    mat-flat-button
+    (click)="confirm()"
+    class="confirm-button"
+    #confirmButton
+    cdkFocusInitial
+  >
+    Yes
+  </button>
+</div>

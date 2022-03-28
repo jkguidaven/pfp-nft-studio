@@ -1,1 +1,11 @@
-<div class="model-toolbar"></div>
+<div class="model-toolbar">
+  <div class="main">
+    <ng-content></ng-content>
+  </div>
+
+  <span class="spacer"></span>
+
+  <div class="side">
+    <ng-content select="[side]"></ng-content>
+  </div>
+</div>

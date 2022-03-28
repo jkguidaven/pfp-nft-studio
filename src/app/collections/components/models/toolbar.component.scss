@@ -7,15 +7,47 @@
   $background: map.get($color-config, background);
   $foreground: map.get($color-config, foreground);
   $background-color: mat.get-color-from-palette($background, "card");
-  $text-color: mat.get-color-from-palette($foreground, secondary-text);
+  $text-color: mat.get-color-from-palette($foreground, text);
 
   .model-toolbar {
     display: flex;
     align-items: center;
+    padding: 0 8px;
+    box-sizing: border-box;
 
     width: 100%;
     height: 56px;
     background-color: $background-color;
     color: $text-color;
+
+    .main,
+    .side {
+      display: flex;
+    }
+
+    .spacer {
+      flex-grow: 1;
+    }
+
+    .button {
+      display: inline-block;
+      cursor: pointer;
+      padding: 10px;
+      border-radius: 5px;
+      text-transform: uppercase;
+      color: rgba($text-color, 0.5);
+
+      &:hover {
+        color: $text-color;
+      }
+    }
+
+    button {
+      color: rgba($text-color, 0.5);
+
+      &:hover {
+        color: $text-color;
+      }
+    }
   }
 }
