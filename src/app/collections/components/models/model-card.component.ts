@@ -17,4 +17,8 @@ export class ModelCardComponent implements OnInit {
   get icon(): string {
     return this.processing ? 'refresh-cw' : 'alert-circle';
   }
+
+  get imageUrl(): string {
+    return `url(${this.model.image})`;
+  }
 }

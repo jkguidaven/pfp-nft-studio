@@ -16,6 +16,11 @@ export const generateModelQueue = createAction(
   props<{ collectionId: number }>()
 );
 
+export const reshuffleModelQueue = createAction(
+  '[Model] reshuffle model queue',
+  props<{ collectionId: number }>()
+);
+
 export const proccessCurrentModel = createAction(
   '[Model] process current model',
   props<{ collectionId: number }>()

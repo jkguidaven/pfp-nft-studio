@@ -2,6 +2,7 @@ import { TraitVariant } from './trait';
 
 export interface Model {
   id?: number;
+  index?: number;
   collectionId?: number;
   image?: string;
   layers: ModelLayer[];

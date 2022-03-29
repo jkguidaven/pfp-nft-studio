@@ -36,8 +36,9 @@
     <div class="content">
       <app-model-card
         *ngFor="
-          let model of (currentQueue$ | async)?.models
-            | slice: pageIndex:pageIndex + pageSize;
+          let model of models
+            | async
+            | slice: pageIndex * pageSize:(pageIndex + 1) * pageSize;
           let i = index
         "
         [model]="model"

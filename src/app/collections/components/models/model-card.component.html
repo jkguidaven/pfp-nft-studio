@@ -2,6 +2,8 @@
   <i-feather [name]="icon" *ngIf="!model.image; else displayImage"></i-feather>
 
   <ng-template #displayImage>
-    <img [src]="model.image" />
+    <div class="image" [style.backgroundImage]="imageUrl">
+      <h1>#{{ model.index }}</h1>
+    </div>
   </ng-template>
 </div>

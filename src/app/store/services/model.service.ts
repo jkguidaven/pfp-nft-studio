@@ -81,10 +81,16 @@ export class ModelService {
       traitVariantListDictionary
     );
 
-    return shuffleArray(models).slice(
-      0,
-      Math.min(maxSupply - 1, models.length)
-    );
+    return shuffleArray(models)
+      .slice(0, Math.min(maxSupply - 1, models.length))
+      .map((model, index) => ({ ...model, index: index + 1 }));
+  }
+
+  reshuffleModels(models: Model[]): Model[] {
+    return shuffleArray([...models]).map((model, index) => ({
+      ...model,
+      index: index + 1,
+    }));
   }
 
   getModelImage(width: number, height: number, model: Model): Promise<string> {

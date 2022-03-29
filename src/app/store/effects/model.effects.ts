@@ -80,6 +80,25 @@ export class ModelEffects {
     )
   );
 
+  reshuffleModelQueue$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(modelActions.reshuffleModelQueue),
+      concatLatestFrom(() => [this.store.select(selectGeneratedModelQueue)]),
+      mergeMap(([{ collectionId }, queue]) => {
+        const models = this.modelService.reshuffleModels(
+          queue[collectionId].models
+        );
+
+        return of(
+          modelActions.setGeneratingQueue({
+            collectionId,
+            models,
+          })
+        );
+      })
+    )
+  );
+
   processCurrentModel$ = createEffect(() =>
     this.actions$.pipe(
       ofType(...[modelActions.setGeneratingQueue, modelActions.setNextModel]),

@@ -7,8 +7,10 @@ import { forkJoin, map, Observable, take } from 'rxjs';
 import {
   generateModelQueue,
   resetGeneratingQueue,
+  reshuffleModelQueue,
 } from 'src/app/store/actions/model.action';
 import { Collection } from 'src/app/store/models/collection';
+import { Model } from 'src/app/store/models/model';
 import { Trait, TraitVariantListDictionary } from 'src/app/store/models/trait';
 import { State as AppState } from 'src/app/store/reducers';
 import { GeneratedModelQueue } from 'src/app/store/reducers/model.reducer';
@@ -86,6 +88,19 @@ export class CollectionModelsViewComponent implements OnInit {
     );
   }
 
+  get models(): Observable<Model[]> {
+    return this.currentQueue$.pipe(
+      map((queue) => {
+        const models = queue ? queue.models : [];
+
+        const sortByIndex = (a: Model, b: Model) =>
+          (a.index ?? 0) - (b.index ?? 0);
+
+        return [...models].sort(sortByIndex);
+      })
+    );
+  }
+
   get length(): Observable<number> {
     return this.currentQueue$.pipe(
       map((queue) => (queue ? queue.models.length : 0))
@@ -142,7 +157,16 @@ export class CollectionModelsViewComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(() => {
-      // TO-DO
+      this.collection$.pipe(take(1)).subscribe((collection) => {
+        if (collection && collection.id) {
+          this.store.dispatch(
+            resetGeneratingQueue({ collectionId: collection.id })
+          );
+          this.store.dispatch(
+            generateModelQueue({ collectionId: collection.id })
+          );
+        }
+      });
     });
   }
 
@@ -153,7 +177,13 @@ export class CollectionModelsViewComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(() => {
-      // TO-DO
+      this.collection$.pipe(take(1)).subscribe((collection) => {
+        if (collection && collection.id) {
+          this.store.dispatch(
+            reshuffleModelQueue({ collectionId: collection.id })
+          );
+        }
+      });
     });
   }
 
@@ -164,7 +194,13 @@ export class CollectionModelsViewComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(() => {
-      // TO-DO
+      this.collection$.pipe(take(1)).subscribe((collection) => {
+        if (collection && collection.id) {
+          this.store.dispatch(
+            resetGeneratingQueue({ collectionId: collection.id })
+          );
+        }
+      });
     });
   }
 
