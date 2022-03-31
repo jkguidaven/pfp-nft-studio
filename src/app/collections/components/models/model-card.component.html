@@ -1,4 +1,8 @@
-<div class="model-card" [ngClass]="{ processing }">
+<div
+  class="model-card"
+  [ngClass]="{ processing }"
+  (click)="selected.emit(model)"
+>
   <i-feather [name]="icon" *ngIf="!model.image; else displayImage"></i-feather>
 
   <ng-template #displayImage>

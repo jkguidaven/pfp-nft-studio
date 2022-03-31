@@ -43,6 +43,7 @@
         "
         [model]="model"
         [processing]="(currentQueue$ | async)?.currentIndex === i"
+        (selected)="showModel($event)"
       >
       </app-model-card>
     </div>

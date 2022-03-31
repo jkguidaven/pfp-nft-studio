@@ -1,0 +1,62 @@
+.app-model-viewer-dialog {
+  mat-toolbar {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .content {
+    display: flex;
+    height: 100%;
+
+    img {
+      width: 500px;
+      height: auto;
+      border-right: 1px solid rgba(0, 0, 0, 0.1);
+    }
+
+    .details {
+      flex-grow: 1;
+      padding: calc(var(--spacing) / 2);
+    }
+
+    h2 {
+      font-size: 1.2rem;
+      opacity: 0.8;
+    }
+
+    .attribute-grid {
+      display: grid;
+      grid-auto-rows: minmax(200px, auto);
+      grid-template-rows: 120px 100px;
+      grid-template-columns: repeat(3, 2fr);
+      grid-auto-columns: minmax(100px, auto);
+
+      .attribute {
+        background-color: rgba(0, 0, 0, 0.1);
+        margin: 8px;
+        overflow: hidden;
+        height: 100px;
+        border-radius: 8px;
+        text-align: center;
+
+        white-space: nowrap;
+        text-overflow: ellipsis;
+
+        h1 {
+          font-size: 0.8rem;
+          font-weight: 400;
+          padding: 0;
+          margin: 0;
+          opacity: 0.5;
+        }
+
+        h2 {
+          font-size: 1rem;
+          font-weight: bold;
+          padding: 0;
+          margin: 0;
+        }
+      }
+    }
+  }
+}

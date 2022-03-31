@@ -1,0 +1,24 @@
+<div class="app-model-viewer-dialog">
+  <mat-toolbar>
+    Model #{{ data.model.index }}
+
+    <button mat-icon-button (click)="close()">
+      <mat-icon>close</mat-icon>
+    </button>
+  </mat-toolbar>
+
+  <div class="content">
+    <img [src]="data.model.image" />
+
+    <div class="details">
+      <h1>Attributes ({{ attributes.length }})</h1>
+      <div class="attribute-grid">
+        <div class="attribute" *ngFor="let attribute of attributes">
+          <h1>{{ getAttributeName(attribute) }}</h1>
+          <h2>{{ attribute.name }}</h2>
+          <h1>1%</h1>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

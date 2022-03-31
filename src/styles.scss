@@ -219,6 +219,10 @@ body {
   }
 }
 
+.cdk-global-scrollblock {
+  overflow: auto;
+}
+
 :root {
   // Global config outside the material theming
   --spacing: 32px;

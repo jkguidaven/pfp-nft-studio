@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Model } from 'src/app/store/models/model';
 
 @Component({
@@ -9,6 +9,7 @@ import { Model } from 'src/app/store/models/model';
 export class ModelCardComponent implements OnInit {
   @Input() processing!: boolean;
   @Input() model!: Model;
+  @Output() selected: EventEmitter<Model> = new EventEmitter();
 
   constructor() {}
 

@@ -54,6 +54,7 @@ import { ModelToolbarComponent } from './components/models/toolbar.component';
 import { ConfirmClearModelDialogComponent } from './components/models/confirm-clear-model-dialog.component';
 import { ConfirmReshuffleModelDialogComponent } from './components/models/confirm-reshuffle-model-dialog.component';
 import { ConfirmRegenerateModelDialogComponent } from './components/models/confirm-regenerate-model-dialog.component';
+import { ModelViewerDialogComponent } from './components/models/model-viewer-dialog.component';
 
 @NgModule({
   declarations: [
@@ -87,6 +88,7 @@ import { ConfirmRegenerateModelDialogComponent } from './components/models/confi
     ConfirmClearModelDialogComponent,
     ConfirmReshuffleModelDialogComponent,
     ConfirmRegenerateModelDialogComponent,
+    ModelViewerDialogComponent,
   ],
   imports: [
     CommonModule,

@@ -23,6 +23,7 @@ import { ConfirmClearModelDialogComponent } from '../../components/models/confir
 import { ConfirmGenerateModelDialogComponent } from '../../components/models/confirm-generate-model-dialog.component';
 import { ConfirmRegenerateModelDialogComponent } from '../../components/models/confirm-regenerate-model-dialog.component';
 import { ConfirmReshuffleModelDialogComponent } from '../../components/models/confirm-reshuffle-model-dialog.component';
+import { ModelViewerDialogComponent } from '../../components/models/model-viewer-dialog.component';
 
 @Component({
   selector: 'app-models',
@@ -200,6 +201,19 @@ export class CollectionModelsViewComponent implements OnInit {
             resetGeneratingQueue({ collectionId: collection.id })
           );
         }
+      });
+    });
+  }
+
+  showModel(model: Model): void {
+    this.traits$.pipe(take(1)).subscribe((traits) => {
+      this.dialog.open(ModelViewerDialogComponent, {
+        width: '1024px',
+        panelClass: 'custom-mat-dialog-container',
+        data: {
+          model,
+          traits,
+        },
       });
     });
   }
